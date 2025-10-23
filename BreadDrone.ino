@@ -16,12 +16,13 @@ Adafruit_BNO055 bno = Adafruit_BNO055(-1, BNO_ADDR, &Wire);
 // Time of Flight
 #define TOF_ADDR 0x29
 Adafruit_VL53L0X tof = Adafruit_VL53L0X();
+uint16_t TOF_ZERO_ALTITUDE;
 
 // Pressure
 #define BMP_ADDR 0x77
 #define SEALEVELPRESSURE_HPA (1013.25)
 Adafruit_BMP3XX bmp;
-
+float BMP_ZERO_ALTITUDE;
 
 void setup(void) 
 {
@@ -30,9 +31,9 @@ void setup(void)
   while (!Serial) delay(10);
 
   // Initialize IMU
-  Serial.println("Initialize IMU.");
+  Serial.print("Initialize IMU: ");
   if(!bno.begin()) {
-    Serial.print("Failed to boot BNO055");
+    Serial.print("Failed to boot IMU.");
   } 
   else {
     /* Display the current temperature */
@@ -48,9 +49,9 @@ void setup(void)
   
 
   // Initialize Time of Flight
-  Serial.println("Initialize Time of Flight.");
+  Serial.print("Initialize Time of Flight: ");
   if (!tof.begin()) {
-    Serial.println("Failed to boot VL53L0X");
+    Serial.println("Failed to boot Time of Flight.");
   }
   else {
     Serial.println("Completed initializing Time of Flight.");
@@ -58,10 +59,9 @@ void setup(void)
 
 
   // Initialize pressure
-  Serial.println("Initialize pressure sensor.");
+  Serial.print("Initializing pressure sensor: ");
   if (!bmp.begin_I2C()) {
-    Serial.println("Could not find a valid BMP3 sensor, check wiring!");
-    
+    Serial.println("Failed to initialize barometer.");
   }
   else {
     // Set up oversampling and filter initialization
@@ -70,8 +70,68 @@ void setup(void)
     bmp.setIIRFilterCoeff(BMP3_IIR_FILTER_COEFF_3);
     bmp.setOutputDataRate(BMP3_ODR_50_HZ);
 
-    Serial.println("Completed pressure sensor initialization.");
+    Serial.println("Completed initializing barometer.");
   }
+
+  calibrate();
+
+
+}
+
+void calibrate() {
+  // calibrate barometer
+  float default_altitude = 0;
+  int count_success = 0;
+  while (count_success < 20) {
+    if (! bmp.performReading()) {
+      continue;
+    }
+    float alt = bmp.readAltitude(SEALEVELPRESSURE_HPA);
+    Serial.print("bmp calibration reading: ");
+    Serial.println(alt);
+
+    // BMP seems to get wacky readings at first, filter these out
+    // in the lab, typically see 90 - 105 meters
+    if (alt > 150 || alt < 80) {
+      continue;
+    }
+    count_success += 1;
+    default_altitude += alt;
+    delay(100);
+  }
+  BMP_ZERO_ALTITUDE = (float) default_altitude / count_success;
+  Serial.print("BMP_ZERO_ALTITUDE: ");
+  Serial.println(BMP_ZERO_ALTITUDE);
+
+  // calibrate TOF
+  uint16_t default_tof = 0;
+  count_success = 0;
+  int count = 0;
+  while (count_success < 20 && count < 30) {
+    count++;
+    VL53L0X_RangingMeasurementData_t measure;
+    
+    tof.rangingTest(&measure, false); // pass in 'true' to get debug data printout!
+
+    if (measure.RangeStatus != 4) {  // phase failures have incorrect data
+      uint16_t tof_alt = measure.RangeMilliMeter;
+      Serial.print("tof calibration reading: ");
+      Serial.println(tof_alt);
+
+      default_tof += tof_alt;
+      count_success += 1;
+    } else {
+      continue;
+    }
+
+    delay(100);
+  }
+  TOF_ZERO_ALTITUDE = default_tof / count_success;
+  Serial.print("TOF_ZERO_ALTITUDE: ");
+  Serial.println(TOF_ZERO_ALTITUDE);
+
+  // calibrate IMU
+
 
 
 }
@@ -80,19 +140,18 @@ void loop(void)
 {
   sample_imu();
 
-  delay(SAMPLERATE_DELAY_MS);
-
   sample_tof();
 
-  delay(SAMPLERATE_DELAY_MS);
-
   sample_pressure();
+
+  Serial.println();
+  Serial.println();
 
   delay(SAMPLERATE_DELAY_MS);
 }
 
 void sample_imu() {
-  Serial.println("SAMPLING IMU *********");
+  // Serial.println("SAMPLING IMU *********");
   // Possible vector values can be:
   // - VECTOR_ACCELEROMETER - m/s^2
   // - VECTOR_MAGNETOMETER  - uT
@@ -104,76 +163,91 @@ void sample_imu() {
   imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
 
   /* Display the floating point data */
-  Serial.print("X: ");
-  Serial.print(euler.x());
-  Serial.print(" Y: ");
-  Serial.print(euler.y());
-  Serial.print(" Z: ");
-  Serial.print(euler.z());
-  Serial.print("\t\t");
+  Serial.print("Roll (Euler Z): ");
+  double euler_z_pos = -1 * euler.z();
+  Serial.println(euler_z_pos);
 
-  /*
+  Serial.print("Pitch (Euler Y): ");
+  double euler_y_pos = -1 * euler.y();
+  Serial.println(euler_y_pos);
+
+  Serial.print("Yaw (Euler X): ");
+  double euler_x_pos = euler.x();
+  if (euler_x_pos > 180) {
+    euler_x_pos = euler_x_pos - 360;
+  }
+  Serial.println(euler_x_pos);
+  
   // Quaternion data
-  imu::Quaternion quat = bno.getQuat();
-  Serial.print("qW: ");
-  Serial.print(quat.w(), 4);
-  Serial.print(" qX: ");
-  Serial.print(quat.x(), 4);
-  Serial.print(" qY: ");
-  Serial.print(quat.y(), 4);
-  Serial.print(" qZ: ");
-  Serial.print(quat.z(), 4);
-  Serial.print("\t\t");
-  */
+  // imu::Quaternion quat = bno.getQuat();
+  // Serial.print("qW: ");
+  // Serial.print(quat.w(), 4);
+  // Serial.print(" qX: ");
+  // Serial.print(quat.x(), 4);
+  // Serial.print(" qY: ");
+  // Serial.print(quat.y(), 4);
+  // Serial.print(" qZ: ");
+  // Serial.print(quat.z(), 4);
+  // Serial.print("\t\t");
+  
 
   /* Display calibration status for each sensor. */
-  uint8_t system, gyro, accel, mag = 0;
-  bno.getCalibration(&system, &gyro, &accel, &mag);
-  Serial.print("CALIBRATION: Sys=");
-  Serial.print(system, DEC);
-  Serial.print(" Gyro=");
-  Serial.print(gyro, DEC);
-  Serial.print(" Accel=");
-  Serial.print(accel, DEC);
-  Serial.print(" Mag=");
-  Serial.println(mag, DEC);
+  // uint8_t system, gyro, accel, mag = 0;
+  // bno.getCalibration(&system, &gyro, &accel, &mag);
+  // Serial.print("CALIBRATION: Sys=");
+  // Serial.print(system, DEC);
+  // Serial.print(" Gyro=");
+  // Serial.print(gyro, DEC);
+  // Serial.print(" Accel=");
+  // Serial.print(accel, DEC);
+  // Serial.print(" Mag=");
+  // Serial.println(mag, DEC);
 }
 
 void sample_tof() {
-  Serial.println("SAMPLING TOF *********");
+  // Serial.println("SAMPLING TOF *********");
   VL53L0X_RangingMeasurementData_t measure;
     
-  Serial.print("Reading a measurement... ");
   tof.rangingTest(&measure, false); // pass in 'true' to get debug data printout!
 
   if (measure.RangeStatus != 4) {  // phase failures have incorrect data
-    Serial.print("Distance (mm): "); 
-    Serial.println(measure.RangeMilliMeter);
+    uint16_t range = measure.RangeMilliMeter;
+    // Serial.print("TOF range (mm): "); 
+    // Serial.println(range);
+
+    int tof_diff = (int) range - TOF_ZERO_ALTITUDE;
+    Serial.print("TOF Height diff (mm): "); 
+    Serial.println(tof_diff);
   } else {
-    Serial.println(" out of range ");
+    Serial.println("TOF out of range!");
   }
 }
 
 void sample_pressure() {
-  Serial.println("SAMPLING PRESSURE *********");
+  // Serial.println("SAMPLING PRESSURE *********");
   
   if (! bmp.performReading()) {
     Serial.println("Failed to perform reading :(");
     return;
   }
-  Serial.print("Temperature = ");
-  Serial.print(bmp.temperature);
-  Serial.println(" *C");
+  // Serial.print("Temperature = ");
+  // Serial.print(bmp.temperature);
+  // Serial.println(" *C");
 
-  Serial.print("Pressure = ");
-  Serial.print(bmp.pressure / 100.0);
-  Serial.println(" hPa");
+  // Serial.print("Pressure = ");
+  // Serial.print(bmp.pressure / 100.0);
+  // Serial.println(" hPa");
 
-  Serial.print("Approx. Altitude = ");
-  Serial.print(bmp.readAltitude(SEALEVELPRESSURE_HPA));
+  float altitude = bmp.readAltitude(SEALEVELPRESSURE_HPA);
+  // Serial.print("Barometer Altitude = ");
+  // Serial.print(altitude);
+  // Serial.println(" m");
+  
+  float altitude_diff = altitude - BMP_ZERO_ALTITUDE;
+  Serial.print("Barometer Altitude Change = ");
+  Serial.print(altitude_diff);
   Serial.println(" m");
 
-  Serial.println();
 }
 
 
