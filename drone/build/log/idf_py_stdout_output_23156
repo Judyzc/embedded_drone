@@ -1,0 +1,2079 @@
+Command: C:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe C:\Espressif\frameworks\esp-idf-v5.5.1\tools/idf_monitor.py -p COM14 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 C:\Espressif\frameworks\esp-idf-v5.5.1\embedded_drone\drone\build\drone.elf C:\Espressif\frameworks\esp-idf-v5.5.1\embedded_drone\drone\build\bootloader\bootloader.elf --force-color -m 'C:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe' 'C:\Espressif\frameworks\esp-idf-v5.5.1\tools\idf.py'
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5.1-dirty 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Oct 28 2025 22:30:16[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (31) boot: chip revision: v3.1[0m
+[0;32mI (34) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (38) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (45) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (52) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (65) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (78) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0ba30h ( 47664) map[0m
+[0;32mI (105) esp_image: segment 1: paddr=0001ba58 vaddr=3ffb0000 size=02560h (  9568) load[0m
+[0;32mI (109) esp_image: segment 2: paddr=0001dfc0 vaddr=40080000 size=02058h (  8280) load[0m
+[0;32mI (112) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=16bdch ( 93148) map[0m
+[0;32mI (148) esp_image: segment 4: paddr=00036c04 vaddr=40082058 size=0cc8ch ( 52364) load[0m
+[0;32mI (169) esp_image: segment 5: paddr=00043898 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (176) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (176) boot: Disabling RNG early entropy source...[0m
+[0;32mI (187) cpu_start: Multicore app[0m
+[0;32mI (195) cpu_start: Pro cpu start user code[0m
+[0;32mI (195) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (195) app_init: Application information:[0m
+[0;32mI (195) app_init: Project name:     drone[0m
+[0;32mI (199) app_init: App version:      bfe48c3-dirty[0m
+[0;32mI (203) app_init: Compile time:     Oct 28 2025 22:27:25[0m
+[0;32mI (209) app_init: ELF file SHA256:  f1710e8a3...[0m
+[0;32mI (213) app_init: ESP-IDF:          v5.5.1-dirty[0m
+[0;32mI (217) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (221) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (225) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (229) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (235) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (240) heap_init: At 3FFB2E60 len 0002D1A0 (180 KiB): DRAM[0m
+[0;32mI (245) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (251) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (256) heap_init: At 4008ECE4 len 0001131C (68 KiB): IRAM[0m
+[0;32mI (263) spi_flash: detected chip: gd[0m
+[0;32mI (265) spi_flash: flash io: dio[0m
+[0;33mW (268) spi_flash: Detected size(8192k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (281) main_task: Started on CPU0[0m
+[0;32mI (291) main_task: Calling app_main()[0m
+[0;32mI (291) pmw3901_espidf: PMW3901 example (ESP-IDF)[0m
+[0;32mI (311) pmw3901_espidf: PMW init sequence start[0m
+[0;32mI (311) pmw3901_espidf: Product ID=0x00 Inv=0x00[0m
+[0;32mI (361) pmw3901_espidf: PMW init sequence done (basic).[0m
+[0;32mI (361) pmw3901_espidf: PMW appears initialized.[0m
+[0;32mI (361) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (361) main_task: Returned from app_main()[0m
+[0;32mI (381) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (401) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (421) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (441) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (461) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (481) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (501) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (521) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (541) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (561) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (581) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (601) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (621) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (641) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (661) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (681) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (701) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (721) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (741) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (761) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (781) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (801) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (821) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (841) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (861) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (881) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (901) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (921) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (941) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (961) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (981) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1001) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1021) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1041) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1061) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1081) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1101) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1121) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1141) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1161) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1181) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1201) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1221) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1241) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1261) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1281) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1301) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1321) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1341) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1361) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1381) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1401) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1421) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1441) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1461) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1481) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1501) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1521) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1541) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1561) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1581) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1601) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1621) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1641) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1661) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1681) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1701) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1721) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1741) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1761) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1781) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1801) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1821) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1841) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1861) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1881) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1901) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1921) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1941) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1961) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1981) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2001) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2021) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2041) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2061) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2081) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2101) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2121) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2141) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2161) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2181) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2201) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2221) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2241) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2261) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2281) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2301) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2321) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2341) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2361) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2381) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2401) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2421) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2441) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2461) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2481) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2501) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2521) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2541) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2561) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2581) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2601) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2621) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2641) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2661) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2681) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2701) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2721) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2741) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2761) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2781) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2801) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2821) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2841) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2861) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2881) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2901) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2921) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2941) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2961) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2981) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3001) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3021) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3041) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3061) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3081) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3101) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3121) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3141) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3161) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3181) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3201) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3221) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3241) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3261) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3281) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3301) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3321) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3341) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3361) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3381) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3401) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3421) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3441) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3461) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3481) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3501) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3521) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3541) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3561) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3581) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3601) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3621) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3641) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3661) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3681) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3701) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3721) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3741) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3761) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3781) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3801) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3821) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3841) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3861) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3881) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3901) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3921) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3941) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3961) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3981) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4001) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4021) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4041) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4061) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4081) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4101) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4121) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4141) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4161) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4181) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4201) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4221) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4241) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4261) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4281) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4301) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4321) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4341) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4361) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4381) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4401) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4421) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4441) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4461) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4481) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4501) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4521) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4541) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4561) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4581) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4601) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4621) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4641) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4661) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4681) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4701) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4721) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4741) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4761) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4781) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4801) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4821) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4841) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4861) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4881) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4901) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4921) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4941) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4961) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (4981) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5001) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5021) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5041) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5061) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5081) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5101) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5121) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5141) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5161) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5181) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5201) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5221) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5241) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5261) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5281) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5301) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5321) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5341) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5361) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5381) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5401) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5421) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5441) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5461) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5481) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5501) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5521) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5541) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5561) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5581) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5601) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5621) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5641) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5661) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5681) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5701) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5721) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5741) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5761) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5781) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5801) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5821) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5841) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5861) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5881) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5901) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5921) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5941) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5961) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (5981) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6001) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6021) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6041) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6061) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6081) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6101) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6121) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6141) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6161) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6181) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6201) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6221) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6241) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6261) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6281) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6301) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6321) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6341) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6361) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6381) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6401) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6421) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6441) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6461) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6481) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6501) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6521) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6541) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6561) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6581) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6601) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6621) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6641) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6661) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6681) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6701) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6721) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6741) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6761) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6781) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6801) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6821) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6841) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6861) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6881) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6901) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6921) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6941) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6961) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (6981) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7001) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7021) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7041) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7061) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7081) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7101) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7121) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7141) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7161) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7181) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7201) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7221) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7241) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7261) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7281) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7301) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7321) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7341) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7361) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7381) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7401) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7421) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7441) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7461) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7481) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7501) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7521) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7541) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7561) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7581) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7601) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7621) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7641) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7661) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7681) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7701) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7721) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7741) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7761) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7781) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7801) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7821) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7841) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7861) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7881) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7901) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7921) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7941) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7961) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (7981) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8001) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8021) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8041) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8061) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8081) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8101) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8121) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8141) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8161) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8181) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8201) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8221) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8241) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8261) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8281) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8301) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8321) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8341) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8361) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8381) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8401) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8421) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8441) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8461) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8481) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8501) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8521) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8541) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8561) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8581) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8601) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8621) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8641) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8661) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8681) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8701) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8721) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8741) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8761) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8781) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8801) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8821) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8841) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8861) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (8881) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5.1-dirty 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Oct 28 2025 22:30:16[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (31) boot: chip revision: v3.1[0m
+[0;32mI (34) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (38) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (45) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (52) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (65) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (78) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0ba30h ( 47664) map[0m
+[0;32mI (105) esp_image: segment 1: paddr=0001ba58 vaddr=3ffb0000 size=02560h (  9568) load[0m
+[0;32mI (109) esp_image: segment 2: paddr=0001dfc0 vaddr=40080000 size=02058h (  8280) load[0m
+[0;32mI (112) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=16bdch ( 93148) map[0m
+[0;32mI (148) esp_image: segment 4: paddr=00036c04 vaddr=40082058 size=0cc8ch ( 52364) load[0m
+[0;32mI (169) esp_image: segment 5: paddr=00043898 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (176) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (176) boot: Disabling RNG early entropy source...[0m
+[0;32mI (187) cpu_start: Multicore app[0m
+[0;32mI (195) cpu_start: Pro cpu start user code[0m
+[0;32mI (195) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (195) app_init: Application information:[0m
+[0;32mI (195) app_init: Project name:     drone[0m
+[0;32mI (199) app_init: App version:      bfe48c3-dirty[0m
+[0;32mI (203) app_init: Compile time:     Oct 28 2025 22:27:25[0m
+[0;32mI (208) app_init: ELF file SHA256:  f1710e8a3...[0m
+[0;32mI (213) app_init: ESP-IDF:          v5.5.1-dirty[0m
+[0;32mI (217) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (221) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (225) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (229) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (235) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (240) heap_init: At 3FFB2E60 len 0002D1A0 (180 KiB): DRAM[0m
+[0;32mI (245) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (251) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (256) heap_init: At 4008ECE4 len 0001131C (68 KiB): IRAM[0m
+[0;32mI (263) spi_flash: detected chip: gd[0m
+[0;32mI (265) spi_flash: flash io: dio[0m
+[0;33mW (268) spi_flash: Detected size(8192k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (281) main_task: Started on CPU0[0m
+[0;32mI (291) main_task: Calling app_main()[0m
+[0;32mI (291) pmw3901_espidf: PMW3901 example (ESP-IDF)[0m
+[0;32mI (311) pmw3901_espidf: PMW init sequence start[0m
+[0;32mI (311) pmw3901_espidf: Product ID=0x00 Inv=0x00[0m
+[0;32mI (361) pmw3901_espidf: PMW init sequence done (basic).[0m
+[0;32mI (361) pmw3901_espidf: PMW appears initialized.[0m
+[0;32mI (361) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (361) main_task: Returned from app_main()[0m
+[0;32mI (381) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (401) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (421) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (441) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (461) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (481) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (501) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (521) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (541) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (561) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (581) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (601) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (621) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (641) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (661) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (681) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (701) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (721) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (741) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (761) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (781) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (801) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (821) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (841) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (861) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (881) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (901) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (921) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (941) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (961) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (981) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1001) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1021) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1041) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1061) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1081) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1101) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1121) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1141) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1161) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1181) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1201) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1221) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1241) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1261) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1281) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1301) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1321) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1341) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1361) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1381) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1401) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1421) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1441) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1461) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1481) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1501) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1521) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1541) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1561) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1581) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1601) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1621) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1641) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1661) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1681) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1701) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1721) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1741) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1761) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1781) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1801) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1821) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1841) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1861) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1881) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1901) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1921) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1941) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1961) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1981) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2001) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2021) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2041) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2061) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2081) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2101) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2121) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2141) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2161) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2181) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2201) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2221) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2241) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2261) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2281) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2301) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2321) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2341) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2361) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2381) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2401) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2421) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2441) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2461) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2481) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2501) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2521) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2541) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2561) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2581) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2601) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2621) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2641) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2661) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2681) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2701) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2721) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2741) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2761) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2781) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2801) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2821) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2841) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2861) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2881) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2901) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2921) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2941) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2961) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2981) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3001) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3021) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3041) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3061) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3081) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3101) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3121) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3141) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3161) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3181) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3201) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3221) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3241) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3261) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3281) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3301) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3321) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3341) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3361) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3381) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3401) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3421) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3441) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3461) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3481) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3501) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (3521) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5.1-dirty 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Oct 28 2025 22:30:16[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (31) boot: chip revision: v3.1[0m
+[0;32mI (34) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (38) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (45) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (52) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (65) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (78) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0ba30h ( 47664) map[0m
+[0;32mI (105) esp_image: segment 1: paddr=0001ba58 vaddr=3ffb0000 size=02560h (  9568) load[0m
+[0;32mI (109) esp_image: segment 2: paddr=0001dfc0 vaddr=40080000 size=02058h (  8280) load[0m
+[0;32mI (112) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=16bdch ( 93148) map[0m
+[0;32mI (148) esp_image: segment 4: paddr=00036c04 vaddr=40082058 size=0cc8ch ( 52364) load[0m
+[0;32mI (169) esp_image: segment 5: paddr=00043898 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (176) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (176) boot: Disabling RNG early entropy source...[0m
+[0;32mI (187) cpu_start: Multicore app[0m
+[0;32mI (195) cpu_start: Pro cpu start user code[0m
+[0;32mI (195) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (195) app_init: Application information:[0m
+[0;32mI (195) app_init: Project name:     drone[0m
+[0;32mI (199) app_init: App version:      bfe48c3-dirty[0m
+[0;32mI (203) app_init: Compile time:     Oct 28 2025 22:27:25[0m
+[0;32mI (208) app_init: ELF file SHA256:  f1710e8a3...[0m
+[0;32mI (213) app_init: ESP-IDF:          v5.5.1-dirty[0m
+[0;32mI (217) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (221) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (225) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (229) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (235) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (240) heap_init: At 3FFB2E60 len 0002D1A0 (180 KiB): DRAM[0m
+[0;32mI (245) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (251) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (256) heap_init: At 4008ECE4 len 0001131C (68 KiB): IRAM[0m
+I (263) spi_flash: detected chip: gd
+[0;32mI (265) spi_flash: flash io: dio[0m
+[0;33mW (268) spi_flash: Detected size(8192k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (281) main_task: Started on CPU0[0m
+[0;32mI (291) main_task: Calling app_main()[0m
+[0;32mI (291) pmw3901_espidf: PMW3901 example (ESP-IDF)[0m
+[0;32mI (311) pmw3901_espidf: P�ets Jul 29 2019 12:21:46[0m
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5.1-dirty 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Oct 28 2025 22:30:16[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (31) boot: chip revision: v3.1[0m
+[0;32mI (34) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (38) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (45) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (52) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (65) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (78) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0ba30h ( 47664) map[0m
+[0;32mI (105) esp_image: segment 1: paddr=0001ba58 vaddr=3ffb0000 size=02560h (  9568) load[0m
+[0;32mI (109) esp_image: segment 2: paddr=0001dfc0 vaddr=40080000 size=02058h (  8280) load[0m
+[0;32mI (112) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=16bdch ( 93148) map[0m
+[0;32mI (148) esp_image: segment 4: paddr=00036c04 vaddr=40082058 size=0cc8ch ( 52364) load[0m
+[0;32mI (169) esp_image: segment 5: paddr=00043898 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (176) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (176) boot: Disabling RNG early entropy source...[0m
+[0;32mI (187) cpu_start: Multicore app[0m
+[0;32mI (195) cpu_start: Pro cpu start user code[0m
+[0;32mI (195) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (195) app_init: Application information:[0m
+[0;32mI (195) app_init: Project name:     drone[0m
+[0;32mI (199) app_init: App version:      bfe48c3-dirty[0m
+[0;32mI (203) app_init: Compile time:     Oct 28 2025 22:27:25[0m
+[0;32mI (209) app_init: ELF file SHA256:  f1710e8a3...[0m
+[0;32mI (213) app_init: ESP-IDF:          v5.5.1-dirty[0m
+[0;32mI (217) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (221) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (225) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (229) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (235) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (240) heap_init: At 3FFB2E60 len 0002D1A0 (180 KiB): DRAM[0m
+[0;32mI (245) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (251) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (256) heap_init: At 4008ECE4 len 0001131C (68 KiB): IRAM[0m
+[0;32mI (263) spi_flash: detected chip: gd[0m
+[0;32mI (265) spi_flash: flash io: dio[0m
+[0;33mW (268) spi_flash: Detected size(8192k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (281) main_task: Started on CPU0[0m
+[0;32mI (291) main_tas�ets Jul 29 2019 12:21:46[0m
+
+rst:0x1 (POWERON_RESET),boot:0x12 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5.1-dirty 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Oct 28 2025 22:30:16[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (31) boot: chip revision: v3.1[0m
+[0;32mI (34) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (38) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (45) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (52) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (65) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (78) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0ba30h ( 47664) map[0m
+[0;32mI (105) esp_image: segment 1: paddr=0001ba58 vaddr=3ffb0000 size=02560h (  9568) load[0m
+[0;32mI (109) esp_image: segment 2: paddr=0001dfc0 vaddr=40080000 size=02058h (  8280) load[0m
+[0;32mI (112) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=16bdch ( 93148) map[0m
+[0;32mI (148) esp_image: segment 4: paddr=00036c04 vaddr=40082058 size=0cc8ch ( 52364) load[0m
+[0;32mI (169) esp_image: segment 5: paddr=00043898 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (176) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (176) boot: Disabling RNG early entropy source...[0m
+[0;32mI (187) cpu_start: Multicore app[0m
+[0;32mI (195) cpu_start: Pro cpu start user code[0m
+[0;32mI (195) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (195) app_init: Application information:[0m
+[0;32mI (195) app_init: Project name:     drone[0m
+[0;32mI (199) app_init: App version:      bfe48c3-dirty[0m
+[0;32mI (203) app_init: Compile time:     Oct 28 2025 22:27:25[0m
+[0;32mI (208) app_init: ELF file SHA256:  f1710e8a3...[0m
+[0;32mI (213) app_init: ESP-IDF:          v5.5.1-dirty[0m
+[0;32mI (217) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (221) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (225) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (229) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (235) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (240) heap_init: At 3FFB2E60 len 0002D1A0 (180 KiB): DRAM[0m
+[0;32mI (245) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (251) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (256) heap_init: At 4008ECE4 len 0001131C (68 KiB): IRAM[0m
+[0;32mI (263) spi_flash: detected chip: gd[0m
+[0;32mI (265) spi_flash: flash io: dio[0m
+[0;33mW (268) spi_flash: Detected size(8192k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (281) main_task: Started on CPU0[0m
+[0;32mI (291) main_task: Calling app_main()[0m
+[0;32mI (291) pmw3901_espidf: PMW3901 example (ESP-IDF)[0m
+[0;32mI (311) pmw3901_espidf: PMW init sequence start[0m
+[0;32mI (311) pmw3901_espidf: Product ID=0x00 Inv=0x00[0m
+[0;32mI (361) pmw3901_espidf: PMW init sequence done (basic).[0m
+[0;32mI (361) pmw3901_espidf: PMW appears initialized.[0m
+[0;32mI (361) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (361) main_task: Returned from app_main()[0m
+[0;32mI (381) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (401) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (421) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (441) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (461) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (481) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (501) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (521) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (541) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (561) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (581) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (601) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (621) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (641) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (661) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (681) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (701) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (721) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (741) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (761) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (781) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (801) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (821) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (841) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (861) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (881) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (901) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (921) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (941) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (961) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (981) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1001) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1021) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1041) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1061) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1081) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1101) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1121) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1141) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1161) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1181) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1201) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1221) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1241) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1261) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1281) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1301) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1321) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1341) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1361) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1381) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1401) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1421) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1441) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1461) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1481) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1501) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1521) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1541) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5.1-dirty 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Oct 28 2025 22:30:16[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (31) boot: chip revision: v3.1[0m
+[0;32mI (34) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (38) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (45) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (52) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (65) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (78) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0ba30h ( 47664) map[0m
+[0;32mI (105) esp_image: segment 1: paddr=0001ba58 vaddr=3ffb0000 size=02560h (  9568) load[0m
+[0;32mI (109) esp_image: segment 2: paddr=0001dfc0 vaddr=40080000 size=02058h (  8280) load[0m
+[0;32mI (112) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=16bdch ( 93148) map[0m
+[0;32mI (148) esp_image: segment 4: paddr=00036c04 vaddr=40082058 size=0cc8ch ( 52364) load[0m
+[0;32mI (169) esp_image: segment 5: paddr=00043898 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (176) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (176) boot: Disabling RNG early entropy source...[0m
+[0;32mI (187) cpu_start: Multicore app[0m
+[0;32mI (195) cpu_start: Pro cpu start user code[0m
+[0;32mI (195) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (195) app_init: Application information:[0m
+[0;32mI (195) app_init: Project name:     drone[0m
+[0;32mI (199) app_init: App version:      bfe48c3-dirty[0m
+[0;32mI (203) app_init: Compile time:     Oct 28 2025 22:27:25[0m
+[0;32mI (209) app_init: ELF file SHA256:  f1710e8a3...[0m
+[0;32mI (213) app_init: ESP-IDF:          v5.5.1-dirty[0m
+[0;32mI (217) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (221) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (225) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (229) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (235) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (240) heap_init: At 3FFB2E60 len 0002D1A0 (180 KiB): DRAM[0m
+[0;32mI (245) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (251) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (256) heap_init: At 4008ECE4 len 0001131C (68 KiB): IRAM[0m
+[0;32mI (263) spi_flash: detected chip: gd[0m
+[0;32mI (265) spi_flash: flash io: dio[0m
+[0;33mW (268) spi_flash: Detected size(8192k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (281) main_task: Started on CPU0[0m
+[0;32mI (291) main_task: Calling app_main()[0m
+[0;32mI (291) pmw3901_espidf: PMW3901 example (ESP-IDF)[0m
+[0;32mI (311) pmw3901_espidf: PMW init sequence start[0m
+[0;32mI (311) pmw3901_espidf: Product ID=0x00 Inv=0x00[0m
+[0;32mI (361) pmw3901_espidf: PMW init sequence done (basic).[0m
+[0;32mI (361) pmw3901_espidf: PMW appears initialized.[0m
+[0;32mI (361) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (361) main_task: Returned from app_main()[0m
+[0;32mI (381) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (401) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (421) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (441) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (461) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (481) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (501) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (521) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (541) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (561) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (581) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (601) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (621) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (641) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (661) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (681) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (701) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (721) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (741) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (761) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (781) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (801) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (821) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (841) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (861) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (881) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (901) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (921) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (941) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (961) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (981) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1001) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1021) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1041) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1061) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1081) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1101) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1121) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1141) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1161) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1181) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1201) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1221) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1241) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1261) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1281) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1301) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1321) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1341) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1361) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1381) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1401) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1421) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x12 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5.1-dirty 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Oct 28 2025 22:30:16[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (31) boot: chip revision: v3.1[0m
+[0;32mI (34) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (38) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (45) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (52) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (65) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (78) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0ba30h ( 47664) map[0m
+[0;32mI (105) esp_image: segment 1: paddr=0001ba58 vaddr=3ffb0000 size=02560h (  9568) load[0m
+[0;32mI (109) esp_image: segment 2: paddr=0001dfc0 vaddr=40080000 size=02058h (  8280) load[0m
+[0;32mI (112) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=16bdch ( 93148) map[0m
+[0;32mI (148) esp_image: segment 4: paddr=00036c04 vaddr=40082058 size=0cc8ch ( 52364) load[0m
+[0;32mI (169) esp_image: segment 5: paddr=00043898 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (176) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (176) boot: Disabling RNG early entropy source...[0m
+[0;32mI (187) cpu_start: Multicore app[0m
+[0;32mI (195) cpu_start: Pro cpu start user code[0m
+[0;32mI (195) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (195) app_init: Application information:[0m
+[0;32mI (195) app_init: Project name:     drone[0m
+[0;32mI (199) app_init: App version:      bfe48c3-dirty[0m
+[0;32mI (203) app_init: Compile time:     Oct 28 2025 22:27:25[0m
+[0;32mI (208) app_init: ELF file SHA256:  f1710e8a3...[0m
+[0;32mI (213) app_init: ESP-IDF:          v5.5.1-dirty[0m
+[0;32mI (217) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (221) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (225) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (229) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (235) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (240) heap_init: At 3FFB2E60 len 0002D1A0 (180 KiB): DRAM[0m
+[0;32mI (245) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (251) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (256) heap_init: At 4008ECE4 len 0001131C (68 KiB): IRAM[0m
+[0;32mI (263) spi_flash: detected chip: gd[0m
+[0;32mI (265) spi_flash: flash io: dio[0m
+[0;33mW (268) spi_flash: Detected size(8192k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (281) main_task: Started on CPU0[0m
+[0;32mI (291) main_task: Calling app_main()[0m
+[0;32mI (291) pmw3901_espidf: PMW3901 example (ESP-IDF)[0m
+[0;32mI (311) pmw3901_espidf: PMW init sequence start[0m
+[0;32mI (311) pmw3901_espidf: Product ID=0x00 Inv=0x00[0m
+[0;32mI (361) pmw3901_espidf: PMW init sequence done (basic).[0m
+[0;32mI (361) pmw3901_espidf: PMW appears initialized.[0m
+[0;32mI (361) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (361) main_task: Returned from app_main()[0m
+[0;32mI (381) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (401) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (421) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (441) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (461) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (481) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (501) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (521) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (541) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (561) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (581) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (601) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (621) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (641) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (661) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (681) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (701) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (721) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (741) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (761) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (781) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (801) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (821) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (841) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (861) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (881) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (901) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (921) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (941) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (961) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (981) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1001) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1021) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1041) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1061) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1081) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1101) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1121) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1141) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1161) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1181) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1201) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1221) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1241) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1261) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1281) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1301) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1321) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1341) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1361) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1381) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1401) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1421) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1441) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1461) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1481) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1501) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1521) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1541) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1561) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1581) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1601) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1621) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1641) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1661) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1681) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1701) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1721) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1741) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1761) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1781) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1801) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1821) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1841) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1861) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1881) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1901) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1921) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1941) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1961) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (1981) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2001) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2021) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2041) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2061) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2081) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2101) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2121) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2141) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2161) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2181) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2201) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2221) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2241) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2261) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2281) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2301) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2321) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2341) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2361) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2381) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2401) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2421) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2441) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2461) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2481) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2501) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2521) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2541) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2561) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2581) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2601) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2621) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2641) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2661) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2681) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2701) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2721) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2741) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2761) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2781) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2801) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2821) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2841) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2861) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2881) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0
+[0;32mI (2901) pmw3901_espidf: raw: 00 00 00 00 00 00[0m
+DX: 0  DY: 0

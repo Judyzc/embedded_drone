@@ -1,0 +1,3534 @@
+Command: C:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe C:\Espressif\frameworks\esp-idf-v5.5.1\tools/idf_monitor.py -p COM14 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 C:\Espressif\frameworks\esp-idf-v5.5.1\embedded_drone\drone\build\drone.elf C:\Espressif\frameworks\esp-idf-v5.5.1\embedded_drone\drone\build\bootloader\bootloader.elf --force-color -m 'C:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe' 'C:\Espressif\frameworks\esp-idf-v5.5.1\tools\idf.py'
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5.1-dirty 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Oct 28 2025 22:30:16[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (31) boot: chip revision: v3.1[0m
+[0;32mI (34) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (38) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (45) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (52) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (65) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (78) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0bb18h ( 47896) map[0m
+[0;32mI (105) esp_image: segment 1: paddr=0001bb40 vaddr=3ffb0000 size=02560h (  9568) load[0m
+[0;32mI (109) esp_image: segment 2: paddr=0001e0a8 vaddr=40080000 size=01f70h (  8048) load[0m
+[0;32mI (112) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=16ea8h ( 93864) map[0m
+[0;32mI (148) esp_image: segment 4: paddr=00036ed0 vaddr=40081f70 size=0cd74h ( 52596) load[0m
+[0;32mI (169) esp_image: segment 5: paddr=00043c4c vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (177) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (177) boot: Disabling RNG early entropy source...[0m
+[0;32mI (187) cpu_start: Multicore app[0m
+[0;32mI (196) cpu_start: Pro cpu start user code[0m
+[0;32mI (196) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (196) app_init: Application information:[0m
+[0;32mI (196) app_init: Project name:     drone[0m
+[0;32mI (199) app_init: App version:      bfe48c3-dirty[0m
+[0;32mI (204) app_init: Compile time:     Oct 28 2025 22:27:25[0m
+[0;32mI (209) app_init: ELF file SHA256:  41ee23d50...[0m
+[0;32mI (213) app_init: ESP-IDF:          v5.5.1-dirty[0m
+[0;32mI (218) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (221) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (225) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (230) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (236) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (241) heap_init: At 3FFB2E60 len 0002D1A0 (180 KiB): DRAM[0m
+[0;32mI (246) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (251) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (257) heap_init: At 4008ECE4 len 0001131C (68 KiB): IRAM[0m
+[0;32mI (263) spi_flash: detected chip: gd[0m
+[0;32mI (265) spi_flash: flash io: dio[0m
+[0;33mW (268) spi_flash: Detected size(8192k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (281) main_task: Started on CPU0[0m
+[0;32mI (291) main_task: Calling app_main()[0m
+[0;32mI (291) pmw3901_espidf: Starting PMW3901 example[0m
+[0;32mI (311) pmw3901_espidf: Starting PMW3901 init sequence...[0m
+[0;32mI (311) pmw3901_espidf: Product ID: 0x00  InvID: 0x00[0m
+[0;32mI (361) pmw3901_espidf: PMW3901 init sequence done (note: full register init omitted).[0m
+[0;32mI (361) pmw3901_espidf: PMW3901 appears initialized[0m
+[0;32mI (371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (371) main_task: Returned from app_main()[0m
+[0;32mI (391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (451) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (471) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (491) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (511) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (531) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (551) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (571) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (591) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (611) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (631) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (651) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (671) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (691) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (711) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (731) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (751) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (771) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (791) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (811) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (831) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (851) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (871) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (891) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (911) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (931) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (951) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (971) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (991) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1011) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1031) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1051) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1071) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1091) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1111) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1131) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1151) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1171) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1191) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1211) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1231) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1251) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1271) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1291) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1311) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1331) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1351) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1451) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1471) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1491) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1511) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1531) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1551) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1571) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1591) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1611) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1631) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1651) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1671) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1691) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1711) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1731) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1751) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1771) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1791) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1811) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1831) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1851) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1871) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1891) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1911) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1931) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1951) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1971) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (1991) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2011) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2031) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2051) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2071) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2091) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2111) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2131) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2151) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2171) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2191) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2211) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2231) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2251) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2271) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2291) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2311) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2331) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2351) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2451) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2471) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2491) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2511) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2531) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2551) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2571) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2591) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2611) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2631) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2651) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2671) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2691) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2711) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2731) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2751) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2771) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2791) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2811) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2831) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2851) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2871) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2891) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2911) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2931) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2951) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2971) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (2991) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3011) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3031) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3051) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3071) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3091) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3111) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3131) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3151) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3171) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3191) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3211) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3231) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3251) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3271) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3291) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3311) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3331) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3351) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3451) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3471) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3491) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3511) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3531) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3551) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3571) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3591) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3611) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3631) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3651) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3671) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3691) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3711) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3731) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3751) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3771) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3791) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3811) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3831) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3851) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3871) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3891) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3911) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3931) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3951) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3971) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (3991) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4011) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4031) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4051) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4071) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4091) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4111) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4131) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4151) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4171) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4191) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4211) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4231) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4251) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4271) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4291) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4311) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4331) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4351) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4451) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4471) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4491) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4511) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4531) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4551) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4571) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4591) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4611) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4631) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4651) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4671) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4691) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4711) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4731) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4751) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4771) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4791) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4811) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4831) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4851) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4871) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4891) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4911) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4931) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4951) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4971) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (4991) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5011) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5031) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5051) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5071) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5091) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5111) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5131) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5151) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5171) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5191) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5211) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5231) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5251) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5271) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5291) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5311) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5331) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5351) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5451) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5471) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5491) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5511) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5531) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5551) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5571) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5591) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5611) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5631) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5651) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5671) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5691) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5711) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5731) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5751) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5771) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5791) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5811) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5831) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5851) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5871) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5891) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5911) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5931) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5951) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5971) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (5991) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6011) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6031) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6051) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6071) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6091) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6111) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6131) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6151) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6171) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6191) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6211) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6231) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6251) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6271) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6291) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6311) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6331) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6351) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6451) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6471) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6491) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6511) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6531) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6551) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6571) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6591) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6611) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6631) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6651) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6671) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6691) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6711) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6731) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6751) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6771) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6791) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6811) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6831) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6851) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6871) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6891) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6911) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6931) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6951) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6971) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (6991) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7011) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7031) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7051) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7071) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7091) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7111) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7131) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7151) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7171) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7191) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7211) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7231) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7251) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7271) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7291) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7311) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7331) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7351) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7451) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7471) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7491) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7511) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7531) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7551) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7571) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7591) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7611) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7631) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7651) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7671) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7691) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7711) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7731) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7751) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7771) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7791) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7811) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7831) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7851) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7871) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7891) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7911) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7931) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7951) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7971) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (7991) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8011) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8031) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8051) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8071) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8091) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8111) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8131) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8151) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8171) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8191) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8211) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8231) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8251) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8271) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8291) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8311) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8331) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8351) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8451) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8471) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8491) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8511) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8531) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8551) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8571) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8591) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8611) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8631) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8651) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8671) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8691) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8711) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8731) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8751) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8771) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8791) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8811) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8831) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8851) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8871) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8891) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8911) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8931) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8951) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8971) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (8991) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9011) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9031) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9051) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9071) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9091) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9111) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9131) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9151) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9171) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9191) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9211) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9231) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9251) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9271) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9291) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9311) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9331) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9351) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9451) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9471) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9491) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9511) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9531) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9551) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9571) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9591) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9611) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9631) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9651) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9671) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9691) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9711) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9731) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9751) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9771) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9791) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9811) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9831) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9851) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9871) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9891) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9911) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9931) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9951) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9971) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (9991) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10011) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10031) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10051) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10071) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10091) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10111) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10131) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10151) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10171) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10191) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10211) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10231) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10251) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10271) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10291) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10311) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10331) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10351) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10451) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10471) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10491) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10511) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10531) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10551) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10571) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10591) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10611) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10631) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10651) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10671) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10691) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10711) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10731) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10751) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10771) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10791) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10811) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10831) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10851) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10871) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10891) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10911) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10931) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10951) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10971) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (10991) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11011) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11031) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11051) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11071) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11091) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11111) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11131) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11151) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11171) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11191) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11211) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11231) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11251) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11271) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11291) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11311) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11331) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11351) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11451) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11471) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11491) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11511) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11531) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11551) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11571) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11591) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11611) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11631) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11651) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11671) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11691) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11711) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11731) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11751) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11771) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11791) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11811) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11831) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11851) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11871) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11891) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11911) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11931) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11951) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11971) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (11991) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12011) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12031) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12051) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12071) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12091) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12111) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12131) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12151) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12171) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12191) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12211) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12231) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12251) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12271) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12291) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12311) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12331) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12351) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12451) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12471) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12491) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12511) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12531) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12551) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12571) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12591) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12611) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12631) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12651) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12671) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12691) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12711) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12731) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12751) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12771) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12791) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12811) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12831) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12851) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12871) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12891) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12911) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12931) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12951) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12971) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (12991) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13011) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13031) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13051) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13071) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13091) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13111) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13131) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13151) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13171) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13191) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13211) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13231) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13251) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13271) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13291) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13311) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13331) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13351) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13451) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13471) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13491) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13511) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13531) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13551) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13571) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13591) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13611) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13631) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13651) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13671) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13691) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13711) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13731) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13751) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13771) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13791) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13811) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13831) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13851) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13871) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13891) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13911) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13931) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13951) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13971) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (13991) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14011) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14031) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14051) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14071) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14091) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14111) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14131) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14151) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14171) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14191) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14211) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14231) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14251) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14271) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14291) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14311) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14331) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14351) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14451) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14471) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14491) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14511) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14531) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14551) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14571) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14591) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14611) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14631) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14651) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14671) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14691) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14711) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14731) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14751) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14771) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14791) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14811) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14831) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14851) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14871) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14891) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14911) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14931) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14951) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14971) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (14991) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15011) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15031) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15051) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15071) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15091) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15111) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15131) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15151) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15171) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15191) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15211) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15231) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15251) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15271) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15291) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15311) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15331) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15351) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15451) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15471) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15491) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15511) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15531) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15551) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15571) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15591) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15611) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15631) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15651) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15671) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15691) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15711) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15731) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15751) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15771) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15791) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15811) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15831) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15851) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15871) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15891) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15911) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15931) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15951) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15971) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (15991) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16011) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16031) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16051) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16071) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16091) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16111) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16131) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16151) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16171) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16191) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16211) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16231) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16251) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16271) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16291) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16311) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16331) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16351) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16451) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16471) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16491) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16511) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16531) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16551) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16571) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16591) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16611) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16631) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16651) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16671) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16691) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16711) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16731) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16751) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16771) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16791) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16811) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16831) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16851) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16871) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16891) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16911) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16931) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16951) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16971) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (16991) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17011) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17031) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17051) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17071) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17091) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17111) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17131) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17151) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17171) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17191) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17211) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17231) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17251) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17271) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17291) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17311) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17331) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17351) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17451) pmw3901_espidf: raw: FF FF FF FF FF FF ...[0m
+DX: -1  DY: -1
+Direction: No movement
+[0;32mI (17471) pmw3901_espidf: raw: FF FF FF FF FF FF ...[0m
+DX: -1  DY: -1
+Direction: No movement
+[0;32mI (17491) pmw3901_espidf: raw: FF FF FF FF FF FF ...[0m
+DX: -1  DY: -1
+Direction: No movement
+[0;32mI (17511) pmw3901_espidf: raw: FF FF FF FF FF FF ...[0m
+DX: -1  DY: -1
+Direction: No movement
+[0;32mI (17531) pmw3901_espidf: raw: FF FF FF FF FF FF ...[0m
+DX: -1  DY: -1
+Direction: No movement
+[0;32mI (17551) pmw3901_espidf: raw: FF FF FF FF FF FF ...[0m
+DX: -1  DY: -1
+Direction: No movement
+[0;32mI (17571) pmw3901_espidf: raw: FF FF FF FF FF FF ...[0m
+DX: -1  DY: -1
+Direction: No movement
+[0;32mI (17591) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17611) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17631) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17651) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17671) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17691) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17711) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17731) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17751) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17771) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17791) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17811) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17831) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17851) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17871) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17891) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17911) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17931) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17951) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17971) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (17991) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18011) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18031) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18051) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18071) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18091) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18111) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18131) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18151) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18171) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18191) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18211) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18231) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18251) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18271) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18291) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18311) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18331) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18351) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18451) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18471) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18491) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18511) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18531) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18551) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18571) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18591) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18611) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18631) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18651) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18671) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18691) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18711) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18731) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18751) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18771) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18791) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18811) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18831) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18851) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18871) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18891) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18911) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18931) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18951) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18971) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (18991) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19011) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19031) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19051) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19071) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19091) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19111) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19131) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19151) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19171) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19191) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19211) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19231) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19251) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19271) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19291) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19311) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19331) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19351) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19451) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19471) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19491) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19511) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19531) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19551) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19571) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19591) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19611) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19631) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19651) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19671) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19691) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19711) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19731) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19751) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19771) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19791) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19811) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19831) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19851) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19871) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19891) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19911) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19931) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19951) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19971) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (19991) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20011) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20031) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20051) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20071) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20091) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20111) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20131) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20151) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20171) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20191) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20211) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20231) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20251) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20271) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20291) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20311) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20331) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20351) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20451) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20471) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20491) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20511) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20531) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20551) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20571) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20591) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20611) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20631) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20651) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20671) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20691) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20711) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20731) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20751) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20771) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20791) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20811) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20831) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20851) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20871) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20891) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20911) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20931) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20951) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20971) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (20991) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21011) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21031) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21051) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21071) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21091) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21111) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21131) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21151) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21171) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21191) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21211) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21231) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21251) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21271) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21291) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21311) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21331) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21351) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21451) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21471) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21491) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21511) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21531) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21551) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21571) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21591) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21611) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21631) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21651) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21671) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21691) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21711) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21731) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21751) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21771) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21791) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21811) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21831) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21851) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21871) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21891) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21911) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21931) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21951) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21971) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (21991) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22011) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22031) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22051) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22071) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22091) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22111) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22131) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22151) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22171) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22191) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22211) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22231) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22251) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22271) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22291) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22311) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22331) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22351) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22451) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22471) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22491) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22511) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22531) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22551) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22571) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22591) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22611) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22631) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22651) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22671) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22691) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22711) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22731) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22751) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22771) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22791) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22811) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22831) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22851) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22871) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22891) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22911) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22931) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22951) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22971) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (22991) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23011) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23031) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23051) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23071) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23091) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23111) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23131) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23151) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23171) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23191) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23211) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23231) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23251) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23271) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23291) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23311) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23331) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23351) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23371) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23391) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23411) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23431) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23451) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23471) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement
+[0;32mI (23491) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+Direction: No movement

@@ -1,7 +1,7 @@
 {
     "version":            "1.2",
     "project_name":       "drone",
-    "project_version":    "a20b062",
+    "project_version":    "bfe48c3-dirty",
     "project_path":       "C:/Espressif/frameworks/esp-idf-v5.5.1/embedded_drone/drone",
     "idf_path":           "C:/Espressif/frameworks/esp-idf-v5.5.1",
     "build_dir":          "C:/Espressif/frameworks/esp-idf-v5.5.1/embedded_drone/drone/build",
