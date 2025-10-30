@@ -1,0 +1,1759 @@
+Command: C:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe C:\Espressif\frameworks\esp-idf-v5.5.1\tools/idf_monitor.py -p COM14 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 C:\Espressif\frameworks\esp-idf-v5.5.1\embedded_drone\drone\build\drone.elf C:\Espressif\frameworks\esp-idf-v5.5.1\embedded_drone\drone\build\bootloader\bootloader.elf --force-color -m 'C:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe' 'C:\Espressif\frameworks\esp-idf-v5.5.1\tools\idf.py'
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x12 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5.1-dirty 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Oct 28 2025 22:30:16[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (31) boot: chip revision: v3.1[0m
+[0;32mI (34) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (38) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (45) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (52) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (65) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (78) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0be88h ( 48776) map[0m
+[0;32mI (105) esp_image: segment 1: paddr=0001beb0 vaddr=3ffb0000 size=02560h (  9568) load[0m
+[0;32mI (109) esp_image: segment 2: paddr=0001e418 vaddr=40080000 size=01c00h (  7168) load[0m
+[0;32mI (112) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=17378h ( 95096) map[0m
+[0;32mI (149) esp_image: segment 4: paddr=000373a0 vaddr=40081c00 size=0d170h ( 53616) load[0m
+[0;32mI (170) esp_image: segment 5: paddr=00044518 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (178) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (178) boot: Disabling RNG early entropy source...[0m
+[0;32mI (188) cpu_start: Multicore app[0m
+[0;32mI (197) cpu_start: Pro cpu start user code[0m
+[0;32mI (197) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (197) app_init: Application information:[0m
+[0;32mI (197) app_init: Project name:     drone[0m
+[0;32mI (201) app_init: App version:      bfe48c3-dirty[0m
+[0;32mI (205) app_init: Compile time:     Oct 28 2025 22:27:25[0m
+[0;32mI (210) app_init: ELF file SHA256:  f9ce4d153...[0m
+[0;32mI (214) app_init: ESP-IDF:          v5.5.1-dirty[0m
+[0;32mI (219) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (223) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (227) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (231) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (237) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (242) heap_init: At 3FFB2E60 len 0002D1A0 (180 KiB): DRAM[0m
+[0;32mI (247) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (252) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (258) heap_init: At 4008ED70 len 00011290 (68 KiB): IRAM[0m
+[0;32mI (265) spi_flash: detected chip: gd[0m
+[0;32mI (266) spi_flash: flash io: dio[0m
+[0;33mW (269) spi_flash: Detected size(8192k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (282) main_task: Started on CPU0[0m
+[0;32mI (292) main_task: Calling app_main()[0m
+[0;32mI (292) pmw3901_espidf: Starting diagnostic main[0m
+[0;32mI (312) pmw3901_espidf: CS toggle 0[0m
+[0;32mI (312) pmw3901_espidf: CS toggle 1[0m
+[0;32mI (312) pmw3901_espidf: CS toggle 2[0m
+[0;32mI (312) pmw3901_espidf: Starting PMW3901 init sequence...[0m
+[0;32mI (312) pmw3901_espidf: Product ID: 0x00  InvID: 0x00[0m
+[0;32mI (312) pmw3901_espidf: Wrote power-up reset[0m
+[0;32mI (372) pmw3901_espidf: Read PRODUCT_ID = 0x00[0m
+[0;32mI (372) pmw3901_espidf: Read INVERSE_PRODUCT_ID = 0x00[0m
+[0;32mI (372) pmw3901_espidf: Reg 0x02 = 0x00[0m
+[0;32mI (372) pmw3901_espidf: Reg 0x03 = 0x00[0m
+[0;32mI (372) pmw3901_espidf: Reg 0x04 = 0x00[0m
+[0;32mI (382) pmw3901_espidf: Reg 0x06 = 0x00[0m
+[0;32mI (382) pmw3901_espidf: Reg 0x07 = 0x00[0m
+[0;32mI (382) pmw3901_espidf: Testing SPI mode 3[0m
+[0;32mI (392) pmw3901_espidf: mode 3 read 0: PROD=0x00 INV=0x00[0m
+[0;32mI (412) pmw3901_espidf: mode 3 read 1: PROD=0x00 INV=0x00[0m
+[0;32mI (432) pmw3901_espidf: mode 3 read 2: PROD=0x00 INV=0x00[0m
+[0;32mI (462) pmw3901_espidf: mode 3 read 3: PROD=0x00 INV=0x00[0m
+[0;32mI (482) pmw3901_espidf: mode 3 read 4: PROD=0x00 INV=0x00[0m
+[0;32mI (502) pmw3901_espidf: Testing SPI mode 0[0m
+[0;32mI (502) pmw3901_espidf: mode 0 read 0: PROD=0x00 INV=0x00[0m
+[0;32mI (522) pmw3901_espidf: mode 0 read 1: PROD=0x00 INV=0x00[0m
+[0;32mI (542) pmw3901_espidf: mode 0 read 2: PROD=0x00 INV=0x00[0m
+[0;32mI (562) pmw3901_espidf: mode 0 read 3: PROD=0x00 INV=0x00[0m
+[0;32mI (592) pmw3901_espidf: mode 0 read 4: PROD=0x00 INV=0x00[0m
+[0;32mI (612) pmw3901_espidf: About to run manual clock probe. This will temporarily re-configure SCLK as GPIO[0m
+[0;32mI (612) pmw3901_espidf: Starting manual clock probe (8 pulses)...[0m
+[0;32mI (612) pmw3901_espidf: MISO idle level: 0[0m
+[0;32mI (612) pmw3901_espidf: pulse 00: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (622) pmw3901_espidf: pulse 01: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (622) pmw3901_espidf: pulse 02: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (632) pmw3901_espidf: pulse 03: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (632) pmw3901_espidf: pulse 04: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (642) pmw3901_espidf: pulse 05: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (642) pmw3901_espidf: pulse 06: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (652) pmw3901_espidf: pulse 07: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (652) pmw3901_espidf: Manual clock probe done.[0m
+[0;32mI (662) pmw3901_espidf: Re-added SPI device result=0[0m
+[0;32mI (662) pmw3901_espidf: Read PRODUCT_ID = 0x00[0m
+[0;32mI (672) pmw3901_espidf: Read INVERSE_PRODUCT_ID = 0x00[0m
+[0;32mI (672) pmw3901_espidf: Reg 0x02 = 0x00[0m
+[0;32mI (682) pmw3901_espidf: Reg 0x03 = 0x00[0m
+[0;32mI (682) pmw3901_espidf: Reg 0x04 = 0x00[0m
+[0;32mI (682) pmw3901_espidf: Reg 0x06 = 0x00[0m
+[0;32mI (692) pmw3901_espidf: Reg 0x07 = 0x00[0m
+[0;32mI (692) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (692) main_task: Returned from app_main()[0m
+[0;32mI (752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1202) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1202) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1252) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1252) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1302) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1302) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1352) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1352) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1402) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1402) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1452) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1452) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1502) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1502) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1552) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1552) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1602) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1602) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1652) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1652) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1702) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2202) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2202) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2252) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2252) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2302) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2302) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2352) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2352) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2402) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2402) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2452) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2452) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2502) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2502) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2552) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2552) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2602) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2602) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2652) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2652) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2702) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3202) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3202) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3252) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3252) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3302) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3302) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3352) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3352) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3402) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3402) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3452) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3452) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3502) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3502) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3552) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3552) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3602) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3602) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3652) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3652) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3702) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4202) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4202) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4252) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4252) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4302) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4302) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4352) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4352) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4402) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4402) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4452) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4452) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4502) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4502) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4552) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4552) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4602) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4602) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4652) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4652) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4702) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5202) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5202) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5252) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5252) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5302) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5302) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5352) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5352) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5402) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5402) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5452) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5452) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5502) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5502) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5552) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5552) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5602) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5602) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5652) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5652) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5702) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6202) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6202) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6252) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6252) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6302) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6302) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6352) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6352) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6402) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6402) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6452) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6452) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6502) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6502) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6552) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6552) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6602) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6602) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6652) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6652) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6702) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7202) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7202) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7252) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7252) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7302) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7302) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7352) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7352) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7402) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7402) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7452) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7452) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7502) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7502) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7552) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7552) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7602) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7602) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7652) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7652) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7702) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (8002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (8002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (8052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (8052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (8102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (8102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (8152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (8152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (8202) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (8202) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (8252) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (8252) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (8302) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (8302) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (8352) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (8352) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (8402) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (8402) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (8452) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (8452) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (8502) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (8502) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (8552) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (8552) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (8602) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (8602) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (8652) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (8652) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (8702) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (8702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (8752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (8752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (8802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (8802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (8852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (8852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (8902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (8902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (8952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (8952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (9002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (9002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (9052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (9052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (9102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (9102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (9152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (9152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (9202) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (9202) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (9252) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (9252) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (9302) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (9302) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (9352) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (9352) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (9402) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (9402) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (9452) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (9452) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (9502) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (9502) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (9552) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (9552) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (9602) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (9602) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (9652) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (9652) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (9702) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (9702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (9752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (9752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (9802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (9802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (9852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (9852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (9902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (9902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (9952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (9952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (10002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (10002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (10052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (10052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (10102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (10102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (10152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (10152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (10202) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (10202) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (10252) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (10252) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (10302) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (10302) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (10352) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (10352) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (10402) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (10402) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (10452) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (10452) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (10502) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (10502) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (10552) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (10552) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (10602) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (10602) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (10652) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (10652) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (10702) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (10702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (10752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (10752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (10802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (10802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (10852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (10852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (10902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (10902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (10952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (10952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (11002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (11002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (11052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (11052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (11102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (11102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (11152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (11152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (11202) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (11202) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (11252) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (11252) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (11302) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (11302) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (11352) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (11352) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (11402) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (11402) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (11452) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (11452) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (11502) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (11502) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (11552) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (11552) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (11602) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (11602) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (11652) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (11652) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (11702) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (11702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (11752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (11752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (11802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (11802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (11852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (11852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (11902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (11902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (11952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (11952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (12002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (12002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (12052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (12052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (12102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (12102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (12152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (12152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (12202) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (12202) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (12252) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (12252) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (12302) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (12302) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (12352) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (12352) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (12402) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (12402) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (12452) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (12452) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (12502) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (12502) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (12552) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (12552) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (12602) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (12602) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (12652) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (12652) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (12702) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (12702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (12752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (12752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (12802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (12802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (12852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (12852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (12902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (12902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (12952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (12952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (13002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (13002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (13052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (13052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (13102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (13102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (13152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (13152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (13202) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (13202) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (13252) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (13252) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (13302) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (13302) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (13352) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (13352) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (13402) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (13402) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (13452) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (13452) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (13502) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (13502) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (13552) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (13552) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (13602) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (13602) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (13652) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (13652) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (13702) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (13702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (13752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (13752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (13802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (13802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (13852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (13852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (13902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (13902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (13952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (13952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (14002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (14002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (14052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (14052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (14102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (14102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (14152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (14152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (14202) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (14202) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (14252) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (14252) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (14302) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (14302) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (14352) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (14352) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (14402) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (14402) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (14452) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (14452) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (14502) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (14502) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (14552) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (14552) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (14602) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (14602) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (14652) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (14652) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (14702) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (14702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (14752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (14752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (14802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (14802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (14852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (14852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (14902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (14902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (14952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (14952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (15002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (15002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (15052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (15052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (15102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (15102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (15152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (15152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (15202) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (15202) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (15252) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (15252) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (15302) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (15302) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (15352) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (15352) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (15402) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (15402) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (15452) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (15452) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (15502) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (15502) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (15552) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (15552) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (15602) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (15602) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (15652) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (15652) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (15702) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (15702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (15752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (15752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (15802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (15802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (15852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (15852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (15902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (15902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (15952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (15952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (16002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (16002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (16052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (16052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (16102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (16102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (16152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (16152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (16202) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (16202) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (16252) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (16252) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (16302) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (16302) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (16352) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (16352) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (16402) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (16402) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (16452) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (16452) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (16502) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (16502) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (16552) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (16552) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (16602) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (16602) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (16652) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (16652) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (16702) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (16702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (16752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (16752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (16802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (16802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (16852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (16852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (16902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (16902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (16952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (16952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (17002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (17002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (17052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (17052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (17102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (17102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (17152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (17152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (17202) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (17202) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (17252) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (17252) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (17302) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (17302) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (17352) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (17352) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (17402) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (17402) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (17452) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (17452) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (17502) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (17502) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (17552) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (17552) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (17602) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (17602) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (17652) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (17652) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (17702) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (17702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (17752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (17752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (17802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (17802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (17852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (17852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (17902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (17902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (17952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (17952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (18002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (18002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (18052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (18052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5.1-dirty 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Oct 28 2025 22:30:16[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (31) boot: chip revision: v3.1[0m
+[0;32mI (34) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (38) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (45) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (52) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (65) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (78) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0be88h ( 48776) map[0m
+[0;32mI (105) esp_image: segment 1: paddr=0001beb0 vaddr=3ffb0000 size=02560h (  9568) load[0m
+[0;32mI (109) esp_image: segment 2: paddr=0001e418 vaddr=40080000 size=01c00h (  7168) load[0m
+[0;32mI (112) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=17378h ( 95096) map[0m
+[0;32mI (149) esp_image: segment 4: paddr=000373a0 vaddr=40081c00 size=0d170h ( 53616) load[0m
+[0;32mI (170) esp_image: segment 5: paddr=00044518 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (178) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (178) boot: Disabling RNG early entropy source...[0m
+[0;32mI (188) cpu_start: Multicore app[0m
+[0;32mI (197) cpu_start: Pro cpu start user code[0m
+[0;32mI (197) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (197) app_init: Application information:[0m
+[0;32mI (197) app_init: Project name:     drone[0m
+[0;32mI (201) app_init: App version:      bfe48c3-dirty[0m
+[0;32mI (205) app_init: Compile time:     Oct 28 2025 22:27:25[0m
+[0;32mI (210) app_init: ELF file SHA256:  f9ce4d153...[0m
+[0;32mI (214) app_init: ESP-IDF:          v5.5.1-dirty[0m
+[0;32mI (219) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (223) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (227) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (231) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (237) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (242) heap_init: At 3FFB2E60 len 0002D1A0 (180 KiB): DRAM[0m
+[0;32mI (247) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (252) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (258) heap_init: At 4008ED70 len 00011290 (68 KiB): IRAM[0m
+[0;32mI (265) spi_flash: detected chip: gd[0m
+[0;32mI (266) spi_flash: flash io: dio[0m
+[0;33mW (269) spi_flash: Detected size(8192k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (282) main_task: Started on CPU0[0m
+[0;32mI (292) main_task: Calling app_main()[0m
+[0;32mI (292) pmw3901_espidf: Starting diagnostic main[0m
+[0;32mI (312) pmw3901_espidf: CS toggle 0[0m
+[0;32mI (312) pmw3901_espidf: CS toggle 1[0m
+[0;32mI (312) pmw3901_espidf: CS toggle 2[0m
+[0;32mI (312) pmw3901_espidf: Starting PMW3901 init sequence...[0m
+[0;32mI (312) pmw3901_espidf: Product ID: 0x00  InvID: 0x00[0m
+[0;32mI (312) pmw3901_espidf: Wrote power-up reset[0m
+[0;32mI (372) pmw3901_espidf: Read PRODUCT_ID = 0x00[0m
+[0;32mI (372) pmw3901_espidf: Read INVERSE_PRODUCT_ID = 0x00[0m
+[0;32mI (372) pmw3901_espidf: Reg 0x02 = 0x00[0m
+[0;32mI (372) pmw3901_espidf: Reg 0x03 = 0x00[0m
+[0;32mI (372) pmw3901_espidf: Reg 0x04 = 0x00[0m
+[0;32mI (382) pmw3901_espidf: Reg 0x06 = 0x00[0m
+[0;32mI (382) pmw3901_espidf: Reg 0x07 = 0x00[0m
+[0;32mI (382) pmw3901_espidf: Testing SPI mode 3[0m
+[0;32mI (392) pmw3901_espidf: mode 3 read 0: PROD=0x00 INV=0x00[0m
+[0;32mI (412) pmw3901_espidf: mode 3 read 1: PROD=0x00 INV=0x00[0m
+[0;32mI (432) pmw3901_espidf: mode 3 read 2: PROD=0x00 INV=0x00[0m
+[0;32mI (462) pmw3901_espidf: mode 3 read 3: PROD=0x00 INV=0x00[0m
+[0;32mI (482) pmw3901_espidf: mode 3 read 4: PROD=0x00 INV=0x00[0m
+[0;32mI (502) pmw3901_espidf: Testing SPI mode 0[0m
+[0;32mI (502) pmw3901_espidf: mode 0 read 0: PROD=0x00 INV=0x00[0m
+[0;32mI (522) pmw3901_espidf: mode 0 read 1: PROD=0x00 INV=0x00[0m
+[0;32mI (542) pmw3901_espidf: mode 0 read 2: PROD=0x00 INV=0x00[0m
+[0;32mI (562) pmw3901_espidf: mode 0 read 3: PROD=0x00 INV=0x00[0m
+[0;32mI (592) pmw3901_espidf: mode 0 read 4: PROD=0x00 INV=0x00[0m
+[0;32mI (612) pmw3901_espidf: About to run manual clock probe. This will temporarily re-configure SCLK as GPIO[0m
+[0;32mI (612) pmw3901_espidf: Starting manual clock probe (8 pulses)...[0m
+[0;32mI (612) pmw3901_espidf: MISO idle level: 0[0m
+[0;32mI (612) pmw3901_espidf: pulse 00: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (622) pmw3901_espidf: pulse 01: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (622) pmw3901_espidf: pulse 02: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (632) pmw3901_espidf: pulse 03: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (632) pmw3901_espidf: pulse 04: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (642) pmw3901_espidf: pulse 05: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (642) pmw3901_espidf: pulse 06: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (652) pmw3901_espidf: pulse 07: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (652) pmw3901_espidf: Manual clock probe done.[0m
+[0;32mI (662) pmw3901_espidf: Re-added SPI device result=0[0m
+[0;32mI (662) pmw3901_espidf: Read PRODUCT_ID = 0x00[0m
+[0;32mI (672) pmw3901_espidf: Read INVERSE_PRODUCT_ID = 0x00[0m
+[0;32mI (672) pmw3901_espidf: Reg 0x02 = 0x00[0m
+[0;32mI (682) pmw3901_espidf: Reg 0x03 = 0x00[0m
+[0;32mI (682) pmw3901_espidf: Reg 0x04 = 0x00[0m
+[0;32mI (682) pmw3901_espidf: Reg 0x06 = 0x00[0m
+[0;32mI (692) pmw3901_espidf: Reg 0x07 = 0x00[0m
+[0;32mI (692) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (692) main_task: Returned from app_main()[0m
+[0;32mI (752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5.1-dirty 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Oct 28 2025 22:30:16[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (31) boot: chip revision: v3.1[0m
+[0;32mI (34) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (38) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (45) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (52) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (65) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (78) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0be88h ( 48776) map[0m
+[0;32mI (105) esp_image: segment 1: paddr=0001beb0 vaddr=3ffb0000 size=02560h (  9568) load[0m
+[0;32mI (109) esp_image: segment 2: paddr=0001e418 vaddr=40080000 size=01c00h (  7168) load[0m
+[0;32mI (112) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=17378h ( 95096) map[0m
+[0;32mI (149) esp_image: segment 4: paddr=000373a0 vaddr=40081c00 size=0d170h ( 53616) load[0m
+[0;32mI (170) esp_image: segment 5: paddr=00044518 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (178) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (178) boot: Disabling RNG early entropy source...[0m
+[0;32mI (188) cpu_start: Multicore app[0m
+[0;32mI (197) cpu_start: Pro cpu start user code[0m
+[0;32mI (197) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (197) app_init: Application information:[0m
+[0;32mI (197) app_init: Project name:     drone[0m
+[0;32mI (201) app_init: App version:      bfe48c3-dirty[0m
+[0;32mI (205) app_init: Compile time:     Oct 28 2025 22:27:25[0m
+[0;32mI (210) app_init: ELF file SHA256:  f9ce4d153...[0m
+[0;32mI (214) app_init: ESP-IDF:          v5.5.1-dirty[0m
+[0;32mI (219) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (223) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (227) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (231) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (237) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (242) heap_init: At 3FFB2E60 len 0002D1A0 (180 KiB): DRAM[0m
+[0;32mI (247) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (252) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (258) heap_init: At 4008ED70 len 00011290 (68 KiB): IRAM[0m
+[0;32mI (265) spi_flash: detected chip: gd[0m
+[0;32mI (266) spi_flash: flash io: dio[0m
+[0;33mW (269) spi_flash: Detected size(8192k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (282) main_task: Started on CPU0[0m
+[0;32mI (292) main_task: Calling app_main()[0m
+[0;32mI (292) pmw3901_espidf: Starting diagnostic main[0m
+[0;32mI (312) pmw3901_espidf: CS toggle 0[0m
+[0;32mI (312) pmw3901_espidf: CS toggle 1[0m
+[0;32mI (312) pmw3901_espidf: CS toggle 2[0m
+[0;32mI (312) pmw3901_espidf: Starting PMW3901 init sequence...[0m
+[0;32mI (312) pmw3901_espidf: Product ID: 0x00  InvID: 0x00[0m
+[0;32mI (312) pmw3901_espidf: Wrote power-up reset[0m
+[0;32mI (372) pmw3901_espidf: Read PRODUCT_ID = 0x00[0m
+[0;32mI (372) pmw3901_espidf: Read INVERSE_PRODUCT_ID = 0x00[0m
+[0;32mI (372) pmw3901_espidf: Reg 0x02 = 0x00[0m
+[0;32mI (372) pmw3901_espidf: Reg 0x03 = 0x00[0m
+[0;32mI (372) pmw3901_espidf: Reg 0x04 = 0x00[0m
+[0;32mI (382) pmw3901_espidf: Reg 0x06 = 0x00[0m
+[0;32mI (382) pmw3901_espidf: Reg 0x07 = 0x00[0m
+[0;32mI (382) pmw3901_espidf: Testing SPI mode 3[0m
+[0;32mI (392) pmw3901_espidf: mode 3 read 0: PROD=0x00 INV=0x00[0m
+[0;32mI (412) pmw3901_espidf: mode 3 read 1: PROD=0x00 INV=0x00[0m
+[0;32mI (432) pmw3901_espidf: mode 3 read 2: PROD=0x00 INV=0x00[0m
+[0;32mI (462) pmw3901_espidf: mode 3 read 3: PROD=0x00 INV=0x00[0m
+[0;32mI (482) pmw3901_espidf: mode 3 read 4: PROD=0x00 INV=0x00[0m
+[0;32mI (502) pmw3901_espidf: Testing SPI mode 0[0m
+[0;32mI (502) pmw3901_espidf: mode 0 read 0: PROD=0x00 INV=0x00[0m
+[0;32mI (522) pmw3901_espidf: mode 0 read 1: PROD=0x00 INV=0x00[0m
+[0;32mI (542) pmw3901_espidf: mode 0 read 2: PROD=0x00 INV=0x00[0m
+[0;32mI (562) pmw3901_espidf: mode 0 read 3: PROD=0x00 INV=0x00[0m
+[0;32mI (592) pmw3901_espidf: mode 0 read 4: PROD=0x00 INV=0x00[0m
+[0;32mI (612) pmw3901_espidf: About to run manual clock probe. This will temporarily re-configure SCLK as GPIO[0m
+[0;32mI (612) pmw3901_espidf: Starting manual clock probe (8 pulses)...[0m
+[0;32mI (612) pmw3901_espidf: MISO idle level: 0[0m
+[0;32mI (612) pmw3901_espidf: pulse 00: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (622) pmw3901_espidf: pulse 01: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (622) pmw3901_espidf: pulse 02: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (632) pmw3901_espidf: pulse 03: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (632) pmw3901_espidf: pulse 04: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (642) pmw3901_espidf: pulse 05: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (642) pmw3901_espidf: pulse 06: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (652) pmw3901_espidf: pulse 07: MISO(low)=0 MISO(high)=0[0m
+[0;32mI (652) pmw3901_espidf: Manual clock probe done.[0m
+[0;32mI (662) pmw3901_espidf: Re-added SPI device result=0[0m
+[0;32mI (662) pmw3901_espidf: Read PRODUCT_ID = 0x00[0m
+[0;32mI (672) pmw3901_espidf: Read INVERSE_PRODUCT_ID = 0x00[0m
+[0;32mI (672) pmw3901_espidf: Reg 0x02 = 0x00[0m
+[0;32mI (682) pmw3901_espidf: Reg 0x03 = 0x00[0m
+[0;32mI (682) pmw3901_espidf: Reg 0x04 = 0x00[0m
+[0;32mI (682) pmw3901_espidf: Reg 0x06 = 0x00[0m
+[0;32mI (692) pmw3901_espidf: Reg 0x07 = 0x00[0m
+[0;32mI (692) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (692) main_task: Returned from app_main()[0m
+[0;32mI (752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1202) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1202) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1252) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1252) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1302) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1302) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1352) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1352) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1402) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1402) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1452) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1452) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1502) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1502) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1552) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1552) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1602) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1602) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1652) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1652) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1702) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (1952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (1952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2202) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2202) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2252) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2252) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2302) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2302) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2352) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2352) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2402) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2402) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2452) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2452) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2502) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2502) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2552) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2552) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2602) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2602) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2652) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2652) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2702) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (2952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (2952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3202) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3202) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3252) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3252) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3302) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3302) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3352) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3352) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3402) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3402) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3452) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3452) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3502) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3502) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3552) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3552) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3602) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3602) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3652) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3652) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3702) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (3952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (3952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4202) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4202) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4252) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4252) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4302) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4302) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4352) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4352) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4402) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4402) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4452) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4452) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4502) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4502) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4552) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4552) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4602) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4602) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4652) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4652) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4702) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (4952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (4952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5202) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5202) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5252) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5252) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5302) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5302) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5352) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5352) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5402) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5402) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5452) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5452) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5502) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5502) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5552) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5552) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5602) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5602) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5652) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5652) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5702) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (5952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (5952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6202) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6202) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6252) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6252) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6302) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6302) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6352) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6352) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6402) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6402) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6452) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6452) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6502) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6502) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6552) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6552) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6602) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6602) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6652) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6652) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6702) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6702) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6752) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6752) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6802) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6802) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6852) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6852) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6902) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6902) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (6952) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (6952) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7002) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7002) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7052) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7052) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7102) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7102) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
+[0;32mI (7152) pmw3901_espidf: raw: 00 00 00 00 00 00 ...[0m
+DX: 0  DY: 0
+[0;33mW (7152) pmw3901_espidf: Motion burst all zeros - suggests no response from sensor[0m
