@@ -1,7 +1,2 @@
-idf_component_register(
-    SRCS    "main.c"
-            "complementary_filter.h"  
-            "sensors.h"           
-    INCLUDE_DIRS "."
-    REQUIRES vl53l0x freertos driver
-)
+idf_component_register(SRCS "i2c_basic_example_main.c" "six_axis_comp_filter.c"
+                       INCLUDE_DIRS ".")
