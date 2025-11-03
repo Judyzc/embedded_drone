@@ -5,6 +5,7 @@
 #include "esp_log.h"
 #include "driver/i2c_master.h"
 
+#include "main.h"
 #include "sensors.h"
 #include "six_axis_comp_filter.h"
 #include "estimator.h"
@@ -15,10 +16,6 @@ SixAxis comp_filter;
 
 /* ------------------------------------------- Public Function Definitions  ------------------------------------------- */
 void vUpdateEstimatorTask(void *pvParameters) { 
-    QueueHandle_t xQueue_acc_data = ((QueueHandle_t *) pvParameters)[0]; 
-    QueueHandle_t xQueue_gyro_data = ((QueueHandle_t *) pvParameters)[1];
-    free(pvParameters); 
-
     acc_data_t acc_data; 
     gyro_data_t gyro_data; 
     for (;;) {
@@ -43,16 +40,12 @@ void vUpdateEstimatorTask(void *pvParameters) {
     } 
 }
 
-void estimator_init(QueueHandle_t xQueue_acc_data, QueueHandle_t xQueue_gyro_data) {
-    // Initialize complementary filter
-    const float deltaT = 1.0f/SENS_RATE_HZ;  
-    CompInit(&comp_filter, deltaT, TAU);
+void estimator_init() {
+    // Initialize complementary filter 
+    CompInit(&comp_filter, DELTA_T, TAU);
     CompAccelUpdate(&comp_filter, 0.0, 0.0, 9.81); 
     CompStart(&comp_filter); 
 
     // Start filter update task
-    QueueHandle_t *pxQueues = malloc(2*sizeof(QueueHandle_t)); 
-    pxQueues[0] = xQueue_acc_data; 
-    pxQueues[1] = xQueue_gyro_data; 
-    xTaskCreate(vUpdateEstimatorTask, "Acc Data Processing", 4096, (void *) pxQueues, ESTIMATOR_PRIORITY, NULL);
+    xTaskCreate(vUpdateEstimatorTask, "Acc Data Processing", 4096, NULL, ESTIMATOR_PRIORITY, NULL);
 }

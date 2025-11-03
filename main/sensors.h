@@ -23,6 +23,12 @@
 #define GYRO_BANDWIDTH              0x10
 #define GYRO_DATA_START             0x02
 
+// Constants
+#define GET_RAW_DATA_PRIORITY       6
+#define DATA_PROC_PRIORITY          5
+#define SENS_PERIOD_MS              10                          /* Sensor polling rate */
+#define NUM_SENS                    2
+
 // Structs 
 typedef struct acc_data {
     float ax_m_s2; 
@@ -37,12 +43,6 @@ typedef struct gyro_data {
 } gyro_data_t;
 
 // Public Functions
-void sensors_init(QueueHandle_t xQueue_acc_data, QueueHandle_t xQueue_gyro_data);
-
-// General constants
-#define GET_RAW_DATA_PRIORITY       6
-#define DATA_PROC_PRIORITY          5
-#define SENS_RATE_HZ                100                         /* Sensor polling rate */
-#define NUM_SENS                    2
+void sensors_init(void);
 
 #endif /* SENSORS_H */
