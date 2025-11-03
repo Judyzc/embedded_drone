@@ -1,0 +1,236 @@
+Command: C:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe C:\Espressif\frameworks\esp-idf-v5.5.1\tools/idf_monitor.py -p COM14 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 C:\Espressif\frameworks\esp-idf-v5.5.1\embedded_drone\drone\build\drone.elf C:\Espressif\frameworks\esp-idf-v5.5.1\embedded_drone\drone\build\bootloader\bootloader.elf --force-color -m 'C:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe' 'C:\Espressif\frameworks\esp-idf-v5.5.1\tools\idf.py' '-p' 'COM14'
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5.1-dirty 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Nov  2 2025 20:24:35[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (31) boot: chip revision: v3.1[0m
+[0;32mI (34) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (38) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (45) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (52) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (65) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (78) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0ca58h ( 51800) map[0m
+[0;32mI (106) esp_image: segment 1: paddr=0001ca80 vaddr=3ffb0000 size=02788h ( 10120) load[0m
+[0;32mI (110) esp_image: segment 2: paddr=0001f210 vaddr=40080000 size=00e08h (  3592) load[0m
+[0;32mI (112) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=204e0h (132320) map[0m
+[0;32mI (163) esp_image: segment 4: paddr=00040508 vaddr=40080e08 size=0d8e0h ( 55520) load[0m
+[0;32mI (185) esp_image: segment 5: paddr=0004ddf0 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (192) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (192) boot: Disabling RNG early entropy source...[0m
+[0;32mI (203) cpu_start: Multicore app[0m
+[0;32mI (211) cpu_start: Pro cpu start user code[0m
+[0;32mI (211) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (211) app_init: Application information:[0m
+[0;32mI (211) app_init: Project name:     drone[0m
+[0;32mI (215) app_init: App version:      9addc4a-dirty[0m
+[0;32mI (219) app_init: Compile time:     Nov  2 2025 20:24:14[0m
+[0;32mI (225) app_init: ELF file SHA256:  a64849e30...[0m
+[0;32mI (229) app_init: ESP-IDF:          v5.5.1-dirty[0m
+[0;32mI (233) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (237) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (241) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (245) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (251) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (256) heap_init: At 3FFB3068 len 0002CF98 (179 KiB): DRAM[0m
+[0;32mI (261) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (267) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (272) heap_init: At 4008E6E8 len 00011918 (70 KiB): IRAM[0m
+I (279) spi_flash: detected chip: gd
+[0;32mI (281) spi_flash: flash io: dio[0m
+[0;33mW (284) spi_flash: Detected size(8192k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;33mW (296) mcpwm(legacy): legacy driver is deprecated, please migrate to `driver/mcpwm_prelude.h`[0m
+[0;33mW (304) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;32mI (315) main_task: Started on CPU0[0m
+[0;32mI (325) main_task: Calling app_main()[0m
+[0;32mI (325) MOTORS: : init motor[0m
+
+[0;32mI (325) MOTORS: : initializing motor params[0m
+
+[0;32mI (325) MOTORS: : forward 50%[0m
+
+[0;32mI (325) VL53L0X: : VL53L0X task started[0m
+[0;32mI (335) main_task: Returned from app_main()[0m
+[0;32mI (805) VL53L0X: refSpadCount = 9, isApertureSpads = 1[0m
+
+[0;32mI (835) VL53L0X: : vl53 initialized OK - entering read loop[0m
+[0;32mI (885) VL53L0X: : Range: 48 mm[0m
+[0;32mI (1125) VL53L0X: : Range: 49 mm[0m
+[0;32mI (1365) VL53L0X: : Range: 50 mm[0m
+[0;32mI (1605) VL53L0X: : Range: 53 mm[0m
+[0;32mI (1845) VL53L0X: : Range: 50 mm[0m
+[0;32mI (2085) VL53L0X: : Range: 48 mm[0m
+[0;32mI (2325) VL53L0X: : Range: 48 mm[0m
+[0;32mI (2565) VL53L0X: : Range: 51 mm[0m
+[0;32mI (2805) VL53L0X: : Range: 49 mm[0m
+[0;32mI (3045) VL53L0X: : Range: 52 mm[0m
+[0;32mI (3285) VL53L0X: : Range: 52 mm[0m
+[0;32mI (3325) MOTORS: : stop[0m
+
+[0;32mI (3525) VL53L0X: : Range: 46 mm[0m
+[0;32mI (3765) VL53L0X: : Range: 46 mm[0m
+[0;32mI (4005) VL53L0X: : Range: 31 mm[0m
+[0;32mI (4245) VL53L0X: : Range: 28 mm[0m
+[0;32mI (4485) VL53L0X: : Range: 31 mm[0m
+[0;32mI (4725) VL53L0X: : Range: 33 mm[0m
+[0;32mI (4965) VL53L0X: : Range: 31 mm[0m
+[0;32mI (5205) VL53L0X: : Range: 35 mm[0m
+[0;32mI (5445) VL53L0X: : Range: 40 mm[0m
+[0;32mI (5685) VL53L0X: : Range: 33 mm[0m
+[0;32mI (5925) VL53L0X: : Range: 33 mm[0m
+[0;32mI (6165) VL53L0X: : Range: 30 mm[0m
+[0;32mI (6325) MOTORS: : forward 50%[0m
+
+[0;32mI (6405) VL53L0X: : Range: 39 mm[0m
+[0;32mI (6645) VL53L0X: : Range: 40 mm[0m
+[0;32mI (6885) VL53L0X: : Range: 48 mm[0m
+[0;32mI (7125) VL53L0X: : Range: 64 mm[0m
+[0;32mI (7365) VL53L0X: : Range: 56 mm[0m
+[0;32mI (7605) VL53L0X: : Range: 70 mm[0m
+[0;32mI (7845) VL53L0X: : Range: 71 mm[0m
+[0;32mI (8085) VL53L0X: : Range: 80 mm[0m
+[0;32mI (8325) VL53L0X: : Range: 82 mm[0m
+[0;33mW (8545) VL53L0X: : vl53_read failed[0m
+[0;33mW (8765) VL53L0X: : vl53_read failed[0m
+[0;33mW (8985) VL53L0X: : vl53_read failed[0m
+[0;33mW (9205) VL53L0X: : vl53_read failed[0m
+[0;32mI (9325) MOTORS: : stop[0m
+
+[0;33mW (9425) VL53L0X: : vl53_read failed[0m
+[0;33mW (9645) VL53L0X: : vl53_read failed[0m
+[0;33mW (9865) VL53L0X: : vl53_read failed[0m
+[0;33mW (10085) VL53L0X: : vl53_read failed[0m
+[0;33mW (10305) VL53L0X: : vl53_read failed[0m
+[0;33mW (10525) VL53L0X: : vl53_read failed[0m
+[0;33mW (10745) VL53L0X: : vl53_read failed[0m
+[0;32mI (10985) VL53L0X: : Range: 36 mm[0m
+[0;32mI (11225) VL53L0X: : Range: 37 mm[0m
+[0;32mI (11465) VL53L0X: : Range: 37 mm[0m
+[0;32mI (11705) VL53L0X: : Range: 41 mm[0m
+[0;32mI (11945) VL53L0X: : Range: 62 mm[0m
+[0;32mI (12185) VL53L0X: : Range: 77 mm[0m
+[0;32mI (12325) MOTORS: : forward 50%[0m
+
+[0;32mI (12425) VL53L0X: : Range: 90 mm[0m
+[0;32mI (12665) VL53L0X: : Range: 110 mm[0m
+[0;32mI (12905) VL53L0X: : Range: 129 mm[0m
+[0;32mI (13145) VL53L0X: : Range: 113 mm[0m
+[0;32mI (13385) VL53L0X: : Range: 92 mm[0m
+[0;32mI (13625) VL53L0X: : Range: 76 mm[0m
+[0;32mI (13865) VL53L0X: : Range: 64 mm[0m
+[0;32mI (14105) VL53L0X: : Range: 60 mm[0m
+[0;32mI (14345) VL53L0X: : Range: 63 mm[0m
+[0;32mI (14585) VL53L0X: : Range: 59 mm[0m
+[0;32mI (14825) VL53L0X: : Range: 40 mm[0m
+[0;32mI (15065) VL53L0X: : Range: 38 mm[0m
+[0;32mI (15305) VL53L0X: : Range: 40 mm[0m
+[0;32mI (15325) MOTORS: : stop[0m
+
+[0;32mI (15545) VL53L0X: : Range: 37 mm[0m
+[0;32mI (15785) VL53L0X: : Range: 38 mm[0m
+[0;32mI (16025) VL53L0X: : Range: 35 mm[0m
+[0;32mI (16265) VL53L0X: : Range: 31 mm[0m
+[0;32mI (16505) VL53L0X: : Range: 32 mm[0m
+[0;32mI (16745) VL53L0X: : Range: 37 mm[0m
+[0;32mI (16985) VL53L0X: : Range: 41 mm[0m
+[0;32mI (17225) VL53L0X: : Range: 15 mm[0m
+[0;33mW (17445) VL53L0X: : vl53_read failed[0m
+[0;33mW (17665) VL53L0X: : vl53_read failed[0m
+[0;33mW (17885) VL53L0X: : vl53_read failed[0m
+[0;32mI (18125) VL53L0X: : Range: 36 mm[0m
+[0;32mI (18325) MOTORS: : forward 50%[0m
+
+[0;32mI (18365) VL53L0X: : Range: 7 mm[0m
+[0;32mI (18605) VL53L0X: : Range: 34 mm[0m
+[0;33mW (18825) VL53L0X: : vl53_read failed[0m
+[0;33mW (19045) VL53L0X: : vl53_read failed[0m
+[0;32mI (19285) VL53L0X: : Range: 29 mm[0m
+[0;32mI (19525) VL53L0X: : Range: 31 mm[0m
+[0;32mI (19765) VL53L0X: : Range: 1 mm[0m
+[0;32mI (20005) VL53L0X: : Range: 28 mm[0m
+[0;32mI (20245) VL53L0X: : Range: 32 mm[0m
+[0;32mI (20485) VL53L0X: : Range: 32 mm[0m
+[0;32mI (20725) VL53L0X: : Range: 34 mm[0m
+[0;32mI (20965) VL53L0X: : Range: 36 mm[0m
+[0;32mI (21205) VL53L0X: : Range: 32 mm[0m
+[0;32mI (21325) MOTORS: : stop[0m
+
+[0;32mI (21445) VL53L0X: : Range: 37 mm[0m
+[0;32mI (21685) VL53L0X: : Range: 41 mm[0m
+[0;32mI (21925) VL53L0X: : Range: 41 mm[0m
+[0;32mI (22165) VL53L0X: : Range: 54 mm[0m
+[0;32mI (22405) VL53L0X: : Range: 68 mm[0m
+[0;32mI (22645) VL53L0X: : Range: 78 mm[0m
+[0;32mI (22885) VL53L0X: : Range: 92 mm[0m
+[0;32mI (23125) VL53L0X: : Range: 119 mm[0m
+[0;32mI (23365) VL53L0X: : Range: 149 mm[0m
+[0;32mI (23605) VL53L0X: : Range: 179 mm[0m
+[0;32mI (23845) VL53L0X: : Range: 223 mm[0m
+[0;32mI (24085) VL53L0X: : Range: 244 mm[0m
+[0;32mI (24325) MOTORS: : forward 50%[0m
+
+[0;32mI (24325) VL53L0X: : Range: 266 mm[0m
+[0;32mI (24565) VL53L0X: : Range: 280 mm[0m
+[0;32mI (24805) VL53L0X: : Range: 274 mm[0m
+[0;32mI (25045) VL53L0X: : Range: 261 mm[0m
+[0;32mI (25285) VL53L0X: : Range: 220 mm[0m
+[0;33mW (25525) VL53L0X: : vl53_read failed[0m
+[0;33mW (25765) VL53L0X: : vl53_read failed[0m
+[0;33mW (26005) VL53L0X: : vl53_read failed[0m
+[0;33mW (26245) VL53L0X: : vl53_read failed[0m
+[0;33mW (26485) VL53L0X: : vl53_read failed[0m
+[0;32mI (26725) VL53L0X: : Range: 319 mm[0m
+[0;32mI (26965) VL53L0X: : Range: 290 mm[0m
+[0;32mI (27205) VL53L0X: : Range: 239 mm[0m
+[0;32mI (27325) MOTORS: : stop[0m
+
+[0;32mI (27445) VL53L0X: : Range: 199 mm[0m
+[0;32mI (27685) VL53L0X: : Range: 147 mm[0m
+[0;32mI (27925) VL53L0X: : Range: 91 mm[0m
+[0;32mI (28165) VL53L0X: : Range: 50 mm[0m
+[0;32mI (28405) VL53L0X: : Range: 34 mm[0m
+[0;32mI (28645) VL53L0X: : Range: 35 mm[0m
+[0;32mI (28885) VL53L0X: : Range: 32 mm[0m
+[0;32mI (29125) VL53L0X: : Range: 32 mm[0m
+[0;32mI (29365) VL53L0X: : Range: 31 mm[0m
+[0;32mI (29605) VL53L0X: : Range: 31 mm[0m
+[0;32mI (29845) VL53L0X: : Range: 33 mm[0m
+[0;32mI (30085) VL53L0X: : Range: 33 mm[0m
+[0;32mI (30325) MOTORS: : forward 50%[0m
+
+[0;32mI (30325) VL53L0X: : Range: 37 mm[0m
+[0;32mI (30565) VL53L0X: : Range: 35 mm[0m
+[0;32mI (30805) VL53L0X: : Range: 30 mm[0m
+[0;32mI (31045) VL53L0X: : Range: 32 mm[0m
+[0;32mI (31285) VL53L0X: : Range: 35 mm[0m
+[0;32mI (31525) VL53L0X: : Range: 31 mm[0m
+[0;32mI (31765) VL53L0X: : Range: 31 mm[0m
+[0;32mI (32005) VL53L0X: : Range: 30 mm[0m
+[0;32mI (32245) VL53L0X: : Range: 31 mm[0m
+[0;32mI (32485) VL53L0X: : Range: 34 mm[0m
+[0;32mI (32725) VL53L0X: : Range: 33 mm[0m
+[0;32mI (32965) VL53L0X: : Range: 34 mm[0m
+[0;32mI (33205) VL53L0X: : Range: 48 mm[0m
+[0;32mI (33325) MOTORS: : stop[0m
+
+[0;33mW (33425) VL53L0X: : vl53_read failed[0m
+[0;33mW (33645) VL53L0X: : vl53_read failed[0m
+[0;33mW (33865) VL53L0X: : vl53_read failed[0m
+[0;33mW (34085) VL53L0X: : vl53_read failed[0m
+[0;32mI (34325) VL53L0X: : Range: 0 mm[0m
+[0;33mW (34565) VL53L0X: : vl53_read failed[0m
+[0;33mW (34805) VL53L0X: : vl53_read failed[0m

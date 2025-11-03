@@ -562,3 +562,8 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("C:/Espressif/frameworks/esp-idf-v5.5.1/embedded_drone/drone/build/esp-idf/main/cmake_install.cmake")
 endif()
 
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("C:/Espressif/frameworks/esp-idf-v5.5.1/embedded_drone/drone/build/esp-idf/ESP32_VL53L0X/cmake_install.cmake")
+endif()
+

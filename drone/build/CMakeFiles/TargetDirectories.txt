@@ -845,3 +845,10 @@ C:/Espressif/frameworks/esp-idf-v5.5.1/embedded_drone/drone/build/esp-idf/main/C
 C:/Espressif/frameworks/esp-idf-v5.5.1/embedded_drone/drone/build/esp-idf/main/CMakeFiles/install.dir
 C:/Espressif/frameworks/esp-idf-v5.5.1/embedded_drone/drone/build/esp-idf/main/CMakeFiles/install/local.dir
 C:/Espressif/frameworks/esp-idf-v5.5.1/embedded_drone/drone/build/esp-idf/main/CMakeFiles/install/strip.dir
+C:/Espressif/frameworks/esp-idf-v5.5.1/embedded_drone/drone/build/esp-idf/ESP32_VL53L0X/CMakeFiles/__idf_ESP32_VL53L0X.dir
+C:/Espressif/frameworks/esp-idf-v5.5.1/embedded_drone/drone/build/esp-idf/ESP32_VL53L0X/CMakeFiles/edit_cache.dir
+C:/Espressif/frameworks/esp-idf-v5.5.1/embedded_drone/drone/build/esp-idf/ESP32_VL53L0X/CMakeFiles/rebuild_cache.dir
+C:/Espressif/frameworks/esp-idf-v5.5.1/embedded_drone/drone/build/esp-idf/ESP32_VL53L0X/CMakeFiles/list_install_components.dir
+C:/Espressif/frameworks/esp-idf-v5.5.1/embedded_drone/drone/build/esp-idf/ESP32_VL53L0X/CMakeFiles/install.dir
+C:/Espressif/frameworks/esp-idf-v5.5.1/embedded_drone/drone/build/esp-idf/ESP32_VL53L0X/CMakeFiles/install/local.dir
+C:/Espressif/frameworks/esp-idf-v5.5.1/embedded_drone/drone/build/esp-idf/ESP32_VL53L0X/CMakeFiles/install/strip.dir

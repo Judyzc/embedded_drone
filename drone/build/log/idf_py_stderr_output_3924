@@ -1,0 +1,11 @@
+Command: cmake -G Ninja -DPYTHON_DEPS_CHECKED=1 -DPYTHON=C:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe -DESP_PLATFORM=1 -DCCACHE_ENABLE=1 C:\Espressif\frameworks\esp-idf-v5.5.1\embedded_drone\drone
+CMake Error at C:/Espressif/frameworks/esp-idf-v5.5.1/tools/cmake/component.cmake:491 (add_library):
+  add_library cannot create target "__idf_VL53L0X" because another target
+  with the same name already exists.  The existing target is a static library
+  created in source directory
+  "C:/Espressif/frameworks/esp-idf-v5.5.1/embedded_drone/drone/components/VL53L0X".
+  See documentation for policy CMP0002 for more details.
+Call Stack (most recent call first):
+  components/VL53L0X/CMakeLists.txt:29 (idf_component_register)
+
+

@@ -1,0 +1,9 @@
+[submodule "drone/components/components/VL53L0X"]
+	path = drone/components/components/VL53L0X
+	url = https://github.com/kerikun11/ESP32_VL53L0X
+[submodule "drone/components/VL53L0X"]
+	path = drone/components/VL53L0X
+	url = https://github.com/kerikun11/ESP32_VL53L0X
+[submodule "drone/components/ESP32_VL53L0X"]
+	path = drone/components/ESP32_VL53L0X
+	url = https://github.com/kerikun11/ESP32_VL53L0X.git
