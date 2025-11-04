@@ -8,4 +8,5 @@ Main System-on-Chip: STM32F405RG
 - RAM: 192 KB SRAM
 
 Our MCU: ESP32-MINI-1-N4
-- 2.412 - 2.484 GHz
+-  CPU: 240 MHz
+-  Radio: 2.412 - 2.484 GHz
