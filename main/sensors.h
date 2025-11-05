@@ -13,6 +13,10 @@ typedef struct gyro_data {
     float Gz_rad_s; 
 } gyro_data_t;
 
+typedef struct tof_data {
+    float distance; 
+} tof_data_t;
+
 /* ------------------------------------------- Constants ------------------------------------------- */
 // I2C Config info
 #define I2C_MASTER_SCL_IO           CONFIG_I2C_MASTER_SCL       /*!< GPIO number used for I2C master clock */
@@ -35,6 +39,9 @@ typedef struct gyro_data {
 #define GYRO_RANGE                  0x0F
 #define GYRO_BANDWIDTH              0x10
 #define GYRO_DATA_START             0x02
+
+#define DECK_TOF_SENSOR_ADDR        0x29                        /* TOF I2C Address */ // 0x52 >> 1 == 0x29
+
 
 // General Constants
 #define GET_RAW_DATA_PRIORITY       6

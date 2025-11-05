@@ -25,9 +25,9 @@
 static const char *TAG = "example";
 
 /* ------------------------------------------- Global Variables  ------------------------------------------- */
-QueueHandle_t xQueue_raw_acc_data, xQueue_raw_gyro_data; 
+QueueHandle_t xQueue_raw_acc_data, xQueue_raw_gyro_data, xQueue_raw_tof_data; 
 i2c_master_bus_handle_t bus_handle;
-i2c_master_dev_handle_t acc_handle, gyro_handle;
+i2c_master_dev_handle_t acc_handle, gyro_handle, tof_handle;
 
 /* ------------------------------------------- Private function definitions  ------------------------------------------- */
 /**
@@ -72,6 +72,14 @@ static void i2c_master_init()
         .scl_speed_hz = I2C_MASTER_FREQ_HZ,
     };
     ESP_ERROR_CHECK(i2c_master_bus_add_device(bus_handle, &gyro_config, &gyro_handle));
+
+    i2c_device_config_t tof_config = {
+        .dev_addr_length = I2C_ADDR_BIT_LEN_7,
+        .device_address = DECK_TOF_SENSOR_ADDR,
+        .scl_speed_hz = I2C_MASTER_FREQ_HZ,
+    };
+    ESP_ERROR_CHECK(i2c_master_bus_add_device(bus_handle, &tof_config, &tof_handle));
+
 }
 
 static esp_err_t IMU_acc_init() 
@@ -98,6 +106,11 @@ static esp_err_t IMU_gyro_init()
     return ESP_OK;
 }
 
+static esp_err_t DECK_tof_init() 
+{
+
+}
+
 void vGetRawDataTask(void *pvParameters) {
     TickType_t xLastWakeTime = xTaskGetTickCount();
     const TickType_t xTimeIncrement = SENS_PERIOD_MS/portTICK_PERIOD_MS;
@@ -107,7 +120,7 @@ void vGetRawDataTask(void *pvParameters) {
         if (!xWasDelayed)
             ESP_LOGE(TAG, "Can't get I2C data this fast");
 
-        uint8_t raw_data[3*2*sizeof(uint8_t)]; 
+        uint8_t raw_data[3*3*sizeof(uint8_t)]; 
         ESP_ERROR_CHECK(register_read(acc_handle, ACC_DATA_START, raw_data, sizeof(raw_data))); 
         // ESP_LOGI(TAG, "Accel raw data: x=%x, y=%x, z=%x", (raw_data[0] | (raw_data[1]<<8)), (raw_data[2] | (raw_data[3]<<8)), (raw_data[4] | (raw_data[5]<<8)));
         if (!xQueueSendToBack(xQueue_raw_acc_data, (void *) raw_data, portMAX_DELAY))
@@ -117,6 +130,18 @@ void vGetRawDataTask(void *pvParameters) {
         // ESP_LOGI(TAG, "Attitude Rate (rad/s): x=%.2f y=%.2f z=%.2f", gyro_data.Gx_rad_s, gyro_data.Gy_rad_s, gyro_data.Gz_rad_s); 
         if (!xQueueSendToBack(xQueue_raw_gyro_data, (void *) raw_data, portMAX_DELAY))
             ESP_LOGE(TAG, "RAW gyro data queue is full"); 
+        
+        // ESP_ERROR_CHECK(register_read(tof_handle, TOF_DATA_START, raw_data, sizeof(raw_data))); 
+        // // ESP_LOGI(TAG, "Attitude Rate (rad/s): x=%.2f y=%.2f z=%.2f", gyro_data.Gx_rad_s, gyro_data.Gy_rad_s, gyro_data.Gz_rad_s); 
+        // if (!xQueueSendToBack(xQueue_raw_tof_data, (void *) raw_data, portMAX_DELAY))
+        //     ESP_LOGE(TAG, "RAW tof data queue is full"); 
+        uint8_t tof_raw[2];
+        if (vl53l1x_read_reg16(VL53L1_RESULT__FINAL_CROSSTALK_CORRECTED_RANGE_MM_SD0, tof_raw, 2) == ESP_OK) {
+            if (!xQueueSendToBack(xQueue_raw_tof_data, (void *) tof_raw, portMAX_DELAY))
+                ESP_LOGE(TAG, "RAW tof data queue is full");
+        } else {
+            ESP_LOGE(TAG, "TOF read failed");
+        }
     }
 }
 
@@ -159,6 +184,18 @@ void vProcessGyroDataTask(void *pvParameters) {
     }
 }
 
+void vProcessTofDataTask(void *pvParameters) {
+    uint8_t raw_data[2];
+    for (;;) {
+        xQueueReceive(xQueue_raw_tof_data, (void *) raw_data, portMAX_DELAY);
+        uint16_t distance_mm = ((uint16_t)raw_data[0] << 8) | raw_data[1];
+        tof_data_t tof_data;
+        tof_data.distance = (float) distance_mm; // mm
+        if (!xQueueSendToBack(xQueue_ToF_data, (void *) &tof_data, portMAX_DELAY))
+            ESP_LOGE(TAG, "TOF data queue is full");
+    }
+}
+
 /* ------------------------------------------- Public Function Definitions  ------------------------------------------- */
 void sensors_init(){
     // Start I2C
@@ -171,14 +208,21 @@ void sensors_init(){
     ESP_ERROR_CHECK(IMU_gyro_init()); 
     ESP_LOGI(TAG, "IMU initialized successfully"); 
 
+    // Initialize TOF (deck)
+    ESP_ERROR_CHECK(DECK_tof_init()); 
+    ESP_LOGI(TAG, "Time of Flight initialized successfully"); 
+
     // Initialize internal queues
     xQueue_raw_acc_data = xQueueCreate(1, 6*sizeof(uint8_t)); 
     xQueue_raw_gyro_data = xQueueCreate(1, 6*sizeof(uint8_t));
+    xQueue_raw_tof_data = xQueueCreate(1, 6*sizeof(uint8_t)); // not sure if 6* is needed ? 
     
     // Start Tasks
     xTaskCreate(vGetRawDataTask, "Get Raw Data", 4096, NULL, GET_RAW_DATA_PRIORITY, NULL);
     xTaskCreate(vProcessAccDataTask, "Acc Data Processing", 4096, NULL, DATA_PROC_PRIORITY, NULL);
     xTaskCreate(vProcessGyroDataTask, "Gyro Data Processing", 4096, NULL, DATA_PROC_PRIORITY, NULL);
+    xTaskCreate(vProcessTofDataTask, "TOF Data Processing", 4096, NULL, DATA_PROC_PRIORITY, NULL);
+    xTaskCreate(vProcess)
 
     // ESP_ERROR_CHECK(i2c_master_bus_rm_device(imu_handle));
     // ESP_ERROR_CHECK(i2c_master_bus_rm_device(gyro_handle));
