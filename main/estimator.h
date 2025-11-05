@@ -6,8 +6,10 @@
 /* ------------------------------------------- Structs ------------------------------------------- */
 typedef struct state_data {
     float pitch_rad; 
+    float pitch_rate_rad_s; 
     float roll_rad; 
-    float yaw_rad; 
+    float roll_rate_rad_s; 
+    float yaw_rate_rad_s; 
     float altitude_m; 
 } state_data_t;
 

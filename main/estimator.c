@@ -36,9 +36,20 @@ void vUpdateEstimatorTask(void *pvParameters) {
             roll_rad -= 2.0*M_PI; 
         roll_rad *= -1.0; 
 
-        float pitch_deg = CompRadiansToDegrees(pitch_rad); 
-        float roll_deg = CompRadiansToDegrees(roll_rad);
-        ESP_LOGI(TAG, "Attitude (deg): Pitch=%.1f Roll=%.1f", pitch_deg, roll_deg);
+        state_data_t state_data = {
+            .pitch_rad = pitch_rad, 
+            .pitch_rate_rad_s = gyro_data.Gx_rad_s,
+            .roll_rad = roll_rad, 
+            .roll_rate_rad_s = gyro_data.Gy_rad_s, 
+            .yaw_rate_rad_s = 0,                            // Placeholder
+            .altitude_m = 0,                                // Placeholder
+        };
+        if (!xQueueSendToBack(xQueue_state_data, (void *) &state_data, portMAX_DELAY))
+            ESP_LOGE(TAG, "State data queue is full"); 
+
+        // float pitch_deg = CompRadiansToDegrees(pitch_rad); 
+        // float roll_deg = CompRadiansToDegrees(roll_rad);
+        // ESP_LOGI(TAG, "Attitude (deg): Pitch=%.1f Roll=%.1f", pitch_deg, roll_deg);
     } 
 }
 
