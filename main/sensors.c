@@ -106,6 +106,7 @@ void vGetRawDataTask(void *pvParameters) {
         xWasDelayed = xTaskDelayUntil( &xLastWakeTime, xTimeIncrement);
         if (!xWasDelayed)
             ESP_LOGE(TAG, "Can't get I2C data this fast");
+        start_tick = xLastWakeTime; 
 
         uint8_t raw_data[3*2*sizeof(uint8_t)]; 
         ESP_ERROR_CHECK(register_read(acc_handle, ACC_DATA_START, raw_data, sizeof(raw_data))); 

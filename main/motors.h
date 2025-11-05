@@ -28,8 +28,6 @@ typedef struct motor_cmds {
 #define PWM_FREQUENCY_HZ            (4000) // Frequency in Hertz. Set frequency at 4 kHz
 #define MAX_PWM_DUTY                ((int) pow(2.0, PWM_DUTY_RES))-1
 
-#define DUTY_CYCLE_PCT_2_VAL(pct)   pct>0.0? (int) (100.0*pct*((float) MAX_PWM_DUTY)) : 0  // Convert a duty cyle in percent to its corresponding integer value
-
 /* ------------------------------------------- Public Function Definitions ------------------------------------------- */
 void motors_init(void); 
 void update_pwm(motor_cmds_t motor_cmds);

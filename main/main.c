@@ -16,6 +16,7 @@ static const char *TAG = "main";
 /* ------------------------------------------- Global Variables  ------------------------------------------- */
 // Initialize global variables across files
 QueueHandle_t xQueue_acc_data, xQueue_gyro_data, xQueue_ToF_data, xQueue_state_data; 
+TickType_t start_tick = 0, end_tick = 0; 
 
 /* ------------------------------------------- Public Function Definitions  ------------------------------------------- */
 void app_main(void) {

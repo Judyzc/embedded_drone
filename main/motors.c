@@ -15,6 +15,14 @@
 
 static const char *TAG = "motors";
 
+/* ------------------------------------------- Private Function Definitions  ------------------------------------------- */
+static int duty_cycle_pct_2_value(float duty_cycle_pct) {
+    if (duty_cycle_pct < 0.0) 
+        return 0; 
+    float val = duty_cycle_pct/100.0*((float) MAX_PWM_DUTY); 
+    return (int) val; 
+}
+
 /* ------------------------------------------- Public Function Definitions  ------------------------------------------- */
 void motors_init(void) {
     // Prepare and then apply the LEDC PWM timer configuration
@@ -74,15 +82,15 @@ void motors_init(void) {
 }
 
 void update_pwm(motor_cmds_t motor_cmds) {
-    ESP_ERROR_CHECK(ledc_set_duty(PWM_MODE, MOTOR_1_CHANNEL, DUTY_CYCLE_PCT_2_VAL(motor_cmds.motor1_duty_cycle_pct)));
+    ESP_ERROR_CHECK(ledc_set_duty(PWM_MODE, MOTOR_1_CHANNEL, duty_cycle_pct_2_value(motor_cmds.motor1_duty_cycle_pct)));
     ESP_ERROR_CHECK(ledc_update_duty(PWM_MODE, MOTOR_1_CHANNEL));
     
-    ESP_ERROR_CHECK(ledc_set_duty(PWM_MODE, MOTOR_2_CHANNEL, DUTY_CYCLE_PCT_2_VAL(motor_cmds.motor2_duty_cycle_pct)));
+    ESP_ERROR_CHECK(ledc_set_duty(PWM_MODE, MOTOR_2_CHANNEL, duty_cycle_pct_2_value(motor_cmds.motor2_duty_cycle_pct)));
     ESP_ERROR_CHECK(ledc_update_duty(PWM_MODE, MOTOR_2_CHANNEL));
     
-    ESP_ERROR_CHECK(ledc_set_duty(PWM_MODE, MOTOR_3_CHANNEL, DUTY_CYCLE_PCT_2_VAL(motor_cmds.motor3_duty_cycle_pct)));
+    ESP_ERROR_CHECK(ledc_set_duty(PWM_MODE, MOTOR_3_CHANNEL, duty_cycle_pct_2_value(motor_cmds.motor3_duty_cycle_pct)));
     ESP_ERROR_CHECK(ledc_update_duty(PWM_MODE, MOTOR_3_CHANNEL));
     
-    ESP_ERROR_CHECK(ledc_set_duty(PWM_MODE, MOTOR_4_CHANNEL, DUTY_CYCLE_PCT_2_VAL(motor_cmds.motor4_duty_cycle_pct)));
+    ESP_ERROR_CHECK(ledc_set_duty(PWM_MODE, MOTOR_4_CHANNEL, duty_cycle_pct_2_value(motor_cmds.motor4_duty_cycle_pct)));
     ESP_ERROR_CHECK(ledc_update_duty(PWM_MODE, MOTOR_4_CHANNEL));
 }

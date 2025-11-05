@@ -17,8 +17,7 @@
 
 static const char *TAG = "controllers";
 /* ------------------------------------------- Global Variables ------------------------------------------- */
-pid_ctrl_block_handle_t pitch_pid_handle;
-pid_ctrl_block_handle_t pitch_pid_rate_handle;
+pid_ctrl_block_handle_t pitch_pid_handle, pitch_rate_pid_handle, roll_pid_handle, roll_rate_pid_handle;
 
 bool EMERG_STOP = false; 
 
@@ -30,47 +29,85 @@ static float torque_2_force(float torque_Nm) {
 
 // Placeholder
 static float force_2_duty_cycle(float force_N) {
-    return force_N*100.0; 
+    float duty_cycle = force_N*100.0; 
+    if (duty_cycle > 25.0) {
+        duty_cycle = 25.0; 
+    } else if (duty_cycle < -25.0) {
+        duty_cycle = -25.0; 
+    }
+    return duty_cycle; 
+}
+
+static motor_cmds_t sum_motor_cmds(float pitch_torque_cmd_Nm, float roll_torque_cmd_Nm) {
+    float pitch_force_cmd_N = torque_2_force(pitch_torque_cmd_Nm); 
+    float roll_force_cmd_N = torque_2_force(roll_torque_cmd_Nm); 
+
+    // pitch and roll
+    motor_cmds_t motor_cmds = {
+        .motor1_duty_cycle_pct = force_2_duty_cycle(pitch_force_cmd_N + roll_force_cmd_N),
+        .motor2_duty_cycle_pct = force_2_duty_cycle(pitch_force_cmd_N - roll_force_cmd_N),
+        .motor3_duty_cycle_pct = force_2_duty_cycle(-1.0*pitch_force_cmd_N - roll_force_cmd_N),
+        .motor4_duty_cycle_pct = force_2_duty_cycle(-1.0*pitch_force_cmd_N + roll_force_cmd_N),
+    };
+
+    // just pitch
+    // motor_cmds_t motor_cmds = {
+    //     .motor1_duty_cycle_pct = force_2_duty_cycle(pitch_force_cmd_N),
+    //     .motor2_duty_cycle_pct = force_2_duty_cycle(pitch_force_cmd_N),
+    //     .motor3_duty_cycle_pct = force_2_duty_cycle(-1.0*pitch_force_cmd_N),
+    //     .motor4_duty_cycle_pct = force_2_duty_cycle(-1.0*pitch_force_cmd_N),
+    // }; 
+
+    // just roll
+    // motor_cmds_t motor_cmds = {
+    //     .motor1_duty_cycle_pct = force_2_duty_cycle(roll_force_cmd_N),
+    //     .motor2_duty_cycle_pct = force_2_duty_cycle(-1.0*roll_force_cmd_N),
+    //     .motor3_duty_cycle_pct = force_2_duty_cycle(-1.0*roll_force_cmd_N),
+    //     .motor4_duty_cycle_pct = force_2_duty_cycle(roll_force_cmd_N),
+    // };
+
+    return motor_cmds; 
 }
 
 void vUpdatePIDTask(void *pvParameters) {
     state_data_t state_data; 
     for (;;) {
+        // Check for unstable flight -> kill motors
+        if (state_data.pitch_rad > M_PI/4.0 || state_data.pitch_rad < -M_PI/4.0 || state_data.roll_rad > M_PI/4.0 || state_data.roll_rad < -M_PI/4.0) {
+            ESP_LOGI(TAG, "stopping"); 
+            EMERG_STOP = true; 
+        }
+
+        // Pitch cascaded PIDs
         xQueueReceive(xQueue_state_data, (void *) &state_data, portMAX_DELAY); 
         float pitch_error_rad = 0.0 - state_data.pitch_rad; 
         float desired_pitch_rate_rad_s; 
         pid_compute(pitch_pid_handle, pitch_error_rad, &desired_pitch_rate_rad_s);
         
         float pitch_rate_error = desired_pitch_rate_rad_s - state_data.pitch_rate_rad_s; 
-        float pitch_torque_cmd_N_m; 
-        pid_compute(pitch_pid_rate_handle, pitch_rate_error, &pitch_torque_cmd_N_m); 
+        float pitch_torque_cmd_Nm; 
+        pid_compute(pitch_rate_pid_handle, pitch_rate_error, &pitch_torque_cmd_Nm); 
+        
+        // Roll cascaded PIDs 
+        float roll_error_rad = 0.0 - state_data.roll_rad; 
+        float desired_roll_rate_rad_s; 
+        pid_compute(roll_pid_handle, roll_error_rad, &desired_roll_rate_rad_s);
+     
+        float roll_rate_error = desired_roll_rate_rad_s - state_data.roll_rate_rad_s; 
+        float roll_torque_cmd_Nm; 
+        pid_compute(roll_rate_pid_handle, roll_rate_error, &roll_torque_cmd_Nm); 
 
-        float pitch_force_cmd_N = torque_2_force(pitch_torque_cmd_N_m); 
-        float pitch_cmd_duty_cycle_pct = force_2_duty_cycle(pitch_force_cmd_N);
-
-        if (state_data.pitch_rad > M_PI/4.0 || state_data.pitch_rad < -M_PI/4.0 || state_data.roll_rad > M_PI/4.0 || state_data.roll_rad < -M_PI/4.0) {
-            ESP_LOGI(TAG, "stopping"); 
-            EMERG_STOP = true; 
-        }
-
+        motor_cmds_t motor_cmds = sum_motor_cmds(pitch_torque_cmd_Nm, roll_torque_cmd_Nm); 
         if (EMERG_STOP) {
-            pitch_cmd_duty_cycle_pct = 0; 
+            motor_cmds.motor1_duty_cycle_pct = 0; 
+            motor_cmds.motor2_duty_cycle_pct = 0; 
+            motor_cmds.motor3_duty_cycle_pct = 0; 
+            motor_cmds.motor4_duty_cycle_pct = 0;  
         }
 
-        if (pitch_cmd_duty_cycle_pct > 50.0) {
-            pitch_cmd_duty_cycle_pct = 50.0; 
-        } else if (pitch_cmd_duty_cycle_pct < -50.0) {
-            pitch_cmd_duty_cycle_pct = -50.0; 
-        }
-
-        motor_cmds_t motor_cmds = {
-            .motor1_duty_cycle_pct = pitch_cmd_duty_cycle_pct,
-            .motor2_duty_cycle_pct = pitch_cmd_duty_cycle_pct,
-            .motor3_duty_cycle_pct = -1.0*pitch_cmd_duty_cycle_pct,
-            .motor4_duty_cycle_pct = -1.0*pitch_cmd_duty_cycle_pct,
-        };
-
-        update_pwm(motor_cmds); 
+        update_pwm(motor_cmds);
+        end_tick = xTaskGetTickCount(); 
+        ESP_LOGI(TAG, "Sensor to Motor Time: %d ticks", end_tick - start_tick);  
     }
 }
 
@@ -92,7 +129,7 @@ void controllers_init(void) {
     };
     ESP_ERROR_CHECK(pid_new_control_block(&pitch_pid_config, &pitch_pid_handle));
 
-    pid_ctrl_parameter_t pitch_pid_rate_runtime_param = {
+    pid_ctrl_parameter_t pitch_rate_pid_runtime_param = {
         .kp = 1.0,
         .ki = 1.0,
         .kd = 1.0,
@@ -102,10 +139,40 @@ void controllers_init(void) {
         .max_integral = 1.0,
         .min_integral = -1.0,
     };
-    pid_ctrl_config_t pitch_pid_rate_config = {
-        .init_param = pitch_pid_rate_runtime_param,
+    pid_ctrl_config_t pitch_rate_pid_config = {
+        .init_param = pitch_rate_pid_runtime_param,
     };
-    ESP_ERROR_CHECK(pid_new_control_block(&pitch_pid_rate_config, &pitch_pid_rate_handle));
+    ESP_ERROR_CHECK(pid_new_control_block(&pitch_rate_pid_config, &pitch_rate_pid_handle));
+    
+    pid_ctrl_parameter_t roll_pid_runtime_param = {
+        .kp = 1.0,
+        .ki = 1.0,
+        .kd = 1.0,
+        .cal_type = PID_CAL_TYPE_POSITIONAL,
+        .max_output   = 1.0,
+        .min_output   = -1.0,
+        .max_integral = 1.0,
+        .min_integral = -1.0,
+    };
+    pid_ctrl_config_t roll_pid_config = {
+        .init_param = roll_pid_runtime_param,
+    };
+    ESP_ERROR_CHECK(pid_new_control_block(&roll_pid_config, &roll_pid_handle));
+
+    pid_ctrl_parameter_t roll_rate_pid_runtime_param = {
+        .kp = 1.0,
+        .ki = 1.0,
+        .kd = 1.0,
+        .cal_type = PID_CAL_TYPE_POSITIONAL,
+        .max_output   = 1.0,
+        .min_output   = -1.0,
+        .max_integral = 1.0,
+        .min_integral = -1.0,
+    };
+    pid_ctrl_config_t roll_rate_pid_config = {
+        .init_param = roll_rate_pid_runtime_param,
+    };
+    ESP_ERROR_CHECK(pid_new_control_block(&roll_rate_pid_config, &roll_rate_pid_handle));
 
     // Start PID update task
     xTaskCreate(vUpdatePIDTask, "Cascaded PID", 4096, NULL, ESTIMATOR_PRIORITY, NULL);
