@@ -14,6 +14,7 @@
 #include "sdkconfig.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "freertos/queue.h"
 #include "esp_log.h"
 #include "driver/i2c_master.h"
 
@@ -175,7 +176,7 @@ void sensors_init(){
     xQueue_raw_gyro_data = xQueueCreate(1, 6*sizeof(uint8_t));
     
     // Start Tasks
-    xTaskCreate(vGetRawDataTask, "Get raw data", 4096, NULL, GET_RAW_DATA_PRIORITY, NULL);
+    xTaskCreate(vGetRawDataTask, "Get Raw Data", 4096, NULL, GET_RAW_DATA_PRIORITY, NULL);
     xTaskCreate(vProcessAccDataTask, "Acc Data Processing", 4096, NULL, DATA_PROC_PRIORITY, NULL);
     xTaskCreate(vProcessGyroDataTask, "Gyro Data Processing", 4096, NULL, DATA_PROC_PRIORITY, NULL);
 

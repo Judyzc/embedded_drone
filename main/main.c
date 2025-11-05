@@ -4,26 +4,32 @@
 #include "freertos/task.h"
 #include "freertos/queue.h"
 #include "esp_log.h"
-#include "driver/i2c_master.h"
 
 #include "sensors.h"
 #include "six_axis_comp_filter.h"
 #include "estimator.h"
+#include "controllers.h"
+#include "motors.h"
 
 static const char *TAG = "main";
 
+/* ------------------------------------------- Global Variables  ------------------------------------------- */
 // Initialize global variables across files
-QueueHandle_t xQueue_acc_data, xQueue_gyro_data, xQueue_state_data, xQueue_ToF_data; 
+QueueHandle_t xQueue_acc_data, xQueue_gyro_data, xQueue_ToF_data, xQueue_state_data; 
 
+/* ------------------------------------------- Public Function Definitions  ------------------------------------------- */
 void app_main(void) {
     xQueue_acc_data = xQueueCreate(1, sizeof(acc_data_t)); 
     xQueue_gyro_data = xQueueCreate(1, sizeof(gyro_data_t)); 
+    xQueue_state_data = xQueueCreate(1, sizeof(state_data_t)); 
     
     sensors_init(); 
     estimator_init(); 
+    controllers_init();
+    motors_init(); 
 
     while (1) {
-        vTaskDelay(2); 
+        vTaskDelay(2);      // Prevent watchdog from timing out
     }
 
     ESP_LOGE(TAG, "Exited main loop"); 

@@ -1,6 +1,19 @@
 #ifndef SENSORS_H
 #define SENSORS_H
+/* ------------------------------------------- Structs ------------------------------------------- */
+typedef struct acc_data {
+    float ax_m_s2; 
+    float ay_m_s2; 
+    float az_m_s2; 
+} acc_data_t;
 
+typedef struct gyro_data {
+    float Gx_rad_s; 
+    float Gy_rad_s; 
+    float Gz_rad_s; 
+} gyro_data_t;
+
+/* ------------------------------------------- Constants ------------------------------------------- */
 // I2C Config info
 #define I2C_MASTER_SCL_IO           CONFIG_I2C_MASTER_SCL       /*!< GPIO number used for I2C master clock */
 #define I2C_MASTER_SDA_IO           CONFIG_I2C_MASTER_SDA       /*!< GPIO number used for I2C master data  */
@@ -23,26 +36,14 @@
 #define GYRO_BANDWIDTH              0x10
 #define GYRO_DATA_START             0x02
 
-// Constants
+// General Constants
 #define GET_RAW_DATA_PRIORITY       6
 #define DATA_PROC_PRIORITY          5
 #define SENS_PERIOD_MS              10                          /* Sensor polling rate */
 #define NUM_SENS                    2
 
-// Structs 
-typedef struct acc_data {
-    float ax_m_s2; 
-    float ay_m_s2; 
-    float az_m_s2; 
-} acc_data_t;
 
-typedef struct gyro_data {
-    float Gx_rad_s; 
-    float Gy_rad_s; 
-    float Gz_rad_s; 
-} gyro_data_t;
-
-// Public Functions
+/* ------------------------------------------- Public Function Declarations ------------------------------------------- */
 void sensors_init(void);
 
 #endif /* SENSORS_H */
