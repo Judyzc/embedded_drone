@@ -19,6 +19,7 @@ QueueHandle_t xQueue_acc_data, xQueue_gyro_data, xQueue_ToF_data, xQueue_state_d
 
 /* ------------------------------------------- Public Function Definitions  ------------------------------------------- */
 void app_main(void) {
+    vTaskDelay(5000 / portTICK_PERIOD_MS); // Time bomb
     xQueue_acc_data = xQueueCreate(1, sizeof(acc_data_t)); 
     xQueue_gyro_data = xQueueCreate(1, sizeof(gyro_data_t)); 
     xQueue_state_data = xQueueCreate(1, sizeof(state_data_t)); 

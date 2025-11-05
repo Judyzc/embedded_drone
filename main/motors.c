@@ -83,6 +83,6 @@ void update_pwm(motor_cmds_t motor_cmds) {
     ESP_ERROR_CHECK(ledc_set_duty(PWM_MODE, MOTOR_3_CHANNEL, DUTY_CYCLE_PCT_2_VAL(motor_cmds.motor3_duty_cycle_pct)));
     ESP_ERROR_CHECK(ledc_update_duty(PWM_MODE, MOTOR_3_CHANNEL));
     
-    ESP_ERROR_CHECK(ledc_set_duty(PWM_MODE, MOTOR_3_CHANNEL, DUTY_CYCLE_PCT_2_VAL(motor_cmds.motor4_duty_cycle_pct)));
-    ESP_ERROR_CHECK(ledc_update_duty(PWM_MODE, MOTOR_3_CHANNEL));
+    ESP_ERROR_CHECK(ledc_set_duty(PWM_MODE, MOTOR_4_CHANNEL, DUTY_CYCLE_PCT_2_VAL(motor_cmds.motor4_duty_cycle_pct)));
+    ESP_ERROR_CHECK(ledc_update_duty(PWM_MODE, MOTOR_4_CHANNEL));
 }

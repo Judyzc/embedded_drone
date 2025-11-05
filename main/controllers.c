@@ -6,17 +6,21 @@
 #include "driver/ledc.h"
 
 #include "pid_ctrl.h"
+#include "math.h"
 
 #include "main.h"
 #include "sensors.h"
 #include "six_axis_comp_filter.h"
 #include "estimator.h"
 #include "controllers.h"
+#include "motors.h"
 
 static const char *TAG = "controllers";
 /* ------------------------------------------- Global Variables ------------------------------------------- */
 pid_ctrl_block_handle_t pitch_pid_handle;
 pid_ctrl_block_handle_t pitch_pid_rate_handle;
+
+bool EMERG_STOP = false; 
 
 /* ------------------------------------------- Private Function Definitions ------------------------------------------- */
 // Placeholder
@@ -42,7 +46,31 @@ void vUpdatePIDTask(void *pvParameters) {
         pid_compute(pitch_pid_rate_handle, pitch_rate_error, &pitch_torque_cmd_N_m); 
 
         float pitch_force_cmd_N = torque_2_force(pitch_torque_cmd_N_m); 
-        float pitch_cmd_duty_cycle_pct = force_2_duty_cycle(pitch_force_cmd_N); 
+        float pitch_cmd_duty_cycle_pct = force_2_duty_cycle(pitch_force_cmd_N);
+
+        if (state_data.pitch_rad > M_PI/4.0 || state_data.pitch_rad < -M_PI/4.0 || state_data.roll_rad > M_PI/4.0 || state_data.roll_rad < -M_PI/4.0) {
+            ESP_LOGI(TAG, "stopping"); 
+            EMERG_STOP = true; 
+        }
+
+        if (EMERG_STOP) {
+            pitch_cmd_duty_cycle_pct = 0; 
+        }
+
+        if (pitch_cmd_duty_cycle_pct > 50.0) {
+            pitch_cmd_duty_cycle_pct = 50.0; 
+        } else if (pitch_cmd_duty_cycle_pct < -50.0) {
+            pitch_cmd_duty_cycle_pct = -50.0; 
+        }
+
+        motor_cmds_t motor_cmds = {
+            .motor1_duty_cycle_pct = pitch_cmd_duty_cycle_pct,
+            .motor2_duty_cycle_pct = pitch_cmd_duty_cycle_pct,
+            .motor3_duty_cycle_pct = -1.0*pitch_cmd_duty_cycle_pct,
+            .motor4_duty_cycle_pct = -1.0*pitch_cmd_duty_cycle_pct,
+        };
+
+        update_pwm(motor_cmds); 
     }
 }
 
@@ -77,7 +105,7 @@ void controllers_init(void) {
     pid_ctrl_config_t pitch_pid_rate_config = {
         .init_param = pitch_pid_rate_runtime_param,
     };
-    ESP_ERROR_CHECK(pid_new_control_block(&pitch_pid_config, &pitch_pid_rate_handle));
+    ESP_ERROR_CHECK(pid_new_control_block(&pitch_pid_rate_config, &pitch_pid_rate_handle));
 
     // Start PID update task
     xTaskCreate(vUpdatePIDTask, "Cascaded PID", 4096, NULL, ESTIMATOR_PRIORITY, NULL);
