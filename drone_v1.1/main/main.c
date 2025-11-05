@@ -25,7 +25,7 @@
 #define PIN_CTRL_TOGGLE 5   
 
 #define SAMPLE_HZ 50
-#define SAMPLE_PERIOD_MS (1000 / SAMPLE_HZ) // 50 ms sample period
+#define SAMPLE_PERIOD_MS (1000 / SAMPLE_HZ) // 10 ms sample period
 
 #define QUEUE_LEN 1
 
@@ -56,7 +56,7 @@ static void imu_task(void *arg) {
         // publish latest sample (single-slot queue)
         xQueueOverwrite(imu_q, &sample);
 
-        esp_rom_delay_us(10000); // delay 10 ms
+        // esp_rom_delay_us(10000); // delay 10 ms
         
         gpio_set_level(PIN_IMU_TOGGLE, 0);
     }
@@ -123,39 +123,39 @@ static void filter_task(void *arg) {
         gpio_set_level(PIN_FILTER_TOGGLE, 1);
 
         // Try to read latest samples (non-blocking)
-        // if (xQueuePeek(imu_q, &imu_s, 0) == pdFALSE) {
-        //     // no imu sample - skip update
-        //     gpio_set_level(PIN_FILTER_TOGGLE, 0);
-        //     continue;
-        // }
+        if (xQueuePeek(imu_q, &imu_s, 0) == pdFALSE) {
+            // no imu sample - skip update
+            gpio_set_level(PIN_FILTER_TOGGLE, 0);
+            continue;
+        }
 
-        // xQueuePeek(tof_q, &tof_s, 0);
+        xQueuePeek(tof_q, &tof_s, 0);
 
         xQueuePeek(baro_q, &baro_s, 0);
 
         ESP_LOGI(TAG, "BMP altitude=%.2f, time=%d", baro_s.asl, (baro_s.timestamp / 1000));
 
         // update complementary filter
-        // cf_update(&estimated_state, &imu_s, &tof_s);
+        cf_update(&estimated_state, &imu_s, &tof_s);
 
         // altitude fusion: simple low-pass on ToF
-        // if (tof_s.distance_mm > 0.0f) {
-        //     if (altitude_mm == 0.0f) altitude_mm = tof_s.distance_mm;
-        //     altitude_mm = alt_alpha * altitude_mm + (1.0f - alt_alpha) * tof_s.distance_mm;
-        // }
+        if (tof_s.distance_mm > 0.0f) {
+            if (altitude_mm == 0.0f) altitude_mm = tof_s.distance_mm;
+            altitude_mm = alt_alpha * altitude_mm + (1.0f - alt_alpha) * tof_s.distance_mm;
+        }
 
         // publish attitude
-        // attitude_t att = {
-        //     .timestamp = get_time(),
-        //     .roll = estimated_state.roll,
-        //     .pitch = estimated_state.pitch,
-        //     .yaw = estimated_state.yaw,
-        //     .altitude_mm = altitude_mm
-        // };
+        attitude_t att = {
+            .timestamp = get_time(),
+            .roll = estimated_state.roll,
+            .pitch = estimated_state.pitch,
+            .yaw = estimated_state.yaw,
+            .altitude_mm = altitude_mm
+        };
 
-        // xQueueOverwrite(attitude_q, &att);
+        xQueueOverwrite(attitude_q, &att);
 
-        // ESP_LOGI(TAG, "att: roll=%.2f pitch=%.2f altitude=%.1f", att.roll, att.pitch, att.altitude_mm);
+        ESP_LOGI(TAG, "att: roll=%.2f pitch=%.2f altitude=%.1f", att.roll, att.pitch, att.altitude_mm);
 
         gpio_set_level(PIN_FILTER_TOGGLE, 0);
     }
@@ -179,7 +179,7 @@ static void controller_task(void *arg) {
             ESP_LOGI(TAG, "controller saw att: r=%.2f p=%.2f alt=%.1f", att.roll, att.pitch, att.altitude_mm);
         }
 
-        esp_rom_delay_us(10000);
+        // esp_rom_delay_us(10000);
 
         gpio_set_level(PIN_CTRL_TOGGLE, 0);
     }
@@ -217,13 +217,13 @@ void app_main(void)
     }
 
     // core 0
-    // xTaskCreatePinnedToCore(imu_task, "imu_task", 4096, NULL, 4, NULL, 0);
+    xTaskCreatePinnedToCore(imu_task, "imu_task", 4096, NULL, 4, NULL, 0);
     xTaskCreatePinnedToCore(baro_task, "baro_task", 4096, NULL, 3, NULL, 0);
-    // xTaskCreatePinnedToCore(tof_task, "tof_task", 4096, NULL, 2, NULL, 0);
+    xTaskCreatePinnedToCore(tof_task, "tof_task", 4096, NULL, 2, NULL, 0);
 
     // core 1
     xTaskCreatePinnedToCore(filter_task, "filter_task", 4096, NULL, 3, NULL, 1);
-    // xTaskCreatePinnedToCore(controller_task, "controller_task", 4096, NULL, 4, NULL, 1);
+    xTaskCreatePinnedToCore(controller_task, "controller_task", 4096, NULL, 4, NULL, 1);
 
     ESP_LOGI(TAG, "Tasks started");
 }
