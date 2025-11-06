@@ -12,8 +12,10 @@
 #include "freertos/task.h"
 
 #include "VL53L1X_error_codes.h"
-#include "vl53l1_platform.h" /* your platform header */
+#include "vl53l1_platform.h"
 
+
+/*Pass in bus and tof handle from sensors.c */
 extern i2c_master_bus_handle_t bus_handle;
 extern i2c_master_dev_handle_t tof_handle;
 
@@ -29,8 +31,6 @@ static inline VL53L1_Error i2c_write_prefixed(i2c_master_dev_handle_t dev, uint1
     tx[0] = (uint8_t)((index >> 8) & 0xFF);
     tx[1] = (uint8_t)(index & 0xFF);
     if (len && buf) memcpy(&tx[2], buf, len);
-
-    /* Use pdMS_TO_TICKS to convert ms -> ticks (works portably) */
     TickType_t timeout_ticks = pdMS_TO_TICKS(I2C_MASTER_TIMEOUT_MS);
     esp_err_t err = i2c_master_transmit(dev, tx, tx_len, timeout_ticks);
     free(tx);

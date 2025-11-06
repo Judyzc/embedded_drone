@@ -2,7 +2,7 @@
 #define VL53L1_PLATFORM_H
 
 #include <stdint.h>
-#include "VL53L1X_error_codes.h"  // from the core (defines VL53L1_Error)
+#include "VL53L1X_error_codes.h"
 
 #ifdef __cplusplus
 extern "C" {

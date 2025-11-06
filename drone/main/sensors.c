@@ -61,15 +61,12 @@ static esp_err_t DECK_tof_init(void)
         ESP_LOGE(TAG, "bus_handle NULL");
         return ESP_FAIL;
     }
-
     // We'll try two candidate addresses: 7-bit 0x29 and 8-bit 0x52 (0x29<<1)
     uint16_t candidates[] = { 0x29, (uint16_t)(0x29 << 1) };
     const int nc = sizeof(candidates) / sizeof(candidates[0]);
-
     for (int i = 0; i < nc; ++i) {
         uint16_t cand = candidates[i];
         ESP_LOGI(TAG, "Attempting VL53 init with addr 0x%02X", cand);
-
         // If you use the library API that expects 7-bit addresses, pass cand as-is.
         // If API expects 8-bit address, the second candidate will work.
         if (VL53L1X_SensorInit(cand) == VL53L1_ERROR_NONE) {
@@ -85,10 +82,8 @@ static esp_err_t DECK_tof_init(void)
         } else {
             ESP_LOGW(TAG, "SensorInit failed at 0x%02X", cand);
         }
-
         vTaskDelay(pdMS_TO_TICKS(50)); // small pause between tries
     }
-
     ESP_LOGE(TAG, "VL53 init failed on all candidate addresses");
     return ESP_FAIL;
 }
@@ -98,29 +93,21 @@ void vProcessTofDataTask(void *pvParameters) {
     (void)pvParameters;
     VL53L1X_Result_t result;
     uint16_t distance_mm;
-
-    // Log the queue handle at task start (helps debugging)
     ESP_LOGI(TAG, "vProcessTofDataTask started, queue handle=%p, tof_i2c_addr=0x%02X", (void*)xQueue_raw_tof_data, (unsigned)tof_i2c_addr);
-
     for (;;) {
-        // If queue isn't ready, log and wait a bit
         if (xQueue_raw_tof_data == NULL) {
             ESP_LOGW(TAG, "TOF queue not created yet; delaying");
             vTaskDelay(pdMS_TO_TICKS(50));
             continue;
         }
-
-        // Use the working address set during init
         uint16_t dev = (uint16_t) tof_i2c_addr;
         if (dev == 0) {
             // Not initialized yet
             vTaskDelay(pdMS_TO_TICKS(50));
             continue;
         }
-
         if (VL53L1X_GetResult(dev, &result) == VL53L1_ERROR_NONE) {
             distance_mm = (uint16_t) result.Distance;
-
             // Defensive: check queue handle again before sending
             if (xQueue_raw_tof_data != NULL) {
                 BaseType_t ok = xQueueSendToBack(xQueue_raw_tof_data, &distance_mm, pdMS_TO_TICKS(10));
@@ -151,10 +138,9 @@ static void vConsumeTofTask(void *pv) {
 /* ------------------------------------------- Public Function Definitions  ------------------------------------------- */
 void sensors_init(){
     // Start I2C
-    vTaskDelay(1 / portTICK_PERIOD_MS);         // IMU requires 1ms pause after power-on
+    vTaskDelay(1 / portTICK_PERIOD_MS); // IMU requires 1ms pause after power-on
     i2c_master_init();
     ESP_LOGI(TAG, "I2C initialized successfully");
-    // xTaskCreate(i2c_scanner_task, "i2c_scan", 4096, NULL, 5, NULL);
 
     // Initialize TOF (deck)
     ESP_ERROR_CHECK(DECK_tof_init()); 
@@ -167,8 +153,6 @@ void sensors_init(){
     // // xTaskCreate(vGetRawDataTask, "Get Raw Data", 4096, NULL, GET_RAW_DATA_PRIORITY, NULL);
     xTaskCreate(vProcessTofDataTask, "TOF Data Processing", 4096, NULL, DATA_PROC_PRIORITY, NULL);
     xTaskCreate(vConsumeTofTask, "TOF Consumer", 4096, NULL, 5, NULL);
-
-    // xTaskCreate(vProcess) // what is this
 
     // ESP_ERROR_CHECK(i2c_master_bus_rm_device(imu_handle));
     // ESP_ERROR_CHECK(i2c_master_bus_rm_device(gyro_handle));
