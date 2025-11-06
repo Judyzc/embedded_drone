@@ -99,6 +99,8 @@ static esp_err_t IMU_gyro_init()
 }
 
 void vGetRawDataTask(void *pvParameters) {
+    vTaskDelay(10/portTICK_PERIOD_MS);               // Wait for all tasks/components to finish initializing
+    ESP_LOGI(TAG, "Beginning control loop"); 
     TickType_t xLastWakeTime = xTaskGetTickCount();
     const TickType_t xTimeIncrement = SENS_PERIOD_MS/portTICK_PERIOD_MS;
     BaseType_t xWasDelayed;
@@ -169,8 +171,9 @@ void sensors_init(){
 
     // Initialize IMU
     ESP_ERROR_CHECK(IMU_acc_init()); 
+    ESP_LOGI(TAG, "Initialized accelerometer successfully");
     ESP_ERROR_CHECK(IMU_gyro_init()); 
-    ESP_LOGI(TAG, "IMU initialized successfully"); 
+    ESP_LOGI(TAG, "Initialized gyroscope  successfully"); 
 
     // Initialize internal queues
     xQueue_raw_acc_data = xQueueCreate(1, 6*sizeof(uint8_t)); 

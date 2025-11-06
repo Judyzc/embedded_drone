@@ -47,9 +47,9 @@ void vUpdateEstimatorTask(void *pvParameters) {
         if (!xQueueSendToBack(xQueue_state_data, (void *) &state_data, portMAX_DELAY))
             ESP_LOGE(TAG, "State data queue is full"); 
 
-        float pitch_deg = CompRadiansToDegrees(pitch_rad); 
-        float roll_deg = CompRadiansToDegrees(roll_rad);
-        ESP_LOGI(TAG, "Attitude (deg): Pitch=%.1f Roll=%.1f", pitch_deg, roll_deg);
+        // float pitch_deg = CompRadiansToDegrees(pitch_rad); 
+        // float roll_deg = CompRadiansToDegrees(roll_rad);
+        // ESP_LOGI(TAG, "Attitude (deg): Pitch=%.1f Roll=%.1f", pitch_deg, roll_deg);
     } 
 }
 
@@ -59,6 +59,7 @@ void estimator_init() {
     CompInit(&comp_filter, DELTA_T, TAU);
     CompAccelUpdate(&comp_filter, 0.0, 0.0, 9.81);          // Assume drone is level when starting
     CompStart(&comp_filter); 
+    ESP_LOGI(TAG, "Initialized complementary filter successfully"); 
 
     // Start filter update task
     xTaskCreate(vUpdateEstimatorTask, "Acc Data Processing", 4096, NULL, ESTIMATOR_PRIORITY, NULL);

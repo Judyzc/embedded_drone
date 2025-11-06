@@ -20,18 +20,25 @@ TickType_t start_tick = 0, end_tick = 0;
 
 /* ------------------------------------------- Public Function Definitions  ------------------------------------------- */
 void app_main(void) {
-    vTaskDelay(5000 / portTICK_PERIOD_MS); // Time bomb
+    for (int i=5; i>0; i--) {
+        ESP_LOGI(TAG, "Starting in: %d", i);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    }
+
+    // Initialize Queues between tasks
     xQueue_acc_data = xQueueCreate(1, sizeof(acc_data_t)); 
     xQueue_gyro_data = xQueueCreate(1, sizeof(gyro_data_t)); 
     xQueue_state_data = xQueueCreate(1, sizeof(state_data_t)); 
     
+    // Call initialization functions
+    ESP_LOGI(TAG, "Initializing components");
     sensors_init(); 
     estimator_init(); 
     controllers_init();
     motors_init(); 
 
     while (1) {
-        vTaskDelay(2);      // Prevent watchdog from timing out
+        vTaskDelay(1);      // Prevent watchdog from timing out
     }
 
     ESP_LOGE(TAG, "Exited main loop"); 

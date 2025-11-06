@@ -79,6 +79,8 @@ void motors_init(void) {
         .hpoint         = 0
     };
     ESP_ERROR_CHECK(ledc_channel_config(&motor_4_channel));
+
+    ESP_LOGI(TAG, "Initialized PWM successfully"); 
 }
 
 void update_pwm(motor_cmds_t motor_cmds) {

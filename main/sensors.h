@@ -39,7 +39,7 @@ typedef struct gyro_data {
 // General Constants
 #define GET_RAW_DATA_PRIORITY       6
 #define DATA_PROC_PRIORITY          5
-#define SENS_PERIOD_MS              10                          /* Sensor polling rate */
+#define SENS_PERIOD_MS              2                           /* Sensor polling rate */
 #define NUM_SENS                    2
 
 

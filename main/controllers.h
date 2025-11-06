@@ -22,9 +22,9 @@ void controllers_init(void);
 #define PITCH_KD                0.0*RAD_2_DEG
 #define PITCH_LIMIT             20.0*RAD_2_DEG
 
-#define PITCH_RATE_KP           255.0*RAD_2_DEG
-#define PITCH_RATE_KI           500.0*RAD_2_DEG
-#define PITCH_RATE_KD           2.5*RAD_2_DEG
+#define PITCH_RATE_KP           200.0*RAD_2_DEG         // originally 255
+#define PITCH_RATE_KI           100.0*RAD_2_DEG         // originally 500
+#define PITCH_RATE_KD           0.0*RAD_2_DEG           // originally 2.5
 #define PITCH_RATE_LIMIT        33.3*RAD_2_DEG
 
 #define ROLL_KP                 6.0*RAD_2_DEG
@@ -32,9 +32,9 @@ void controllers_init(void);
 #define ROLL_KD                 0.0*RAD_2_DEG
 #define ROLL_LIMIT              20.0*RAD_2_DEG
 
-#define ROLL_RATE_KP            255.0*RAD_2_DEG
-#define ROLL_RATE_KI            500.0*RAD_2_DEG
-#define ROLL_RATE_KD            2.5*RAD_2_DEG
+#define ROLL_RATE_KP            200.0*RAD_2_DEG
+#define ROLL_RATE_KI            100.0*RAD_2_DEG
+#define ROLL_RATE_KD            0.0*RAD_2_DEG
 #define ROLL_RATE_LIMIT         33.3*RAD_2_DEG
 
 
