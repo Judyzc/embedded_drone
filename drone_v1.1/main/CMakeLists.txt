@@ -12,6 +12,7 @@ idf_component_register(
 
             "filter"
             "controller"
+            "motor"
             
             "i2c"
             "helper"

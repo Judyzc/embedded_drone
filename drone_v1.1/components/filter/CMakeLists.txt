@@ -5,5 +5,6 @@ idf_component_register(
 	REQUIRES "driver"
 		"freertos" 
 		"sensors"
+		"motor"
 		
 )

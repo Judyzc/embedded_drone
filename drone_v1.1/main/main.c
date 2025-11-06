@@ -17,6 +17,7 @@
 #include "bmp3_defs.h"
 #include "controller.h"
 #include <math.h>
+#include "motor.h"
 
 static const char *TAG = "MAIN";
 
@@ -124,21 +125,6 @@ static void estimator_task(void *arg) {
         // update complementary filter
         estimator_update(&estimated_state, &acc_s, &gyro_s, &baro_s);
 
-        // altitude fusion: simple low-pass on ToF
-        // if (tof_s.distance_mm > 0.0f) {
-        //     if (altitude_mm == 0.0f) altitude_mm = tof_s.distance_mm;
-        //     altitude_mm = alt_alpha * altitude_mm + (1.0f - alt_alpha) * tof_s.distance_mm;
-        // }
-
-        // publish attitude
-        // attitude_t att = {
-        //     .timestamp = get_time(),
-        //     .roll = estimated_state.roll,
-        //     .pitch = estimated_state.pitch,
-        //     .yaw = estimated_state.yaw,
-        //     .altitude_mm = altitude_mm
-        // };
-
         xQueueOverwrite(state_q, &estimated_state);
 
         ESP_LOGI(TAG, "Estimated state: roll=%.2f pitch=%.2f altitude=%.1f, roll_rate=%.2f, pitch_rate=%.2f, yaw_rate=%.2f", estimated_state.roll, estimated_state.pitch, estimated_state.altitude, estimated_state.roll_rate, estimated_state.pitch_rate, estimated_state.yaw_rate);
@@ -149,16 +135,13 @@ static void controller_task(void *arg) {
     const TickType_t period = pdMS_TO_TICKS(SAMPLE_PERIOD_MS);
     TickType_t last_wake = xTaskGetTickCount();
 
-    attitude_t att;
-    controller_cmd_t control_cmd;
+    estimated_state_t estimated_state;
     while (1) {
         vTaskDelayUntil(&last_wake, period);
 
         // read latest attitude (non-blocking)
-        if (xQueuePeek(state_q, &att, 0) == pdTRUE) {
-            controller_update(&att, &control_cmd);
-            // Dummy controller: for now just log
-            // ESP_LOGI(TAG, "controller saw att: r=%.2f p=%.2f alt=%.1f", att.roll, att.pitch, att.altitude_mm);
+        if (xQueuePeek(state_q, &estimated_state, 0) == pdTRUE) {
+            controller_update(&estimated_state);
         }
     }
 }
@@ -170,6 +153,8 @@ void app_main(void)
 
     sensors_init();
     estimator_init();
+    controller_init();
+    motors_init();
 
     // Create queues (single-slot)
     acc_q = xQueueCreate(1, sizeof(acc_sample_t)); 
@@ -192,6 +177,7 @@ void app_main(void)
 
     // core 1
     xTaskCreatePinnedToCore(estimator_task, "filter_task", 4096, NULL, 1, NULL, 1);
-    // xTaskCreatePinnedToCore(controller_task, "controller_task", 4096, NULL, 4, NULL, 1);
+    xTaskCreatePinnedToCore(controller_task, "controller_task", 4096, NULL, 4, NULL, 1);
+
     ESP_LOGI(TAG, "Tasks started");
 }
