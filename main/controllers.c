@@ -115,14 +115,14 @@ void vUpdatePIDTask(void *pvParameters) {
 void controllers_init(void) {
     // Initialize each PID controller 
     pid_ctrl_parameter_t pitch_pid_runtime_param = {
-        .kp = 1.0,
-        .ki = 1.0,
-        .kd = 1.0,
+        .kp = PITCH_KP,
+        .ki = PITCH_KI*DT,
+        .kd = PITCH_KD/DT,
         .cal_type = PID_CAL_TYPE_POSITIONAL,
-        .max_output   = 1.0,
-        .min_output   = -1.0,
-        .max_integral = 1.0,
-        .min_integral = -1.0,
+        .max_output   = PITCH_LIMIT,
+        .min_output   = -1.0*PITCH_LIMIT,
+        .max_integral = PITCH_LIMIT,
+        .min_integral = -1.0*PITCH_LIMIT,
     };
     pid_ctrl_config_t pitch_pid_config = {
         .init_param = pitch_pid_runtime_param,
@@ -130,14 +130,14 @@ void controllers_init(void) {
     ESP_ERROR_CHECK(pid_new_control_block(&pitch_pid_config, &pitch_pid_handle));
 
     pid_ctrl_parameter_t pitch_rate_pid_runtime_param = {
-        .kp = 1.0,
-        .ki = 1.0,
-        .kd = 1.0,
+        .kp = PITCH_RATE_KP,
+        .ki = PITCH_RATE_KI*DT,
+        .kd = PITCH_RATE_KD/DT,
         .cal_type = PID_CAL_TYPE_POSITIONAL,
-        .max_output   = 1.0,
-        .min_output   = -1.0,
-        .max_integral = 1.0,
-        .min_integral = -1.0,
+        .max_output   = PITCH_RATE_LIMIT,
+        .min_output   = -1.0*PITCH_RATE_LIMIT,
+        .max_integral = PITCH_RATE_LIMIT,
+        .min_integral = -1.0*PITCH_RATE_LIMIT,
     };
     pid_ctrl_config_t pitch_rate_pid_config = {
         .init_param = pitch_rate_pid_runtime_param,
@@ -145,14 +145,14 @@ void controllers_init(void) {
     ESP_ERROR_CHECK(pid_new_control_block(&pitch_rate_pid_config, &pitch_rate_pid_handle));
     
     pid_ctrl_parameter_t roll_pid_runtime_param = {
-        .kp = 1.0,
-        .ki = 1.0,
-        .kd = 1.0,
+        .kp = ROLL_KP,
+        .ki = ROLL_KI*DT,
+        .kd = ROLL_KD/DT,
         .cal_type = PID_CAL_TYPE_POSITIONAL,
-        .max_output   = 1.0,
-        .min_output   = -1.0,
-        .max_integral = 1.0,
-        .min_integral = -1.0,
+        .max_output   = ROLL_LIMIT,
+        .min_output   = -1.0*ROLL_LIMIT,
+        .max_integral = ROLL_LIMIT,
+        .min_integral = -1.0*ROLL_LIMIT,
     };
     pid_ctrl_config_t roll_pid_config = {
         .init_param = roll_pid_runtime_param,
@@ -160,14 +160,14 @@ void controllers_init(void) {
     ESP_ERROR_CHECK(pid_new_control_block(&roll_pid_config, &roll_pid_handle));
 
     pid_ctrl_parameter_t roll_rate_pid_runtime_param = {
-        .kp = 1.0,
-        .ki = 1.0,
-        .kd = 1.0,
+        .kp = ROLL_RATE_KP,
+        .ki = ROLL_RATE_KI*DT,
+        .kd = ROLL_RATE_KD/DT,
         .cal_type = PID_CAL_TYPE_POSITIONAL,
-        .max_output   = 1.0,
-        .min_output   = -1.0,
-        .max_integral = 1.0,
-        .min_integral = -1.0,
+        .max_output   = ROLL_RATE_LIMIT,
+        .min_output   = -1.0*ROLL_RATE_LIMIT,
+        .max_integral = ROLL_RATE_LIMIT,
+        .min_integral = -1.0*ROLL_RATE_LIMIT,
     };
     pid_ctrl_config_t roll_rate_pid_config = {
         .init_param = roll_rate_pid_runtime_param,
