@@ -13,6 +13,7 @@
 #include "bmp3.h"
 #include "bstdr_comm_support.h"
 #include "i2c.h"
+#include "six_axis_comp_filter.h"
 #include <math.h>
 
 static const char *TAG = "SENSORS";
@@ -28,15 +29,18 @@ static bool isBarometerPresent = false;
 static bool isInit = false;
 static struct bmp3_dev bmp388Dev;
 
-static i2c_master_dev_handle_t bmp_handle;
+i2c_master_bus_handle_t i2c_bus;
+i2c_master_dev_handle_t baro_handle;
+i2c_master_dev_handle_t acc_handle;
+i2c_master_dev_handle_t gyro_handle;
 
 int8_t bmp3_i2c_read(uint8_t dev_id, uint8_t reg_addr, uint8_t *reg_data, uint16_t len)
 {
     if (!reg_data || len == 0) return -1;
 
     // prefer persistent device handle
-    if (bmp_handle) {
-        esp_err_t err = i2c_master_transmit_receive(bmp_handle,
+    if (baro_handle) {
+        esp_err_t err = i2c_master_transmit_receive(baro_handle,
                                                     &reg_addr, 1,
                                                     reg_data, len,
                                                     BMP388_I2C_TIMEOUT_MS);
@@ -57,8 +61,8 @@ int8_t bmp3_i2c_write(uint8_t dev_id, uint8_t reg_addr, uint8_t *reg_data, uint1
     buf[0] = reg_addr;
     memcpy(&buf[1], reg_data, len);
 
-    if (bmp_handle) {
-        esp_err_t err = i2c_master_transmit(bmp_handle, buf, total, BMP388_I2C_TIMEOUT_MS);
+    if (baro_handle) {
+        esp_err_t err = i2c_master_transmit(baro_handle, buf, total, BMP388_I2C_TIMEOUT_MS);
         free(buf);
         return (err == ESP_OK) ? 0 : -1;
     }
@@ -73,26 +77,67 @@ void bmp3_ms_delay(uint32_t ms)
     vTaskDelay(ms / portTICK_PERIOD_MS);
 }
 
-void mock_imu_read(imu_sample_t *imu_sample) {
-    imu_sample->timestamp = get_time();
-    // simple synthetic motion: slow oscillation so filter shows something
-    static float t = 0.0f;
-    t += 0.05f;
-
-    imu_sample->accel[0] = 0.0f; // X
-    imu_sample->accel[1] = 0.0f; // Y
-    imu_sample->accel[2] = 9.81f; // Z (gravity)
-
-    // pretend a slow roll rate about X and pitch about Y (deg/s)
-    imu_sample->gyro[0] = 5.0f * sinf(t); // roll rate
-    imu_sample->gyro[1] = 3.0f * cosf(t); // pitch rate
-    imu_sample->gyro[2] = 0.0f; // yaw rate
+static esp_err_t register_write_byte(i2c_master_dev_handle_t dev_handle, uint8_t reg_addr, uint8_t data)
+{
+    uint8_t write_buf[2] = {reg_addr, data};
+    return i2c_master_transmit(dev_handle, write_buf, sizeof(write_buf), I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS);
 }
 
-void baro_init(i2c_master_dev_handle_t* bmp_dev_handle) {
-    if (isInit) return;
+void acc_init() {
+    ESP_ERROR_CHECK(register_write_byte(acc_handle, ACC_PWR_CTRL, 0x04)); 
+    // Set data rate and filter to 1600 Hz
+    ESP_ERROR_CHECK(register_write_byte(acc_handle, ACC_CONF, 0xAC)); 
+    // Set range to 6G
+    ESP_ERROR_CHECK(register_write_byte(acc_handle, ACC_RANGE, 0x01)); 
+    vTaskDelay(1 / portTICK_PERIOD_MS); 
+    return;
+}
 
-    bmp_handle = *bmp_dev_handle;
+void gyro_init() {
+    // Turn on gyro  
+    ESP_ERROR_CHECK(register_write_byte(gyro_handle, GYRO_LPM1, 0x00)); 
+    // Set data rate and filter to 1000 Hz and 116 Hz
+    ESP_ERROR_CHECK(register_write_byte(gyro_handle, GYRO_BANDWIDTH, 0x02)); 
+    // Set range to 1000 deg/s
+    ESP_ERROR_CHECK(register_write_byte(gyro_handle, GYRO_RANGE, 0x01)); 
+    vTaskDelay(1 / portTICK_PERIOD_MS); 
+    return;
+}
+
+void acc_read(acc_sample_t* acc_sample) {
+    uint8_t raw_data[3*2*sizeof(uint8_t)]; 
+    ESP_ERROR_CHECK(i2c_master_read_reg(acc_handle, ACC_DATA_START, raw_data, sizeof(raw_data), I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS)); 
+    
+    acc_sample->timestamp = get_time();
+    acc_sample->raw_ax = (int16_t) (raw_data[0] | (raw_data[1]<<8));
+    acc_sample->raw_ay = (int16_t) (raw_data[2] | (raw_data[3]<<8));
+    acc_sample->raw_az = (int16_t) (raw_data[4] | (raw_data[5]<<8));
+
+    acc_sample->ax = ((float) acc_sample->raw_ax)*6.0/32768.0*9.81; 
+    acc_sample->ay = ((float) acc_sample->raw_ay)*6.0/32768.0*9.81; 
+    acc_sample->az = ((float) acc_sample->raw_az)*6.0/32768.0*9.81; 
+
+    return;
+}
+
+void gyro_read(gyro_sample_t* gyro_sample) {
+    uint8_t raw_data[3*2*sizeof(uint8_t)];
+    ESP_ERROR_CHECK(i2c_master_read_reg(gyro_handle, GYRO_DATA_START, raw_data, sizeof(raw_data), I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS)); 
+    
+    gyro_sample->timestamp = get_time();
+    gyro_sample->raw_gx = (int16_t) (raw_data[0] | (raw_data[1]<<8));
+    gyro_sample->raw_gy = (int16_t) (raw_data[2] | (raw_data[3]<<8));
+    gyro_sample->raw_gz = (int16_t) (raw_data[4] | (raw_data[5]<<8));
+
+    gyro_sample->gx = CompDegreesToRadians(((float)  gyro_sample->raw_gx)*1000.0/32767.0);
+    gyro_sample->gy = CompDegreesToRadians(((float)  gyro_sample->raw_gy)*1000.0/32767.0); 
+    gyro_sample->gz = CompDegreesToRadians(((float)  gyro_sample->raw_gz)*1000.0/32767.0); 
+
+    return;
+}
+
+void baro_init() {
+    if (isInit) return;
 
     bstdr_ret_t rslt;
     isBarometerPresent = false;
@@ -172,15 +217,6 @@ void baro_init(i2c_master_dev_handle_t* bmp_dev_handle) {
   isInit = true;
 }
 
-void mock_baro_read(baro_sample_t *baro_sample) {
-    baro_sample->timestamp = get_time();
-    static float alt = 1000.0f;
-    // small noise
-    alt += 0.1f;
-    baro_sample->pressure = 101325.0f - alt; // arbitrary mapping
-    baro_sample->temperature = 25.0f;
-}
-
 void baro_read(baro_sample_t *baro_sample) {
     baro_sample->timestamp = get_time();
 
@@ -200,5 +236,28 @@ void mock_tof_read(tof_sample_t *tof_sample) {
     static float d = 500.0f; // mm
     d += 0.2f;
     tof_sample->distance_mm = d;
+}
+
+void sensors_init() {
+    // initialize I2C bus
+    ESP_ERROR_CHECK(i2c_master_init_bus(-1, I2C_MASTER_SDA_IO, I2C_MASTER_SCL_IO, 400000, &i2c_bus));
+
+    // add BMP388 to I2C bus
+    ESP_ERROR_CHECK(i2c_master_add_device(i2c_bus, 0x77, &baro_handle));
+    
+    // add IMU ACC to I2C bus
+    ESP_ERROR_CHECK(i2c_master_add_device(i2c_bus, 0x18, &acc_handle));
+
+    // add IMU GYRO to I2C bus
+    ESP_ERROR_CHECK(i2c_master_add_device(i2c_bus, 0x69, &gyro_handle));
+
+    // initialize BMP388
+    baro_init();
+
+    // initialize ACC
+    acc_init();
+
+    // initialize GRYO
+    gyro_init();
 }
 

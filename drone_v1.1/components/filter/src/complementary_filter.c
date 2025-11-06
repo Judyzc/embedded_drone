@@ -11,31 +11,38 @@
 #include "helper.h"
 #include <math.h>
 
-void cf_init(estimated_state_t *s) {
-    memset(s, 0, sizeof(*s));
-    s->timestamp = get_time();
+SixAxis comp_filter;
+
+void estimator_init() {
+    // Initialize complementary filter 
+    CompInit(&comp_filter, DELTA_T, TAU);
+    CompAccelUpdate(&comp_filter, 0.0, 0.0, 9.81);          // Assume drone is level when starting
+    CompStart(&comp_filter);
 }
 
-void cf_update(estimated_state_t *s, imu_sample_t *imu, tof_sample_t *tof) {
-    if (!imu) return;
-    int64_t now = imu->timestamp;
-    float dt = (now - s->timestamp) / 1e6f;
-    if (dt <= 0 || dt > 0.5f) dt = 0.05f; // guard
+void estimator_update(estimated_state_t *estimate_s, acc_sample_t *acc_s, gyro_sample_t *gyro_s, baro_sample_t *baro_s) {
+    CompAccelUpdate(&comp_filter, acc_s->ax, acc_s->ay, acc_s->az); 
+    CompGyroUpdate(&comp_filter, gyro_s->gx, gyro_s->gy, gyro_s->gz); 
+    CompUpdate(&comp_filter);
 
-    // Integrate gyro rates (deg/s) -> deg
-    s->roll += imu->gyro[0] * dt;   // deg
-    s->pitch += imu->gyro[1] * dt;  // deg
-    s->yaw += imu->gyro[2] * dt;    // deg
+    float pitch, roll; // radians
+    CompAnglesGet(&comp_filter, &roll, &pitch); 
+    if (pitch > M_PI)
+        pitch -= 2.0*M_PI;  
+    if (roll > M_PI)
+        roll -= 2.0*M_PI; 
+    roll *= -1.0;
 
-    // Accel-based roll/pitch estimate (small-angle-safe)
-    // roll = atan2(accel_y, accel_z)
-    float acc_roll = rad2deg(atan2f(imu->accel[1], imu->accel[2]));
-    float acc_pitch = rad2deg(atan2f(-imu->accel[0], sqrtf(imu->accel[1]*imu->accel[1] + imu->accel[2]*imu->accel[2])));
+    estimate_s->altitude = 0;
+    
+    estimate_s->pitch = pitch;
+    estimate_s->pitch_rate = gyro_s->gx;
+    
+    estimate_s->roll = roll;
+    estimate_s->roll_rate = gyro_s->gy; 
+    estimate_s->yaw_rate = 0,                   
 
-    // Complementary fusion
-    const float alpha = 0.98f; // gyro weight
-    s->roll  = alpha * s->roll  + (1.0f - alpha) * acc_roll;
-    s->pitch = alpha * s->pitch + (1.0f - alpha) * acc_pitch;
+    estimate_s->timestamp = get_time();
 
-    s->timestamp = now;
+    return;
 }
