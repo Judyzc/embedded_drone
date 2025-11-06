@@ -24,16 +24,16 @@ bool EMERG_STOP = false;
 /* ------------------------------------------- Private Function Definitions ------------------------------------------- */
 // Placeholder
 static float torque_2_force(float torque_Nm) {
-    return torque_Nm/1.0; 
+    return torque_Nm/MOTOR_MOMENT_ARM_M;  
 }
 
 // Placeholder
 static float force_2_duty_cycle(float force_N) {
-    float duty_cycle = force_N*100.0; 
-    if (duty_cycle > 25.0) {
-        duty_cycle = 25.0; 
-    } else if (duty_cycle < -25.0) {
-        duty_cycle = -25.0; 
+    float duty_cycle = force_N/MAX_THRUST_N*100.0; 
+    if (duty_cycle > MAX_DUTY_CYCLE_PCT) {
+        duty_cycle = MAX_DUTY_CYCLE_PCT; 
+    } else if (duty_cycle < -1.0*MAX_DUTY_CYCLE_PCT) {
+        duty_cycle = -1.0*MAX_DUTY_CYCLE_PCT; 
     }
     return duty_cycle; 
 }
@@ -44,10 +44,10 @@ static motor_cmds_t sum_motor_cmds(float pitch_torque_cmd_Nm, float roll_torque_
 
     // pitch and roll
     motor_cmds_t motor_cmds = {
-        .motor1_duty_cycle_pct = force_2_duty_cycle(pitch_force_cmd_N + roll_force_cmd_N),
-        .motor2_duty_cycle_pct = force_2_duty_cycle(pitch_force_cmd_N - roll_force_cmd_N),
-        .motor3_duty_cycle_pct = force_2_duty_cycle(-1.0*pitch_force_cmd_N - roll_force_cmd_N),
-        .motor4_duty_cycle_pct = force_2_duty_cycle(-1.0*pitch_force_cmd_N + roll_force_cmd_N),
+        .motor1_duty_cycle_pct = force_2_duty_cycle(.25*(pitch_force_cmd_N + roll_force_cmd_N)),
+        .motor2_duty_cycle_pct = force_2_duty_cycle(.25*(pitch_force_cmd_N - roll_force_cmd_N)),
+        .motor3_duty_cycle_pct = force_2_duty_cycle(.25*(-1.0*pitch_force_cmd_N - roll_force_cmd_N)),
+        .motor4_duty_cycle_pct = force_2_duty_cycle(.25*(-1.0*pitch_force_cmd_N + roll_force_cmd_N)),
     };
 
     // just pitch
