@@ -15,26 +15,27 @@ void controllers_init(void);
 /* ------------------------------------------- PID Tuning ------------------------------------------- */
 #define DT                      SENS_PERIOD_MS*.001             // PID timestep (s)
 #define DEG_2_RAD               M_PI/180.0
+#define RAD_2_DEG               180/M_PI
 
-#define PITCH_KP                6.0*DEG_2_RAD
-#define PITCH_KI                3.0*DEG_2_RAD
-#define PITCH_KD                0.0*DEG_2_RAD
-#define PITCH_LIMIT             20.0*DEG_2_RAD
+#define PITCH_KP                6.0*RAD_2_DEG
+#define PITCH_KI                3.0*RAD_2_DEG
+#define PITCH_KD                0.0*RAD_2_DEG
+#define PITCH_LIMIT             20.0*RAD_2_DEG
 
-#define PITCH_RATE_KP           255.0*DEG_2_RAD
-#define PITCH_RATE_KI           500.0*DEG_2_RAD
-#define PITCH_RATE_KD           2.5*DEG_2_RAD
-#define PITCH_RATE_LIMIT        33.3*DEG_2_RAD
+#define PITCH_RATE_KP           255.0*RAD_2_DEG
+#define PITCH_RATE_KI           500.0*RAD_2_DEG
+#define PITCH_RATE_KD           2.5*RAD_2_DEG
+#define PITCH_RATE_LIMIT        33.3*RAD_2_DEG
 
-#define ROLL_KP                 6.0*DEG_2_RAD
-#define ROLL_KI                 3.0*DEG_2_RAD
-#define ROLL_KD                 0.0*DEG_2_RAD
-#define ROLL_LIMIT              20.0*DEG_2_RAD
+#define ROLL_KP                 6.0*RAD_2_DEG
+#define ROLL_KI                 3.0*RAD_2_DEG
+#define ROLL_KD                 0.0*RAD_2_DEG
+#define ROLL_LIMIT              20.0*RAD_2_DEG
 
-#define ROLL_RATE_KP            255.0*DEG_2_RAD
-#define ROLL_RATE_KI            500.0*DEG_2_RAD
-#define ROLL_RATE_KD            2.5*DEG_2_RAD
-#define ROLL_RATE_LIMIT         33.3*DEG_2_RAD
+#define ROLL_RATE_KP            255.0*RAD_2_DEG
+#define ROLL_RATE_KI            500.0*RAD_2_DEG
+#define ROLL_RATE_KD            2.5*RAD_2_DEG
+#define ROLL_RATE_LIMIT         33.3*RAD_2_DEG
 
 
 #endif /* CONTROLLERS_H */

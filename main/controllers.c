@@ -50,6 +50,8 @@ static motor_cmds_t sum_motor_cmds(float pitch_torque_cmd_Nm, float roll_torque_
         .motor4_duty_cycle_pct = force_2_duty_cycle(.25*(-1.0*pitch_force_cmd_N + roll_force_cmd_N)),
     };
 
+    // ESP_LOGI(TAG, "DC1: %.1f, DC2: %.1f, DC3: %.1f, DC4: %.1f", motor_cmds.motor1_duty_cycle_pct, motor_cmds.motor2_duty_cycle_pct, motor_cmds.motor3_duty_cycle_pct, motor_cmds.motor4_duty_cycle_pct);
+
     // just pitch
     // motor_cmds_t motor_cmds = {
     //     .motor1_duty_cycle_pct = force_2_duty_cycle(pitch_force_cmd_N),
@@ -107,7 +109,7 @@ void vUpdatePIDTask(void *pvParameters) {
 
         update_pwm(motor_cmds);
         end_tick = xTaskGetTickCount(); 
-        ESP_LOGI(TAG, "Sensor to Motor Time: %d ticks", end_tick - start_tick);  
+        // ESP_LOGI(TAG, "Sensor to Motor Time: %d ticks", end_tick - start_tick);  
     }
 }
 
