@@ -87,7 +87,7 @@ void vUpdatePIDTask(void *pvParameters) {
         float desired_pitch_rate_rad_s; 
         pid_compute(pitch_pid_handle, pitch_error_rad, &desired_pitch_rate_rad_s);
         
-        desired_pitch_rate_rad_s = 0;       // For tuning the second PID
+        // desired_pitch_rate_rad_s = 0;       // For tuning the second PID
 
         float pitch_rate_error = desired_pitch_rate_rad_s - state_data.pitch_rate_rad_s; 
         float pitch_torque_cmd_Nm; 
@@ -96,9 +96,10 @@ void vUpdatePIDTask(void *pvParameters) {
         // Roll cascaded PIDs 
         float roll_error_rad = 0.0 - state_data.roll_rad; 
         float desired_roll_rate_rad_s; 
+        // ESP_LOGI(TAG, "Roll error=%.4f", roll_error_rad);
         pid_compute(roll_pid_handle, roll_error_rad, &desired_roll_rate_rad_s);
 
-        desired_roll_rate_rad_s = 0;        // For tuning second PID
+        // desired_roll_rate_rad_s = 0;        // For tuning second PID
      
         float roll_rate_error = desired_roll_rate_rad_s - state_data.roll_rate_rad_s; 
         float roll_torque_cmd_Nm; 
