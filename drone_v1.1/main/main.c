@@ -62,10 +62,10 @@ static void baro_task(void *arg) {
     TickType_t last_wake = xTaskGetTickCount();
     baro_sample_t sample;
 
-    uint8_t who = 0;
-    if (i2c_master_read_reg(baro_handle, 0x00, &who, 1, 100) == ESP_OK) {
-        ESP_LOGI(TAG, "BMP388 WHO_AM_I = 0x%02X", who);
-    }
+    // uint8_t who = 0;
+    // if (i2c_master_read_reg(baro_handle, 0x00, &who, 1, 100) == ESP_OK) {
+    //     ESP_LOGI(TAG, "BMP388 WHO_AM_I = 0x%02X", who);
+    // }
 
     while (1) {
         // ensures that the task will run at period
@@ -75,7 +75,7 @@ static void baro_task(void *arg) {
         baro_read(&sample);
         
         xQueueOverwrite(baro_q, &sample);
-        ESP_LOGI(TAG, "BMP388 temp=%.2f, pressure=%.2f, asl=%.2f, time=%d", sample.temperature, sample.pressure, sample.asl, (sample.timestamp / 1000));
+        // ESP_LOGI(TAG, "BMP388 temp=%.2f, pressure=%.2f, asl=%.2f, time=%d", sample.temperature, sample.pressure, sample.asl, (sample.timestamp / 1000));
     }
 }
 
@@ -115,19 +115,16 @@ static void estimator_task(void *arg) {
 
         xQueuePeek(baro_q, &baro_s, 0);
 
-
-
         // xQueuePeek(tof_q, &tof_s, 0);
 
-
-        ESP_LOGI(TAG, "BMP altitude=%.2f, time=%d", baro_s.asl, (baro_s.timestamp / 1000));
+        // ESP_LOGI(TAG, "BMP altitude=%.2f, time=%d", baro_s.asl, (baro_s.timestamp / 1000));
 
         // update complementary filter
         estimator_update(&estimated_state, &acc_s, &gyro_s, &baro_s);
 
         xQueueOverwrite(state_q, &estimated_state);
 
-        ESP_LOGI(TAG, "Estimated state: roll=%.2f pitch=%.2f altitude=%.1f, roll_rate=%.2f, pitch_rate=%.2f, yaw_rate=%.2f", estimated_state.roll, estimated_state.pitch, estimated_state.altitude, estimated_state.roll_rate, estimated_state.pitch_rate, estimated_state.yaw_rate);
+        ESP_LOGI(TAG, "Estimated state: roll=%x pitch=%x altitude=%x, roll_rate=%x, pitch_rate=%x, yaw_rate=%x", estimated_state.roll, estimated_state.pitch, estimated_state.altitude, estimated_state.roll_rate, estimated_state.pitch_rate, estimated_state.yaw_rate);
     }
 }
 
@@ -153,8 +150,8 @@ void app_main(void)
 
     sensors_init();
     estimator_init();
-    controller_init();
-    motors_init();
+    // controller_init();
+    // motors_init();
 
     // Create queues (single-slot)
     acc_q = xQueueCreate(1, sizeof(acc_sample_t)); 
@@ -177,7 +174,7 @@ void app_main(void)
 
     // core 1
     xTaskCreatePinnedToCore(estimator_task, "filter_task", 4096, NULL, 1, NULL, 1);
-    xTaskCreatePinnedToCore(controller_task, "controller_task", 4096, NULL, 4, NULL, 1);
+    // xTaskCreatePinnedToCore(controller_task, "controller_task", 4096, NULL, 4, NULL, 1);
 
     ESP_LOGI(TAG, "Tasks started");
 }
