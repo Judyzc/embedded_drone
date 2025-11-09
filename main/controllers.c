@@ -50,25 +50,6 @@ static motor_cmds_t sum_motor_cmds(float pitch_torque_cmd_Nm, float roll_torque_
         .motor4_duty_cycle_pct = force_2_duty_cycle(.25*(-1.0*pitch_force_cmd_N + roll_force_cmd_N)),
     };
 
-
-    // just pitch
-    // motor_cmds_t motor_cmds = {
-    //     .motor1_duty_cycle_pct = force_2_duty_cycle(0.25*pitch_force_cmd_N),
-    //     .motor2_duty_cycle_pct = force_2_duty_cycle(0.25*pitch_force_cmd_N),
-    //     .motor3_duty_cycle_pct = force_2_duty_cycle(-0.25*pitch_force_cmd_N),
-    //     .motor4_duty_cycle_pct = force_2_duty_cycle(-0.25*pitch_force_cmd_N),
-    // }; 
-
-    // ESP_LOGI(TAG, "DC1: %.1f, DC2: %.1f, DC3: %.1f, DC4: %.1f", motor_cmds.motor1_duty_cycle_pct, motor_cmds.motor2_duty_cycle_pct, motor_cmds.motor3_duty_cycle_pct, motor_cmds.motor4_duty_cycle_pct);
-
-    // just roll
-    // motor_cmds_t motor_cmds = {
-    //     .motor1_duty_cycle_pct = force_2_duty_cycle(roll_force_cmd_N),
-    //     .motor2_duty_cycle_pct = force_2_duty_cycle(-1.0*roll_force_cmd_N),
-    //     .motor3_duty_cycle_pct = force_2_duty_cycle(-1.0*roll_force_cmd_N),
-    //     .motor4_duty_cycle_pct = force_2_duty_cycle(roll_force_cmd_N),
-    // };
-
     return motor_cmds; 
 }
 
@@ -96,7 +77,6 @@ void vUpdatePIDTask(void *pvParameters) {
         // Roll cascaded PIDs 
         float roll_error_rad = 0.0 - state_data.roll_rad; 
         float desired_roll_rate_rad_s; 
-        // ESP_LOGI(TAG, "Roll error=%.4f", roll_error_rad);
         pid_compute(roll_pid_handle, roll_error_rad, &desired_roll_rate_rad_s);
 
         // desired_roll_rate_rad_s = 0;        // For tuning second PID
@@ -106,7 +86,7 @@ void vUpdatePIDTask(void *pvParameters) {
         pid_compute(roll_rate_pid_handle, roll_rate_error, &roll_torque_cmd_Nm); 
 
         motor_cmds_t motor_cmds = sum_motor_cmds(pitch_torque_cmd_Nm, roll_torque_cmd_Nm); 
-        // motor_cmds_t motor_cmds = sum_motor_cmds(pitch_torque_cmd_Nm, 0);
+
         if (EMERG_STOP) {
             motor_cmds.motor1_duty_cycle_pct = 0; 
             motor_cmds.motor2_duty_cycle_pct = 0; 

@@ -34,7 +34,7 @@ void app_main(void) {
 
     // Calibrate sensors and start stabilization loop
     calibrate_sensors();
-    for (int i=5; i>0; i--) {
+    for (int i=3; i>0; i--) {
         ESP_LOGI(TAG, "Starting in: %d", i);
         vTaskDelay(1000 / portTICK_PERIOD_MS);
     }

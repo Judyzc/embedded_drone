@@ -41,7 +41,7 @@ typedef struct gyro_data {
 #define DATA_PROC_PRIORITY          5
 #define SENS_PERIOD_MS              2                           /* Sensor polling rate during stabilization loop */
 #define CALIBRATION_PERIOD_MS       2                           /* Sensor polling rate during calibration */
-#define CALIBRATION_SAMPLES         3000                        /* Number of samples to take while calibrating sensors */
+#define CALIBRATION_SAMPLES         1500                        /* Number of samples to take while calibrating sensors */
 
 /* ------------------------------------------- Public Function Declarations ------------------------------------------- */
 void sensors_init(void);
