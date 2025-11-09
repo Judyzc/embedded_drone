@@ -20,11 +20,6 @@ TickType_t start_tick = 0, end_tick = 0;
 
 /* ------------------------------------------- Public Function Definitions  ------------------------------------------- */
 void app_main(void) {
-    for (int i=5; i>0; i--) {
-        ESP_LOGI(TAG, "Starting in: %d", i);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-    }
-
     // Initialize Queues between tasks
     xQueue_acc_data = xQueueCreate(1, sizeof(acc_data_t)); 
     xQueue_gyro_data = xQueueCreate(1, sizeof(gyro_data_t)); 
@@ -36,6 +31,14 @@ void app_main(void) {
     estimator_init(); 
     controllers_init();
     motors_init(); 
+
+    // Calibrate sensors and start stabilization loop
+    calibrate_sensors();
+    for (int i=5; i>0; i--) {
+        ESP_LOGI(TAG, "Starting in: %d", i);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    }
+    start_control_loop();
 
     while (1) {
         vTaskDelay(1);      // Prevent watchdog from timing out

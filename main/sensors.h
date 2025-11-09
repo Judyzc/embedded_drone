@@ -39,11 +39,13 @@ typedef struct gyro_data {
 // General Constants
 #define GET_RAW_DATA_PRIORITY       6
 #define DATA_PROC_PRIORITY          5
-#define SENS_PERIOD_MS              2                           /* Sensor polling rate */
-#define NUM_SENS                    2
-
+#define SENS_PERIOD_MS              2                           /* Sensor polling rate during stabilization loop */
+#define CALIBRATION_PERIOD_MS       2                           /* Sensor polling rate during calibration */
+#define CALIBRATION_SAMPLES         3000                        /* Number of samples to take while calibrating sensors */
 
 /* ------------------------------------------- Public Function Declarations ------------------------------------------- */
 void sensors_init(void);
+void calibrate_sensors(void);
+void start_control_loop(void);
 
 #endif /* SENSORS_H */
