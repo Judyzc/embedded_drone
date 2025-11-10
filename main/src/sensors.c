@@ -16,88 +16,55 @@
 #include "freertos/task.h"
 #include "freertos/queue.h"
 #include "esp_log.h"
-#include "driver/i2c_master.h"
 
+#include "i2c_setup.h"
 #include "main.h"
 #include "sensors.h"
 #include "six_axis_comp_filter.h"
 
-static const char *TAG = "example";
+static const char *TAG = "sensors";
 
 /* ------------------------------------------- Global Variables  ------------------------------------------- */
 QueueHandle_t xQueue_raw_acc_data, xQueue_raw_gyro_data; 
-i2c_master_bus_handle_t bus_handle;
 i2c_master_dev_handle_t acc_handle, gyro_handle;
 static float acc_x_offset = 0, acc_y_offset = 0, gyro_x_offset = 0, gyro_y_offset = 0, gyro_z_offset = 0; 
 
 /* ------------------------------------------- Private function definitions  ------------------------------------------- */
-/**
- * @brief Read a sequence of bytes from sensor registers
- */
-static esp_err_t register_read(i2c_master_dev_handle_t dev_handle, uint8_t reg_addr, uint8_t *data, size_t len)
+static esp_err_t IMU_acc_init() 
 {
-    return i2c_master_transmit_receive(dev_handle, &reg_addr, 1, data, len, I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS);
-}
-
-/**
- * @brief Write a byte to a sensor register
- */
-static esp_err_t register_write_byte(i2c_master_dev_handle_t dev_handle, uint8_t reg_addr, uint8_t data)
-{
-    uint8_t write_buf[2] = {reg_addr, data};
-    return i2c_master_transmit(dev_handle, write_buf, sizeof(write_buf), I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS);
-}
-
-static void i2c_master_init()
-{
-    i2c_master_bus_config_t bus_config = {
-        .i2c_port = I2C_MASTER_NUM,
-        .sda_io_num = I2C_MASTER_SDA_IO,
-        .scl_io_num = I2C_MASTER_SCL_IO,
-        .clk_source = I2C_CLK_SRC_DEFAULT,
-        .glitch_ignore_cnt = 7,
-        .flags.enable_internal_pullup = false,
-    };
-    ESP_ERROR_CHECK(i2c_new_master_bus(&bus_config, &bus_handle));
-
-    i2c_device_config_t imu_config = {
+    i2c_device_config_t acc_config = {
         .dev_addr_length = I2C_ADDR_BIT_LEN_7,
         .device_address = IMU_ACC_SENSOR_ADDR,
         .scl_speed_hz = I2C_MASTER_FREQ_HZ,
     };
-    ESP_ERROR_CHECK(i2c_master_bus_add_device(bus_handle, &imu_config, &acc_handle));
+    ESP_ERROR_CHECK(i2c_master_bus_add_device(bus_handle, &acc_config, &acc_handle));
 
-    i2c_device_config_t gyro_config = {
-        .dev_addr_length = I2C_ADDR_BIT_LEN_7,
-        .device_address = IMU_GYRO_SENSOR_ADDR,
-        .scl_speed_hz = I2C_MASTER_FREQ_HZ,
-    };
-    ESP_ERROR_CHECK(i2c_master_bus_add_device(bus_handle, &gyro_config, &gyro_handle));
-}
-
-static esp_err_t IMU_acc_init() 
-{
-    vTaskDelay(1 / portTICK_PERIOD_MS);         // IMU requires 1ms pause after power-on
     // Turn on Accelerometer  
     ESP_ERROR_CHECK(register_write_byte(acc_handle, ACC_PWR_CTRL, 0x04)); 
     // Set data rate and filter to 1600 Hz
     ESP_ERROR_CHECK(register_write_byte(acc_handle, ACC_CONF, 0xAC)); 
     // Set range to 6G
     ESP_ERROR_CHECK(register_write_byte(acc_handle, ACC_RANGE, 0x01)); 
-    vTaskDelay(1 / portTICK_PERIOD_MS); 
+
     return ESP_OK;
 }
 
 static esp_err_t IMU_gyro_init() 
 {
-    vTaskDelay(1 / portTICK_PERIOD_MS);         // IMU requires 1ms pause after power-on
+    i2c_device_config_t gyro_config = {
+        .dev_addr_length = I2C_ADDR_BIT_LEN_7,
+        .device_address = IMU_GYRO_SENSOR_ADDR,
+        .scl_speed_hz = I2C_MASTER_FREQ_HZ,
+    };
+    ESP_ERROR_CHECK(i2c_master_bus_add_device(bus_handle, &gyro_config, &gyro_handle));
+
     // Turn on gyro  
     ESP_ERROR_CHECK(register_write_byte(gyro_handle, GYRO_LPM1, 0x00)); 
     // Set data rate and filter to 1000 Hz and 116 Hz
     ESP_ERROR_CHECK(register_write_byte(gyro_handle, GYRO_BANDWIDTH, 0x02)); 
     // Set range to 1000 deg/s
     ESP_ERROR_CHECK(register_write_byte(gyro_handle, GYRO_RANGE, 0x01)); 
-    vTaskDelay(1 / portTICK_PERIOD_MS); 
+
     return ESP_OK;
 }
 
@@ -175,13 +142,9 @@ void vProcessGyroDataTask(void *pvParameters) {
 
 /* ------------------------------------------- Public Function Definitions  ------------------------------------------- */
 void sensors_init(void) {
-    // Start I2C
-    i2c_master_init();
-    ESP_LOGI(TAG, "I2C initialized successfully");
-
-    // Initialize IMU
+    // Initialize sensors 
     ESP_ERROR_CHECK(IMU_acc_init()); 
-    ESP_LOGI(TAG, "Initialized accelerometer successfully");
+    ESP_LOGI(TAG, "Initialized IMU successfully");
     ESP_ERROR_CHECK(IMU_gyro_init()); 
     ESP_LOGI(TAG, "Initialized gyroscope  successfully"); 
 
