@@ -21,15 +21,47 @@
 #include "main.h"
 #include "sensors.h"
 #include "six_axis_comp_filter.h"
+#include "vl53l1_platform.h"
+#include "VL53L1X_api.h"
+#include "VL53L1X_calibration.h"
 
 static const char *TAG = "sensors";
 
-/* ------------------------------------------- Global Variables  ------------------------------------------- */
+/* ------------------------------------------- Initialize Public Global Variables  ------------------------------------------- */
+i2c_master_dev_handle_t tof_handle;
+
+/* ------------------------------------------- Private Global Variables  ------------------------------------------- */
 QueueHandle_t xQueue_raw_acc_data, xQueue_raw_gyro_data; 
 i2c_master_dev_handle_t acc_handle, gyro_handle;
 static float acc_x_offset = 0, acc_y_offset = 0, gyro_x_offset = 0, gyro_y_offset = 0, gyro_z_offset = 0; 
 
 /* ------------------------------------------- Private function definitions  ------------------------------------------- */
+static esp_err_t ToF_init() 
+{
+    i2c_device_config_t tof_config = {
+        .dev_addr_length = I2C_ADDR_BIT_LEN_7,
+        .device_address = TOF_SENSOR_ADDR,
+        .scl_speed_hz = I2C_MASTER_FREQ_HZ,
+    };
+    ESP_ERROR_CHECK(i2c_master_bus_add_device(bus_handle, &tof_config, &tof_handle));
+
+    VL53L1X_ERROR Status;
+    uint8_t state = 0;  
+    while(!state){
+        Status = VL53L1X_BootState(0, &state);
+        vTaskDelay(2 / portTICK_PERIOD_MS);
+    }
+    /* Sensor Initialization */
+    Status = VL53L1X_SensorInit(0);
+    /* Modify the default configuration */
+    Status = VL53L1X_SetInterMeasurementInMs(0, 50);
+    Status = VL53L1X_SetTimingBudgetInMs(0, 33);
+    /* enable the ranging*/
+    Status = VL53L1X_StartRanging(0);
+
+    return ESP_OK;
+}
+
 static esp_err_t IMU_acc_init() 
 {
     i2c_device_config_t acc_config = {
@@ -114,6 +146,10 @@ void vGetRawDataTask(void *pvParameters) {
         // ESP_LOGI(TAG, "Attitude Rate (rad/s): x=%.2f y=%.2f z=%.2f", gyro_data.Gx_rad_s, gyro_data.Gy_rad_s, gyro_data.Gz_rad_s); 
         if (!xQueueSendToBack(xQueue_raw_gyro_data, (void *) raw_data, portMAX_DELAY))
             ESP_LOGE(TAG, "RAW gyro data queue is full"); 
+
+        uint16_t height_mm; 
+        VL53L1X_GetDistance(0, &height_mm); 
+        ESP_LOGI(TAG, "Drone height (mm): %d", height_mm); 
     }
 }
 
@@ -146,7 +182,9 @@ void sensors_init(void) {
     ESP_ERROR_CHECK(IMU_acc_init()); 
     ESP_LOGI(TAG, "Initialized IMU successfully");
     ESP_ERROR_CHECK(IMU_gyro_init()); 
-    ESP_LOGI(TAG, "Initialized gyroscope  successfully"); 
+    ESP_LOGI(TAG, "Initialized gyroscope successfully"); 
+    ESP_ERROR_CHECK(ToF_init()); 
+    ESP_LOGI(TAG, "Initialized ToF successfully"); 
 
     // ESP_ERROR_CHECK(i2c_master_bus_rm_device(imu_handle));
     // ESP_ERROR_CHECK(i2c_master_bus_rm_device(gyro_handle));

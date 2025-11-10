@@ -1,5 +1,8 @@
 #ifndef SENSORS_H
 #define SENSORS_H
+
+#include "driver/i2c_master.h"
+
 /* ------------------------------------------- Structs ------------------------------------------- */
 typedef struct acc_data {
     float ax_m_s2; 
@@ -27,12 +30,17 @@ typedef struct gyro_data {
 #define GYRO_BANDWIDTH              0x10
 #define GYRO_DATA_START             0x02
 
+#define TOF_SENSOR_ADDR             0x52                        /* Time of Flight I2C Address*/
+
 // General Constants
 #define GET_RAW_DATA_PRIORITY       6
 #define DATA_PROC_PRIORITY          5
 #define SENS_PERIOD_MS              2                           /* Sensor polling rate during stabilization loop */
 #define CALIBRATION_PERIOD_MS       2                           /* Sensor polling rate during calibration */
 #define CALIBRATION_SAMPLES         1500                        /* Number of samples to take while calibrating sensors */
+
+/* ------------------------------------------- Public Global Variables  ------------------------------------------- */
+extern i2c_master_dev_handle_t tof_handle;
 
 /* ------------------------------------------- Public Function Declarations ------------------------------------------- */
 void sensors_init(void);
