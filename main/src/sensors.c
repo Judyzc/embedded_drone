@@ -135,7 +135,8 @@ void vGetRawDataTask(void *pvParameters) {
         if (!xWasDelayed)
             ESP_LOGE(TAG, "Can't get I2C data this fast");
         start_tick = xLastWakeTime; 
- 
+        
+        gpio_set_level(PIN_TOGGLE_A, 1);
         uint8_t raw_data[3*2*sizeof(uint8_t)]; 
         ESP_ERROR_CHECK(register_read(acc_handle, ACC_DATA_START, raw_data, sizeof(raw_data))); 
         // ESP_LOGI(TAG, "Accel raw data: x=%x, y=%x, z=%x", (raw_data[0] | (raw_data[1]<<8)), (raw_data[2] | (raw_data[3]<<8)), (raw_data[4] | (raw_data[5]<<8)));
@@ -150,6 +151,7 @@ void vGetRawDataTask(void *pvParameters) {
         uint16_t height_mm; 
         VL53L1X_GetDistance(0, &height_mm); 
         ESP_LOGI(TAG, "Drone height (mm): %d", height_mm); 
+        gpio_set_level(PIN_TOGGLE_A, 0);
     }
 }
 
