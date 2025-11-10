@@ -10,6 +10,7 @@
 #include "sensors.h"
 #include "six_axis_comp_filter.h"
 #include "estimator.h"
+#include "driver/gpio.h"
 
 static const char *TAG = "estimator"; 
 
@@ -24,6 +25,7 @@ void vUpdateEstimatorTask(void *pvParameters) {
         xQueueReceive(xQueue_acc_data, (void *) &acc_data, portMAX_DELAY); 
         xQueueReceive(xQueue_gyro_data, (void *) &gyro_data, portMAX_DELAY); 
 
+        gpio_set_level(PIN_TOGGLE_A, 1);
         CompAccelUpdate(&comp_filter, acc_data.ax_m_s2, acc_data.ay_m_s2, acc_data.az_m_s2); 
         CompGyroUpdate(&comp_filter, gyro_data.Gx_rad_s, gyro_data.Gy_rad_s, gyro_data.Gz_rad_s); 
         CompUpdate(&comp_filter); 
@@ -50,6 +52,7 @@ void vUpdateEstimatorTask(void *pvParameters) {
         // float pitch_deg = CompRadiansToDegrees(pitch_rad); 
         // float roll_deg = CompRadiansToDegrees(roll_rad);
         // ESP_LOGI(TAG, "Attitude (deg): Pitch=%.1f Roll=%.1f", pitch_deg, roll_deg);
+        gpio_set_level(PIN_TOGGLE_A, 0);
     } 
 }
 

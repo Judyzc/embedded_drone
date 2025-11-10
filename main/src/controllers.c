@@ -14,6 +14,7 @@
 #include "estimator.h"
 #include "controllers.h"
 #include "motors.h"
+#include "driver/gpio.h"
 
 static const char *TAG = "controllers";
 /* ------------------------------------------- Global Variables ------------------------------------------- */
@@ -56,20 +57,20 @@ static motor_cmds_t sum_motor_cmds(float pitch_torque_cmd_Nm, float roll_torque_
 void vUpdatePIDTask(void *pvParameters) {
     state_data_t state_data; 
     for (;;) {
+        EMERG_STOP = true; 
         // Check for unstable flight -> kill motors
         if (!EMERG_STOP && (fabs(state_data.pitch_rad) > M_PI/4.0 || fabs(state_data.roll_rad) > M_PI/4.0)) {
             ESP_LOGE(TAG, "Stopping Motors"); 
             EMERG_STOP = true; 
         }
 
-        gpio_set_level(PIN_TOGGLE_B, 1);
 
         // Pitch cascaded PIDs
         xQueueReceive(xQueue_state_data, (void *) &state_data, portMAX_DELAY); 
+
         float pitch_error_rad = 0.0 - state_data.pitch_rad; 
         float desired_pitch_rate_rad_s; 
         pid_compute(pitch_pid_handle, pitch_error_rad, &desired_pitch_rate_rad_s);
-        
         // desired_pitch_rate_rad_s = 0;       // For tuning the second PID
 
         float pitch_rate_error = desired_pitch_rate_rad_s - state_data.pitch_rate_rad_s; 
@@ -99,7 +100,6 @@ void vUpdatePIDTask(void *pvParameters) {
         update_pwm(motor_cmds);
         end_tick = xTaskGetTickCount(); 
 
-        gpio_set_level(PIN_TOGGLE_B, 0);
         // ESP_LOGI(TAG, "Sensor to Motor Time: %d ticks", end_tick - start_tick);  
     }
 }

@@ -5,13 +5,14 @@
 #include "freertos/queue.h"
 #include "esp_log.h"
 
-#include “driver/gpio.h”
+#include "driver/gpio.h"
 #include "i2c_setup.h"
 #include "sensors.h"
 #include "six_axis_comp_filter.h"
 #include "estimator.h"
 #include "controllers.h"
 #include "motors.h"
+#include "main.h"
 
 static const char *TAG = "main";
 

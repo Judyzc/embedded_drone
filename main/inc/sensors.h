@@ -46,5 +46,6 @@ extern i2c_master_dev_handle_t tof_handle;
 void sensors_init(void);
 void calibrate_sensors(void);
 void start_control_loop(void);
+void init_osc_pin(int pin);
 
 #endif /* SENSORS_H */
