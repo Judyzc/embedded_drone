@@ -62,6 +62,8 @@ void vUpdatePIDTask(void *pvParameters) {
             EMERG_STOP = true; 
         }
 
+        gpio_set_level(PIN_TOGGLE_B, 1);
+
         // Pitch cascaded PIDs
         xQueueReceive(xQueue_state_data, (void *) &state_data, portMAX_DELAY); 
         float pitch_error_rad = 0.0 - state_data.pitch_rad; 
@@ -96,6 +98,8 @@ void vUpdatePIDTask(void *pvParameters) {
 
         update_pwm(motor_cmds);
         end_tick = xTaskGetTickCount(); 
+
+        gpio_set_level(PIN_TOGGLE_B, 0);
         // ESP_LOGI(TAG, "Sensor to Motor Time: %d ticks", end_tick - start_tick);  
     }
 }

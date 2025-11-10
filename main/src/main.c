@@ -5,6 +5,7 @@
 #include "freertos/queue.h"
 #include "esp_log.h"
 
+#include “driver/gpio.h”
 #include "i2c_setup.h"
 #include "sensors.h"
 #include "six_axis_comp_filter.h"
@@ -28,6 +29,10 @@ void app_main(void) {
     
     // Call initialization functions
     ESP_LOGI(TAG, "Initializing components");
+
+    init_osc_pin(PIN_TOGGLE_A);
+    init_osc_pin(PIN_TOGGLE_B);
+
     i2c_master_init(); 
     sensors_init(); 
     estimator_init(); 
