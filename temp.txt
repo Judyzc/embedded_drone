@@ -1,0 +1,50 @@
+void i2c_scanner_task(void *arg)
+{
+    (void)arg;
+
+    if (bus_handle == NULL) {
+        ESP_LOGE(TAG_SCAN, "bus_handle is NULL (call i2c_master_init first)");
+        vTaskDelete(NULL);
+        return;
+    }
+
+    ESP_LOGI(TAG_SCAN, "Starting I2C scan (0x03..0x77) using i2c_master wrapper");
+
+    for (int addr = 0x03; addr <= 0x77; ++addr) {
+        i2c_device_config_t cfg = {
+            .dev_addr_length = I2C_ADDR_BIT_LEN_7,
+            .device_address = addr,
+            .scl_speed_hz = 100000, // use conservative 100kHz
+        };
+
+        i2c_master_dev_handle_t tmp_dev = NULL;
+        esp_err_t res = i2c_master_bus_add_device(bus_handle, &cfg, &tmp_dev);
+        if (res != ESP_OK || tmp_dev == NULL) {
+            // Could not create device handle for this address; skip
+            // (some wrappers may return error for invalid address)
+            if (tmp_dev) {
+                i2c_master_bus_rm_device(tmp_dev);
+            }
+            continue;
+        }
+
+        // Try a tiny write: one zero byte. If device ACKs, transmit returns ESP_OK.
+        uint8_t probe_byte = 0x00;
+        TickType_t timeout_ticks = pdMS_TO_TICKS(100); // 100 ms
+        res = i2c_master_transmit(tmp_dev, &probe_byte, 1, timeout_ticks);
+
+        if (res == ESP_OK) {
+            ESP_LOGI(TAG_SCAN, "Found device at 0x%02X", addr);
+        } else {
+            // no ack or other error; ignore
+            //ESP_LOGD(TAG_SCAN, "No device at 0x%02X (err %d)", addr, res);
+        }
+
+        // Remove the temporary device handle so we don't leak resources
+        i2c_master_bus_rm_device(tmp_dev);
+        vTaskDelay(pdMS_TO_TICKS(10)); // small delay so bus isn't hammered
+    }
+
+    ESP_LOGI(TAG_SCAN, "I2C scan complete");
+    vTaskDelete(NULL);
+}

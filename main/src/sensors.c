@@ -22,45 +22,60 @@
 #include "main.h"
 #include "sensors.h"
 #include "six_axis_comp_filter.h"
-#include "vl53l1_platform.h"
+
+// from components/
 #include "VL53L1X_api.h"
-#include "VL53L1X_calibration.h"
+#include "pmw3901.h"
+
+// now in leftover/ 
+// #include "six_axis_comp_filter.h"
+// #include "vl53l1_platform.h"
+// #include "VL53L1X_api.h"
+// #include "VL53L1X_calibration.h"
 
 static const char *TAG = "sensors";
 
+
 /* ------------------------------------------- Initialize Public Global Variables  ------------------------------------------- */
-i2c_master_dev_handle_t tof_handle;
 
 /* ------------------------------------------- Private Global Variables  ------------------------------------------- */
-QueueHandle_t xQueue_raw_acc_data, xQueue_raw_gyro_data; 
-i2c_master_dev_handle_t acc_handle, gyro_handle;
+// i2c
+QueueHandle_t xQueue_raw_acc_data, xQueue_raw_gyro_data, xQueue_raw_tof_data, xQueue_raw_optf_data; 
+i2c_master_dev_handle_t acc_handle, gyro_handle, tof_handle;
 static float acc_x_offset = 0, acc_y_offset = 0, gyro_x_offset = 0, gyro_y_offset = 0, gyro_z_offset = 0; 
 
+// spi
+static pmw3901_t g_pmw = {0};
+
 /* ------------------------------------------- Private function definitions  ------------------------------------------- */
-static esp_err_t ToF_init() 
+static esp_err_t DECK_tof_init() 
 {
     i2c_device_config_t tof_config = {
         .dev_addr_length = I2C_ADDR_BIT_LEN_7,
-        .device_address = TOF_SENSOR_ADDR,
+        .device_address = DECK_TOF_SENSOR_ADDRESS,
         .scl_speed_hz = I2C_MASTER_FREQ_HZ,
     };
     ESP_ERROR_CHECK(i2c_master_bus_add_device(bus_handle, &tof_config, &tof_handle));
-
-    VL53L1X_ERROR Status;
-    uint8_t state = 0;  
-    while(!state){
-        Status = VL53L1X_BootState(0, &state);
-        vTaskDelay(2 / portTICK_PERIOD_MS);
+    if (VL53L1X_SensorInit(DECK_TOF_SENSOR_ADDRESS) == VL53L1_ERROR_NONE) {
+        ESP_LOGI(TAG, "VL53L1X_SensorInit OK at 0x%02X", DECK_TOF_SENSOR_ADDRESS);
+        if (VL53L1X_StartRanging(DECK_TOF_SENSOR_ADDRESS) == VL53L1_ERROR_NONE) {
+            ESP_LOGI(TAG, "VL53L1X_StartRanging OK at 0x%02X", DECK_TOF_SENSOR_ADDRESS);
+            return ESP_OK;
+        } else {
+            ESP_LOGW(TAG, "StartRanging failed at 0x%02X", DECK_TOF_SENSOR_ADDRESS);
+        }
+    } else {
+        ESP_LOGW(TAG, "SensorInit failed at 0x%02X", DECK_TOF_SENSOR_ADDRESS);
     }
-    /* Sensor Initialization */
-    Status = VL53L1X_SensorInit(0);
-    /* Modify the default configuration */
-    Status = VL53L1X_SetInterMeasurementInMs(0, 50);
-    Status = VL53L1X_SetTimingBudgetInMs(0, 33);
-    /* enable the ranging*/
-    Status = VL53L1X_StartRanging(0);
+    ESP_LOGE(TAG, "VL53 init failed.");
+    return ESP_FAIL;
+}
 
-    return ESP_OK;
+static bool DECK_optf_init() 
+{
+    bool optf_ok = pmw3901_init(&g_pmw, VSPI_HOST, 
+                                ESP_SCLK_IO, ESP_MOSI_IO, ESP_MISO_IO, ESP_CS_IO);
+    return optf_ok;
 }
 
 static esp_err_t IMU_acc_init() 
@@ -125,11 +140,13 @@ static gyro_data_t process_gyro_data(uint8_t *raw_data) {
     return gyro_data; 
 }
 
+
 /* ------------------------------------------- Free RTOS Tasks  ------------------------------------------- */
 void vGetRawDataTask(void *pvParameters) {
     ESP_LOGI(TAG, "Beginning control loop"); 
     TickType_t xLastWakeTime = xTaskGetTickCount();
-    const TickType_t xTimeIncrement = SENS_PERIOD_MS/portTICK_PERIOD_MS;
+    // const TickType_t xTimeIncrement = SENS_PERIOD_MS/portTICK_PERIOD_MS;
+    const TickType_t xTimeIncrement = pdMS_TO_TICKS(SENS_PERIOD_MS);
     BaseType_t xWasDelayed;
     for (;;) {
         xWasDelayed = xTaskDelayUntil( &xLastWakeTime, xTimeIncrement);
@@ -149,9 +166,23 @@ void vGetRawDataTask(void *pvParameters) {
         if (!xQueueSendToBack(xQueue_raw_gyro_data, (void *) raw_data, portMAX_DELAY))
             ESP_LOGE(TAG, "RAW gyro data queue is full"); 
 
-        // uint16_t height_mm; 
-        // VL53L1X_GetDistance(0, &height_mm); 
-        // ESP_LOGI(TAG, "Drone height (mm): %d", height_mm); 
+        VL53L1X_Result_t result;  // for tof
+        uint16_t distance_mm;  // for tof
+        if (VL53L1X_GetResult((uint16_t) DECK_TOF_SENSOR_ADDRESS, &result) == VL53L1_ERROR_NONE) {
+            distance_mm = (uint16_t) result.Distance;
+            ESP_LOGI(TAG, "distance_mm=%d", distance_mm);
+            if (!xQueueSendToBack(xQueue_raw_tof_data, &distance_mm, portMAX_DELAY)) {
+                ESP_LOGE(TAG, "Failed to send TOF reading to queue");
+            }
+        }
+
+        // int16_t dx = 0, dy = 0;  // optical flow
+        int16_t optf_data[2*sizeof(int16_t)]; // optical flow
+        if (pmw3901_read_motion_count(&g_pmw, &optf_data[0], &optf_data[1])) {
+            if (!xQueueSendToBack(xQueue_raw_optf_data, (void *) optf_data, portMAX_DELAY)) {
+                ESP_LOGE(TAG, "Failed to send optical flow to queue");
+            }
+        }
 
         gpio_set_level(PIN_TOGGLE_A, 0);
     }
@@ -180,6 +211,38 @@ void vProcessGyroDataTask(void *pvParameters) {
     }
 }
 
+void vProcessTofDataTask(void *pvParameters) {
+    // doesn't actually do any processing lol but keep form and priority 
+    uint16_t distance;
+    ESP_LOGI(TAG, "vProcessTofDataTask started");
+    for (;;) {
+        xQueueReceive(xQueue_raw_tof_data, &distance, portMAX_DELAY);
+        ESP_LOGI(TAG, "inside process, distance=%d", distance);
+        tof_data_t tof_data; 
+        tof_data.distance = (float) distance;
+        if (!xQueueSendToBack(xQueue_tof_data, (void *) &tof_data, portMAX_DELAY)) {
+            ESP_LOGE(TAG, "Failed to send TOF reading to queue");
+        }
+    }
+}
+
+void vProccessOptfDataTask(void *pvParameters) {
+    // doesn't actually do any processing either 
+    int16_t raw_data[2];
+    ESP_LOGI(TAG, "vProccessOptfDataTask started");
+    for (;;) {
+        xQueueReceive(xQueue_raw_tof_data, (void *) raw_data, portMAX_DELAY);
+        ESP_LOGI(TAG, "motion dx=%d dy=%d", raw_data[0], raw_data[1]);
+        optf_data_t optf_data;
+        optf_data.motion_dx = (float) raw_data[0];
+        optf_data.motion_dy = (float) raw_data[1];
+        if (!xQueueSendToBack(xQueue_optf_data, (void *) &optf_data, portMAX_DELAY)) {
+            ESP_LOGE(TAG, "Failed to send Optical Flow reading to queue");
+        }
+    }
+}
+
+
 /* ------------------------------------------- Public Function Definitions  ------------------------------------------- */
 void init_osc_pin(int pin) {
     gpio_config_t io_conf = {
@@ -193,14 +256,21 @@ void init_osc_pin(int pin) {
     gpio_set_level(pin, 0);
 }
 
+// called in main.c
 void sensors_init(void) {
     // Initialize sensors 
     ESP_ERROR_CHECK(IMU_acc_init()); 
     ESP_LOGI(TAG, "Initialized IMU successfully");
     ESP_ERROR_CHECK(IMU_gyro_init()); 
     ESP_LOGI(TAG, "Initialized gyroscope successfully"); 
-    // ESP_ERROR_CHECK(ToF_init()); 
-    // ESP_LOGI(TAG, "Initialized ToF successfully"); 
+    ESP_ERROR_CHECK(DECK_tof_init()); 
+    ESP_LOGI(TAG, "Initialized ToF successfully"); 
+    bool optf_ok = DECK_optf_init(); 
+    if (optf_ok) {
+        ESP_LOGI(TAG, "Initialized Optical Flow successfully"); 
+    } else {
+        ESP_LOGI(TAG, "Error with init optical flow"); 
+    }
 
     // ESP_ERROR_CHECK(i2c_master_bus_rm_device(imu_handle));
     // ESP_ERROR_CHECK(i2c_master_bus_rm_device(gyro_handle));
@@ -208,6 +278,7 @@ void sensors_init(void) {
     // ESP_LOGI(TAG, "I2C de-initialized successfully");
 }
 
+// called in main.c
 void calibrate_sensors(void) {
     ESP_LOGI(TAG, "Beginning Sensor calibration"); 
     float acc_x_running_total = 0.0; 
@@ -244,13 +315,18 @@ void calibrate_sensors(void) {
     gyro_z_offset = -1.0*gyro_z_running_total/((float) CALIBRATION_SAMPLES); 
 }
 
+// called in main.c
 void start_control_loop(void) {
     // Initialize internal queues
     xQueue_raw_acc_data = xQueueCreate(1, 6*sizeof(uint8_t)); 
     xQueue_raw_gyro_data = xQueueCreate(1, 6*sizeof(uint8_t));
-    
+    xQueue_raw_tof_data = xQueueCreate(1, sizeof(uint16_t));
+    xQueue_raw_optf_data = xQueueCreate(1, 2*sizeof(int16_t));
+
     // Start Tasks
     xTaskCreate(vProcessAccDataTask, "Acc Data Processing", 4096, NULL, DATA_PROC_PRIORITY, NULL);
     xTaskCreate(vProcessGyroDataTask, "Gyro Data Processing", 4096, NULL, DATA_PROC_PRIORITY, NULL);
+    xTaskCreate(vProcessTofDataTask, "TOF Data Processing", 4096, NULL, DATA_PROC_PRIORITY, NULL);
+    xTaskCreate(vProccessOptfDataTask, "Optical Flow Data Processing", 4096, NULL, DATA_PROC_PRIORITY, NULL);
     xTaskCreate(vGetRawDataTask, "Get Raw Data", 4096, NULL, GET_RAW_DATA_PRIORITY, NULL);
 }

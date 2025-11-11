@@ -18,14 +18,18 @@ static const char *TAG = "main";
 
 /* ------------------------------------------- Global Variables  ------------------------------------------- */
 // Initialize global variables across files
-QueueHandle_t xQueue_acc_data, xQueue_gyro_data, xQueue_ToF_data, xQueue_state_data; 
 TickType_t start_tick = 0, end_tick = 0; 
+QueueHandle_t xQueue_acc_data, xQueue_gyro_data;
+QueueHandle_t xQueue_tof_data, xQueue_optf_data;
+QueueHandle_t xQueue_state_data; 
 
 /* ------------------------------------------- Public Function Definitions  ------------------------------------------- */
 void app_main(void) {
     // Initialize Queues between tasks
     xQueue_acc_data = xQueueCreate(1, sizeof(acc_data_t)); 
     xQueue_gyro_data = xQueueCreate(1, sizeof(gyro_data_t)); 
+    xQueue_tof_data = xQueueCreate(1, sizeof(tof_data_t));
+    xQueue_optf_data = xQueueCreate(1, sizeof(optf_data_t));
     xQueue_state_data = xQueueCreate(1, sizeof(state_data_t)); 
     
     // Call initialization functions
@@ -37,8 +41,8 @@ void app_main(void) {
     i2c_master_init(); 
     sensors_init(); 
     estimator_init(); 
-    controllers_init();
-    motors_init(); 
+    // controllers_init();
+    // motors_init(); 
 
     // Calibrate sensors and start stabilization loop
     calibrate_sensors();

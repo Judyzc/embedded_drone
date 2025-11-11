@@ -20,9 +20,16 @@ SixAxis comp_filter;
 void vUpdateEstimatorTask(void *pvParameters) { 
     acc_data_t acc_data; 
     gyro_data_t gyro_data; 
+    tof_data_t tof_data;
+    optf_data_t optf_data;
     for (;;) {
         xQueueReceive(xQueue_acc_data, (void *) &acc_data, portMAX_DELAY); 
         xQueueReceive(xQueue_gyro_data, (void *) &gyro_data, portMAX_DELAY); 
+        // deck: tof and optf
+        xQueueReceive(xQueue_tof_data, (void *) &tof_data, portMAX_DELAY);
+        ESP_LOGE(TAG, "estimator ! tof distance = %d", tof_data.distance); 
+        xQueueReceive(xQueue_optf_data, (void *) &optf_data, portMAX_DELAY);
+        ESP_LOGE(TAG, "estimator ! dx = %d, dy = %d", optf_data.motion_dx, optf_data.motion_dy); 
 
         CompAccelUpdate(&comp_filter, acc_data.ax_m_s2, acc_data.ay_m_s2, acc_data.az_m_s2); 
         CompGyroUpdate(&comp_filter, gyro_data.Gx_rad_s, gyro_data.Gy_rad_s, gyro_data.Gz_rad_s); 

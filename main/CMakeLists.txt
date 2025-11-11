@@ -6,9 +6,6 @@ idf_component_register(
           "src/main.c" 
           "src/six_axis_comp_filter.c" 
           "src/i2c_setup.c"
-          "src/VL53L1X_api.c"
-          "src/VL53L1X_calibration.c"
-          "src/vl53l1_platform.c"
-     INCLUDE_DIRS "." "inc"
-     REQUIRES esp_driver_gpio esp_driver_i2c esp_driver_ledc
+     INCLUDE_DIRS "inc"
+     REQUIRES esp_driver_gpio esp_driver_i2c esp_driver_ledc VL53L1_ULD_ESP pmw3901
      )

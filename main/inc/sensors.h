@@ -16,7 +16,25 @@ typedef struct gyro_data {
     float Gz_rad_s; 
 } gyro_data_t;
 
+typedef struct tof_data {
+    float distance; 
+} tof_data_t;
+
+typedef struct optf_data {
+    float motion_dx; 
+    float motion_dy;
+} optf_data_t;
+
 /* ------------------------------------------- Constants ------------------------------------------- */
+// I2C Config info
+#define I2C_MASTER_SCL_IO           CONFIG_I2C_MASTER_SCL       /*!< GPIO number used for I2C master clock */ //32, 5
+#define I2C_MASTER_SDA_IO           CONFIG_I2C_MASTER_SDA       /*!< GPIO number used for I2C master data  */ //33, 4
+#define I2C_MASTER_NUM              I2C_NUM_0                   /*!< I2C port number for master dev */
+#define I2C_MASTER_FREQ_HZ          CONFIG_I2C_MASTER_FREQUENCY /*!< I2C master clock frequency */
+#define I2C_MASTER_TX_BUF_DISABLE   0                           /*!< I2C master doesn't need buffer */
+#define I2C_MASTER_RX_BUF_DISABLE   0                           /*!< I2C master doesn't need buffer */
+#define I2C_MASTER_TIMEOUT_MS       1000
+
 // I2C addresses and device registers 
 #define IMU_ACC_SENSOR_ADDR         0x18                        /* Accelerometer I2C Address */
 #define ACC_PWR_CTRL                0x7D                        /* Accelerometer registers */
@@ -30,7 +48,14 @@ typedef struct gyro_data {
 #define GYRO_BANDWIDTH              0x10
 #define GYRO_DATA_START             0x02
 
-#define TOF_SENSOR_ADDR             0x52                        /* Time of Flight I2C Address*/
+// 0x52 shifted right one
+#define DECK_TOF_SENSOR_ADDRESS     0x29                        /* Time of Flight I2C Address */ 
+
+// SPI Config info
+#define ESP_SCLK_IO 18  // 3, right side of deck
+#define ESP_MOSI_IO 23  // 5, right side of deck
+#define ESP_MISO_IO 19  // 4, right side of deck
+#define ESP_CS_IO   5   // 8, left side of deck
 
 // General Constants
 #define GET_RAW_DATA_PRIORITY       6
