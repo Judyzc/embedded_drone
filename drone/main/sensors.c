@@ -17,23 +17,31 @@
 #include "freertos/queue.h"
 #include "esp_log.h"
 #include "driver/i2c_master.h"
+#include "driver/spi_master.h"
 
 #include "main.h"
 #include "sensors.h"
 #include "six_axis_comp_filter.h"
 
 #include "VL53L1X_api.h"
+#include "pmw3901.h"
 
 static const char *TAG = "example";
-static const char *TAG_SCAN = "i2c_scan";
 static uint16_t tof_i2c_addr = DECK_TOF_SENSOR_ADDRESS;
 
 /* ------------------------------------------- Global Variables  ------------------------------------------- */
+// i2c
 QueueHandle_t xQueue_raw_acc_data, xQueue_raw_gyro_data, xQueue_raw_tof_data; 
 i2c_master_bus_handle_t bus_handle;
 i2c_master_dev_handle_t acc_handle, gyro_handle, tof_handle;
 
+// spi
+static TaskHandle_t xPMWTaskHandle = NULL;
+static pmw3901_t g_pmw = {0};
+static const char *TAG_PMW = "pmw3901";
 
+
+/* ---------------------------------------------- Functions  ----------------------------------------------- */
 static void i2c_master_init()
 {
     i2c_master_bus_config_t bus_config = {
@@ -88,7 +96,6 @@ static esp_err_t DECK_tof_init(void)
     return ESP_FAIL;
 }
 
-
 void vProcessTofDataTask(void *pvParameters) {
     (void)pvParameters;
     VL53L1X_Result_t result;
@@ -134,25 +141,50 @@ static void vConsumeTofTask(void *pv) {
     }
 }
 
+static void vPMWTask(void *pvParameters)
+{
+    (void)pvParameters;
+    int16_t dx = 0, dy = 0;
+    ESP_LOGI(TAG_PMW, "PMW task started");
+    for (;;) {
+        pmw3901_read_motion_count(&g_pmw, &dx, &dy);
+        ESP_LOGI(TAG_PMW, "motion dx=%d dy=%d", dx, dy);
+        vTaskDelay(pdMS_TO_TICKS(50));
+    }
+}
+
 
 /* ------------------------------------------- Public Function Definitions  ------------------------------------------- */
 void sensors_init(){
     // Start I2C
     vTaskDelay(1 / portTICK_PERIOD_MS); // IMU requires 1ms pause after power-on
-    i2c_master_init();
-    ESP_LOGI(TAG, "I2C initialized successfully");
+    // i2c_master_init();
 
-    // Initialize TOF (deck)
-    ESP_ERROR_CHECK(DECK_tof_init()); 
-    ESP_LOGI(TAG, "Time of Flight initialized successfully"); 
+    // ESP_LOGI(TAG, "I2C initialized successfully");
 
-    // Initialize internal queues
-    xQueue_raw_tof_data = xQueueCreate(1, sizeof(uint16_t));
+    // // Initialize TOF (deck)
+    // ESP_ERROR_CHECK(DECK_tof_init()); 
+    // ESP_LOGI(TAG, "Time of Flight initialized successfully"); 
+
+    // // Initialize internal queues
+    // xQueue_raw_tof_data = xQueueCreate(1, sizeof(uint16_t));
     
-    // Start Tasks
-    // // xTaskCreate(vGetRawDataTask, "Get Raw Data", 4096, NULL, GET_RAW_DATA_PRIORITY, NULL);
-    xTaskCreate(vProcessTofDataTask, "TOF Data Processing", 4096, NULL, DATA_PROC_PRIORITY, NULL);
-    xTaskCreate(vConsumeTofTask, "TOF Consumer", 4096, NULL, 5, NULL);
+    // // Start Tasks
+    // // // xTaskCreate(vGetRawDataTask, "Get Raw Data", 4096, NULL, GET_RAW_DATA_PRIORITY, NULL);
+    // xTaskCreate(vProcessTofDataTask, "TOF Data Processing", 4096, NULL, DATA_PROC_PRIORITY, NULL);
+    // xTaskCreate(vConsumeTofTask, "TOF Consumer", 4096, NULL, 5, NULL);
+
+    bool pmw_ok = pmw3901_init(&g_pmw, VSPI_HOST,
+                            PMW3901_SCLK_IO,
+                            PMW3901_MOSI_IO,
+                            PMW3901_MISO_IO,
+                            PMW3901_CS_IO);
+    if (!pmw_ok) {
+        ESP_LOGW(TAG_PMW, "PMW3901 init failed");
+    } else {
+        ESP_LOGI(TAG_PMW, "PMW3901 init OK; starting PMW task");
+        xTaskCreate(vPMWTask, "PMW Task", 2048, NULL, 5, &xPMWTaskHandle);
+    }
 
     // ESP_ERROR_CHECK(i2c_master_bus_rm_device(imu_handle));
     // ESP_ERROR_CHECK(i2c_master_bus_rm_device(gyro_handle));

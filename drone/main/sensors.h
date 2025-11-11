@@ -19,8 +19,8 @@ typedef struct tof_data {
 
 /* ------------------------------------------- Constants ------------------------------------------- */
 // I2C Config info
-#define I2C_MASTER_SCL_IO           CONFIG_I2C_MASTER_SCL       /*!< GPIO number used for I2C master clock */
-#define I2C_MASTER_SDA_IO           CONFIG_I2C_MASTER_SDA       /*!< GPIO number used for I2C master data  */
+#define I2C_MASTER_SCL_IO           CONFIG_I2C_MASTER_SCL       /*!< GPIO number used for I2C master clock */ //32, 5
+#define I2C_MASTER_SDA_IO           CONFIG_I2C_MASTER_SDA       /*!< GPIO number used for I2C master data  */ //33, 4
 #define I2C_MASTER_NUM              I2C_NUM_0                   /*!< I2C port number for master dev */
 #define I2C_MASTER_FREQ_HZ          CONFIG_I2C_MASTER_FREQUENCY /*!< I2C master clock frequency */
 #define I2C_MASTER_TX_BUF_DISABLE   0                           /*!< I2C master doesn't need buffer */
@@ -41,6 +41,13 @@ typedef struct tof_data {
 #define GYRO_DATA_START             0x02
 
 #define DECK_TOF_SENSOR_ADDRESS     0x29                        /* Time of Flight I2C Address */
+
+// SPI Config info
+#define PMW3901_SCLK_IO 18 // 3, right
+#define PMW3901_MOSI_IO 23 // 5, right
+#define PMW3901_MISO_IO 19 // 4, right
+#define PMW3901_CS_IO   5 // 8, left
+
 
 // General Constants
 #define GET_RAW_DATA_PRIORITY       6

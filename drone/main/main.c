@@ -26,9 +26,9 @@ void app_main(void) {
     xQueue_state_data = xQueueCreate(1, sizeof(state_data_t)); 
     
     sensors_init(); 
-    estimator_init(); 
-    controllers_init();
-    motors_init(); 
+    // estimator_init(); 
+    // controllers_init();
+    // motors_init(); 
 
     while (1) {
         vTaskDelay(2);      // Prevent watchdog from timing out
