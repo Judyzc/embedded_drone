@@ -16,6 +16,7 @@
 #include "freertos/task.h"
 #include "freertos/queue.h"
 #include "esp_log.h"
+#include "driver/gpio.h"
 
 #include "i2c_setup.h"
 #include "main.h"
@@ -148,9 +149,10 @@ void vGetRawDataTask(void *pvParameters) {
         if (!xQueueSendToBack(xQueue_raw_gyro_data, (void *) raw_data, portMAX_DELAY))
             ESP_LOGE(TAG, "RAW gyro data queue is full"); 
 
-        uint16_t height_mm; 
-        VL53L1X_GetDistance(0, &height_mm); 
-        ESP_LOGI(TAG, "Drone height (mm): %d", height_mm); 
+        // uint16_t height_mm; 
+        // VL53L1X_GetDistance(0, &height_mm); 
+        // ESP_LOGI(TAG, "Drone height (mm): %d", height_mm); 
+
         gpio_set_level(PIN_TOGGLE_A, 0);
     }
 }
@@ -179,14 +181,26 @@ void vProcessGyroDataTask(void *pvParameters) {
 }
 
 /* ------------------------------------------- Public Function Definitions  ------------------------------------------- */
+void init_osc_pin(int pin) {
+    gpio_config_t io_conf = {
+        .pin_bit_mask = (1ULL << pin),
+        .mode = GPIO_MODE_OUTPUT,
+        .pull_up_en = GPIO_PULLUP_DISABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type = GPIO_INTR_DISABLE
+    };
+    gpio_config(&io_conf);
+    gpio_set_level(pin, 0);
+}
+
 void sensors_init(void) {
     // Initialize sensors 
     ESP_ERROR_CHECK(IMU_acc_init()); 
     ESP_LOGI(TAG, "Initialized IMU successfully");
     ESP_ERROR_CHECK(IMU_gyro_init()); 
     ESP_LOGI(TAG, "Initialized gyroscope successfully"); 
-    ESP_ERROR_CHECK(ToF_init()); 
-    ESP_LOGI(TAG, "Initialized ToF successfully"); 
+    // ESP_ERROR_CHECK(ToF_init()); 
+    // ESP_LOGI(TAG, "Initialized ToF successfully"); 
 
     // ESP_ERROR_CHECK(i2c_master_bus_rm_device(imu_handle));
     // ESP_ERROR_CHECK(i2c_master_bus_rm_device(gyro_handle));

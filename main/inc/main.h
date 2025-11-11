@@ -10,6 +10,6 @@ extern QueueHandle_t xQueue_acc_data, xQueue_gyro_data, xQueue_state_data, xQueu
 extern TickType_t start_tick, end_tick; 
 
 #define PIN_TOGGLE_A    25
-#define PIN_TOGGLE_B    39
+#define PIN_TOGGLE_B    10
 
 #endif /* MAIN_H */
