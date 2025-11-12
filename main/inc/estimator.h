@@ -10,7 +10,7 @@ typedef struct state_data {
     float roll_rad; 
     float roll_rate_rad_s; 
     float yaw_rate_rad_s; 
-    float altitude_m; 
+    float altitude_rate_m_s; 
 } state_data_t;
 
 /* ------------------------------------------- Public Function Definitions ------------------------------------------- */

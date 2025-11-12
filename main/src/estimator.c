@@ -20,6 +20,8 @@ SixAxis comp_filter;
 void vUpdateEstimatorTask(void *pvParameters) { 
     acc_data_t acc_data; 
     gyro_data_t gyro_data; 
+    uint16_t height_mm, last_height_mm = 0; 
+    float altitude_rate_m_s = 0; 
     for (;;) {
         xQueueReceive(xQueue_acc_data, (void *) &acc_data, portMAX_DELAY); 
         xQueueReceive(xQueue_gyro_data, (void *) &gyro_data, portMAX_DELAY); 
@@ -36,13 +38,18 @@ void vUpdateEstimatorTask(void *pvParameters) {
             roll_rad -= 2.0*M_PI; 
         roll_rad *= -1.0; 
 
+        if (xQueueReceive(xQueue_ToF_data, (void *) &height_mm, 0)) {       // ToF samples at every 50ms (rest of loop runs every 2ms)
+            altitude_rate_m_s = ((float) height_mm - last_height_mm)/TOF_SENS_PERIOD_MS;
+            last_height_mm = height_mm; 
+        }  
+
         state_data_t state_data = {
             .pitch_rad = pitch_rad, 
             .pitch_rate_rad_s = gyro_data.Gx_rad_s,
             .roll_rad = roll_rad, 
             .roll_rate_rad_s = gyro_data.Gy_rad_s, 
-            .yaw_rate_rad_s = 0,                            // Placeholder
-            .altitude_m = 0,                                // Placeholder
+            .yaw_rate_rad_s = gyro_data.Gz_rad_s,
+            .altitude_rate_m_s = altitude_rate_m_s,
         };
         if (!xQueueSendToBack(xQueue_state_data, (void *) &state_data, portMAX_DELAY))
             ESP_LOGE(TAG, "State data queue is full"); 
@@ -50,6 +57,7 @@ void vUpdateEstimatorTask(void *pvParameters) {
         // float pitch_deg = CompRadiansToDegrees(pitch_rad); 
         // float roll_deg = CompRadiansToDegrees(roll_rad);
         // ESP_LOGI(TAG, "Attitude (deg): Pitch=%.1f Roll=%.1f", pitch_deg, roll_deg);
+        // ESP_LOGI(TAG, "Altitude Rate (m/z): %.2f", altitude_rate_m_s);
     } 
 }
 

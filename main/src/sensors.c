@@ -54,7 +54,7 @@ static esp_err_t ToF_init()
     }
     ESP_LOGI(TAG, "Finished booting");
     Status = VL53L1X_SensorInit(0);
-    Status = VL53L1X_SetInterMeasurementInMs(0, 50);
+    Status = VL53L1X_SetInterMeasurementInMs(0, TOF_SENS_PERIOD_MS);
     Status = VL53L1X_SetTimingBudgetInMs(0, 33);
     Status = VL53L1X_StartRanging(0);
 
@@ -155,7 +155,9 @@ void vGetRawDataTask(void *pvParameters) {
             if (range_status != 0)
                 ESP_LOGE(TAG, "Range Status: %d", range_status);
             VL53L1X_GetDistance(0, &height_mm); 
-            ESP_LOGI(TAG, "Drone height (mm): %d", height_mm); 
+            // ESP_LOGI(TAG, "Drone height (mm): %d", height_mm); 
+            if (!xQueueSendToBack(xQueue_ToF_data, (void *) &height_mm, portMAX_DELAY))
+                ESP_LOGE(TAG, "ToF data queue is full"); 
         }
 
         gpio_set_level(PIN_TOGGLE_A, 0);

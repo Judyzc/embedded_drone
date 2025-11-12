@@ -17,7 +17,7 @@
 
 static const char *TAG = "controllers";
 /* ------------------------------------------- Global Variables ------------------------------------------- */
-pid_ctrl_block_handle_t pitch_pid_handle, pitch_rate_pid_handle, roll_pid_handle, roll_rate_pid_handle;
+pid_ctrl_block_handle_t pitch_pid_handle, pitch_rate_pid_handle, roll_pid_handle, roll_rate_pid_handle, altitude_rate_pid_handle;
 
 bool EMERG_STOP = false; 
 
@@ -38,16 +38,16 @@ static float force_2_duty_cycle(float force_N) {
     return duty_cycle; 
 }
 
-static motor_cmds_t sum_motor_cmds(float pitch_torque_cmd_Nm, float roll_torque_cmd_Nm) {
+static motor_cmds_t sum_motor_cmds(float pitch_torque_cmd_Nm, float roll_torque_cmd_Nm, float thrust_cmd_N) {
     float pitch_force_cmd_N = torque_2_force(pitch_torque_cmd_Nm); 
     float roll_force_cmd_N = torque_2_force(roll_torque_cmd_Nm); 
 
     // pitch and roll
     motor_cmds_t motor_cmds = {
-        .motor1_duty_cycle_pct = force_2_duty_cycle(.25*(pitch_force_cmd_N + roll_force_cmd_N)),
-        .motor2_duty_cycle_pct = force_2_duty_cycle(.25*(pitch_force_cmd_N - roll_force_cmd_N)),
-        .motor3_duty_cycle_pct = force_2_duty_cycle(.25*(-1.0*pitch_force_cmd_N - roll_force_cmd_N)),
-        .motor4_duty_cycle_pct = force_2_duty_cycle(.25*(-1.0*pitch_force_cmd_N + roll_force_cmd_N)),
+        .motor1_duty_cycle_pct = force_2_duty_cycle(.25*(pitch_force_cmd_N + roll_force_cmd_N + thrust_cmd_N)),
+        .motor2_duty_cycle_pct = force_2_duty_cycle(.25*(pitch_force_cmd_N - roll_force_cmd_N + thrust_cmd_N)),
+        .motor3_duty_cycle_pct = force_2_duty_cycle(.25*(-1.0*pitch_force_cmd_N - roll_force_cmd_N + thrust_cmd_N)),
+        .motor4_duty_cycle_pct = force_2_duty_cycle(.25*(-1.0*pitch_force_cmd_N + roll_force_cmd_N + thrust_cmd_N)),
     };
 
     return motor_cmds; 
@@ -69,7 +69,6 @@ void vUpdatePIDTask(void *pvParameters) {
         float pitch_error_rad = 0.0 - state_data.pitch_rad; 
         float desired_pitch_rate_rad_s; 
         pid_compute(pitch_pid_handle, pitch_error_rad, &desired_pitch_rate_rad_s);
-        
         // desired_pitch_rate_rad_s = 0;       // For tuning the second PID
 
         float pitch_rate_error = desired_pitch_rate_rad_s - state_data.pitch_rate_rad_s; 
@@ -80,14 +79,18 @@ void vUpdatePIDTask(void *pvParameters) {
         float roll_error_rad = 0.0 - state_data.roll_rad; 
         float desired_roll_rate_rad_s; 
         pid_compute(roll_pid_handle, roll_error_rad, &desired_roll_rate_rad_s);
-
         // desired_roll_rate_rad_s = 0;        // For tuning second PID
      
         float roll_rate_error = desired_roll_rate_rad_s - state_data.roll_rate_rad_s; 
         float roll_torque_cmd_Nm; 
-        pid_compute(roll_rate_pid_handle, roll_rate_error, &roll_torque_cmd_Nm); 
+        pid_compute(roll_rate_pid_handle, roll_rate_error, &roll_torque_cmd_Nm);
 
-        motor_cmds_t motor_cmds = sum_motor_cmds(pitch_torque_cmd_Nm, roll_torque_cmd_Nm); 
+        // Altitude rate PID
+        float altitude_rate_error = 0 - state_data.altitude_rate_m_s; 
+        float thrust_cmd_N; 
+        pid_compute(altitude_rate_pid_handle, altitude_rate_error, &thrust_cmd_N);
+
+        motor_cmds_t motor_cmds = sum_motor_cmds(pitch_torque_cmd_Nm, roll_torque_cmd_Nm, thrust_cmd_N); 
 
         if (EMERG_STOP) {
             motor_cmds.motor1_duty_cycle_pct = 0; 
@@ -166,6 +169,21 @@ void controllers_init(void) {
         .init_param = roll_rate_pid_runtime_param,
     };
     ESP_ERROR_CHECK(pid_new_control_block(&roll_rate_pid_config, &roll_rate_pid_handle));
+
+    pid_ctrl_parameter_t altitude_rate_pid_runtime_param = {
+        .kp = ALTITUDE_RATE_KP,
+        .ki = ALTITUDE_RATE_KI*TOF_DT,
+        .kd = ALTITUDE_RATE_KD/TOF_DT,
+        .cal_type = PID_CAL_TYPE_POSITIONAL,
+        .max_output   = ALTITUDE_RATE_LIMIT,
+        .min_output   = -1.0*ALTITUDE_RATE_LIMIT,
+        .max_integral = ALTITUDE_RATE_LIMIT,
+        .min_integral = -1.0*ALTITUDE_RATE_LIMIT,
+    };
+    pid_ctrl_config_t altitude_rate_pid_config = {
+        .init_param = altitude_rate_pid_runtime_param,
+    };
+    ESP_ERROR_CHECK(pid_new_control_block(&altitude_rate_pid_config, &altitude_rate_pid_handle));
 
     ESP_LOGI(TAG, "Initialized PIDs successfully");
 
