@@ -39,6 +39,7 @@ void vUpdateEstimatorTask(void *pvParameters) {
         roll_rad *= -1.0; 
 
         if (xQueueReceive(xQueue_ToF_data, (void *) &height_mm, 0)) {       // ToF samples at every 50ms (rest of loop runs every 2ms)
+            height_mm = height_mm*cos(pitch_rad)*cos(roll_rad); 
             altitude_rate_m_s = ((float) height_mm - last_height_mm)/((float) TOF_SENS_PERIOD_MS);
             last_height_mm = height_mm; 
         }  

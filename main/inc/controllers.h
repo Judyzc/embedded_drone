@@ -37,8 +37,8 @@ void controllers_init(void);
 #define ROLL_RATE_KD            0.0        
 #define ROLL_RATE_LIMIT         80*RAD_2_DEG
 
-#define ALTITUDE_RATE_KP            15.0      
-#define ALTITUDE_RATE_KI            10.0      
+#define ALTITUDE_RATE_KP            30.0     
+#define ALTITUDE_RATE_KI            50.0      
 #define ALTITUDE_RATE_KD            0.0        
 #define ALTITUDE_RATE_LIMIT         MAX_THRUST_N
 
