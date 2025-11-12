@@ -19,7 +19,7 @@ void estimator_init(void);
 /* ------------------------------------------- Constants  ------------------------------------------- */
 // Complementary filter parameters
 #define TAU                     1.0f
-#define DELTA_T                 ((float) SENS_PERIOD_MS)*.001f 
+#define DELTA_T                 (((float) SENS_PERIOD_MS)*.001f)
 
 // General Constants
 #define ESTIMATOR_PRIORITY      4

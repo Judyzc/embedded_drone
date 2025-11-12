@@ -155,6 +155,7 @@ void vGetRawDataTask(void *pvParameters) {
             if (range_status != 0)
                 ESP_LOGE(TAG, "Range Status: %d", range_status);
             VL53L1X_GetDistance(0, &height_mm); 
+            VL53L1X_ClearInterrupt(0); 
             // ESP_LOGI(TAG, "Drone height (mm): %d", height_mm); 
             if (!xQueueSendToBack(xQueue_ToF_data, (void *) &height_mm, portMAX_DELAY))
                 ESP_LOGE(TAG, "ToF data queue is full"); 

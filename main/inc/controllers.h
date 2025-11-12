@@ -13,10 +13,10 @@ void controllers_init(void);
 #define MAX_DUTY_CYCLE_PCT      80.0            // Limit output of motors
 
 /* ------------------------------------------- PID Tuning ------------------------------------------- */
-#define DT                      SENS_PERIOD_MS*.001             // PID timestep (s)
-#define TOF_DT                  TOF_SENS_PERIOD_MS*.001
-#define DEG_2_RAD               M_PI/180.0
-#define RAD_2_DEG               180/M_PI
+#define DT                      (SENS_PERIOD_MS*.001)                   // PID timestep (s)
+#define TOF_DT                  (TOF_SENS_PERIOD_MS*.001)
+#define DEG_2_RAD               (M_PI/180.0)
+#define RAD_2_DEG               (180.0/M_PI)
 
 #define PITCH_KP                2.0           
 #define PITCH_KI                0.5           
