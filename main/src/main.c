@@ -35,19 +35,20 @@ void app_main(void) {
     init_osc_pin(PIN_TOGGLE_A);
     init_osc_pin(PIN_TOGGLE_B);
 
-    i2c_master_init(); 
-    sensors_init(); 
-    estimator_init(); 
-    controllers_init();
-    motors_init(); 
+    // i2c_master_init(); 
+    // sensors_init(); 
+    // estimator_init(); 
+    // controllers_init();
+    // motors_init(); 
 
-    // Calibrate sensors and start stabilization loop
-    calibrate_sensors();
-    for (int i=3; i>0; i--) {
-        ESP_LOGI(TAG, "Starting in: %d", i);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-    }
-    start_control_loop();
+    // // Calibrate sensors and start stabilization loop
+    // calibrate_sensors();
+    // for (int i=3; i>0; i--) {
+    //     ESP_LOGI(TAG, "Starting in: %d", i);
+    //     vTaskDelay(1000 / portTICK_PERIOD_MS);
+    // }
+    // start_control_loop();
+    test_wifi();
 
     while (1) {
         vTaskDelay(1);      // Prevent watchdog from timing out
