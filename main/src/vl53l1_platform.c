@@ -24,7 +24,7 @@
 #include "i2c_setup.h"
 #include "sensors.h"
 
-static const char* TAG = "platform"; 
+// static const char* TAG = "platform"; 
 
 int8_t VL53L1_WriteMulti( uint16_t dev, uint16_t index, uint8_t *pdata, uint32_t count) {
 	// uint8_t status = 255;
@@ -33,8 +33,9 @@ int8_t VL53L1_WriteMulti( uint16_t dev, uint16_t index, uint8_t *pdata, uint32_t
 	/* Warning : For big endian platforms, fields 'RegisterAdress' and 'value' need to be swapped. */
 	
     uint8_t *write_buf = malloc((2+count)*sizeof(uint8_t));
-	memcpy((void *) write_buf, (void *) &index, 2); 
-	memcpy((void *) &write_buf[2], (void *) pdata, count); 
+	write_buf[0] = index>>8; 
+	write_buf[1] = index&0xFF; 
+	memcpy(&write_buf[2], pdata, count);
     ESP_ERROR_CHECK(i2c_master_transmit(tof_handle, write_buf, 2+count, I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS));
 	free(write_buf); 
 	
@@ -47,8 +48,7 @@ int8_t VL53L1_ReadMulti(uint16_t dev, uint16_t index, uint8_t *pdata, uint32_t c
 	/* To be filled by customer. Return 0 if OK */
 	/* Warning : For big endian platforms, fields 'RegisterAdress' and 'value' need to be swapped. */
 	
-	uint8_t write_buf[2];
-	memcpy((void *) write_buf, (void *) &index, 2); 
+	uint8_t write_buf[] = {index>>8, index&0xFF};
     ESP_ERROR_CHECK(i2c_master_transmit_receive(tof_handle, write_buf, 2, pdata, count, I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS));
 	
 	return 0;
@@ -60,9 +60,7 @@ int8_t VL53L1_WrByte(uint16_t dev, uint16_t index, uint8_t data) {
 	/* To be filled by customer. Return 0 if OK */
 	/* Warning : For big endian platforms, fields 'RegisterAdress' and 'value' need to be swapped. */
 	
-    uint8_t write_buf[3];
-	memcpy((void *) write_buf, (void *) &index, 2); 
-	memcpy((void *) &write_buf[2], (void *) &data, 1); 
+    uint8_t write_buf[] = {index>>8, index&0xFF, data};
     ESP_ERROR_CHECK(i2c_master_transmit(tof_handle, write_buf, 3, I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS));
 
 	return 0;
@@ -74,9 +72,7 @@ int8_t VL53L1_WrWord(uint16_t dev, uint16_t index, uint16_t data) {
 	/* To be filled by customer. Return 0 if OK */
 	/* Warning : For big endian platforms, fields 'RegisterAdress' and 'value' need to be swapped. */
 	
-    uint8_t write_buf[4];
-	memcpy((void *) write_buf, (void *) &index, 2); 
-	memcpy((void *) &write_buf[2], (void *) &data, 2); 
+    uint8_t write_buf[] = {index>>8, index&0xFF, data>>8, data&0xFF};
     ESP_ERROR_CHECK(i2c_master_transmit(tof_handle, write_buf, 4, I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS));
 
 	return 0;
@@ -88,9 +84,7 @@ int8_t VL53L1_WrDWord(uint16_t dev, uint16_t index, uint32_t data) {
 	/* To be filled by customer. Return 0 if OK */
 	/* Warning : For big endian platforms, fields 'RegisterAdress' and 'value' need to be swapped. */
 	
-    uint8_t write_buf[6];
-	memcpy((void *) write_buf, (void *) &index, 2); 
-	memcpy((void *) &write_buf[2], (void *) &data, 4); 
+    uint8_t write_buf[] = {index>>8, index&0xFF, data>>24, (data>>16) & 0xFF, (data>>8) & 0xFF, data & 0xFF};
     ESP_ERROR_CHECK(i2c_master_transmit(tof_handle, write_buf, 6, I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS));
 
 	return 0;
@@ -102,8 +96,7 @@ int8_t VL53L1_RdByte(uint16_t dev, uint16_t index, uint8_t *data) {
 	/* To be filled by customer. Return 0 if OK */
 	/* Warning : For big endian platforms, fields 'RegisterAdress' and 'value' need to be swapped. */
 	
-	uint8_t write_buf[2];
-	memcpy((void *) write_buf, (void *) &index, 2);
+	uint8_t write_buf[] = {index>>8, index&0xFF};
 
     ESP_ERROR_CHECK(i2c_master_transmit_receive(tof_handle, write_buf, 2, data, 1, I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS));
 	
@@ -116,13 +109,12 @@ int8_t VL53L1_RdWord(uint16_t dev, uint16_t index, uint16_t *data) {
 	/* To be filled by customer. Return 0 if OK */
 	/* Warning : For big endian platforms, fields 'RegisterAdress' and 'value' need to be swapped. */
 
-	uint8_t write_buf[2];
-	memcpy((void *) write_buf, (void *) &index, 2);
+	uint8_t write_buf[] = {index>>8, index&0xFF};
 	
 	uint8_t read_buf[2];
 	
     ESP_ERROR_CHECK(i2c_master_transmit_receive(tof_handle, write_buf, 2, read_buf, 2, I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS));
-	memcpy((void *) data, (void *) read_buf, 2);
+	*data = read_buf[0]<<8 | read_buf[1];
 	
 	return 0;
 }
@@ -133,13 +125,12 @@ int8_t VL53L1_RdDWord(uint16_t dev, uint16_t index, uint32_t *data) {
 	/* To be filled by customer. Return 0 if OK */
 	/* Warning : For big endian platforms, fields 'RegisterAdress' and 'value' need to be swapped. */
 
-	uint8_t write_buf[2];
-	memcpy((void *) write_buf, (void *) &index, 2);
+	uint8_t write_buf[] = {index>>8, index&0xFF};
 
 	uint8_t read_buf[4]; 
 	
     ESP_ERROR_CHECK(i2c_master_transmit_receive(tof_handle, write_buf, 2, read_buf, 4, I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS));
-	memcpy((void *) data, (void *) read_buf, 4);
+	*data = read_buf[0]<<24 | read_buf[1]<<16 | read_buf[2]<<8 | read_buf[3];
 	
 	return 0;
 }

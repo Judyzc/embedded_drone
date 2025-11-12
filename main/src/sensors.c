@@ -52,15 +52,13 @@ static esp_err_t ToF_init()
         Status = VL53L1X_BootState(0, &state);
         vTaskDelay(2 / portTICK_PERIOD_MS);
     }
-    /* Sensor Initialization */
+    ESP_LOGI(TAG, "Finished booting");
     Status = VL53L1X_SensorInit(0);
-    /* Modify the default configuration */
     Status = VL53L1X_SetInterMeasurementInMs(0, 50);
     Status = VL53L1X_SetTimingBudgetInMs(0, 33);
-    /* enable the ranging*/
     Status = VL53L1X_StartRanging(0);
 
-    return ESP_OK;
+    return (Status == 0) ? ESP_OK : ESP_FAIL;
 }
 
 static esp_err_t IMU_acc_init() 
@@ -149,9 +147,16 @@ void vGetRawDataTask(void *pvParameters) {
         if (!xQueueSendToBack(xQueue_raw_gyro_data, (void *) raw_data, portMAX_DELAY))
             ESP_LOGE(TAG, "RAW gyro data queue is full"); 
 
-        // uint16_t height_mm; 
-        // VL53L1X_GetDistance(0, &height_mm); 
-        // ESP_LOGI(TAG, "Drone height (mm): %d", height_mm); 
+        uint8_t range_status, is_data_ready; 
+        uint16_t height_mm; 
+        VL53L1X_CheckForDataReady(0, &is_data_ready); 
+        if (is_data_ready) {
+            VL53L1X_GetRangeStatus(0, &range_status);
+            if (range_status != 0)
+                ESP_LOGE(TAG, "Range Status: %d", range_status);
+            VL53L1X_GetDistance(0, &height_mm); 
+            ESP_LOGI(TAG, "Drone height (mm): %d", height_mm); 
+        }
 
         gpio_set_level(PIN_TOGGLE_A, 0);
     }
@@ -199,8 +204,8 @@ void sensors_init(void) {
     ESP_LOGI(TAG, "Initialized IMU successfully");
     ESP_ERROR_CHECK(IMU_gyro_init()); 
     ESP_LOGI(TAG, "Initialized gyroscope successfully"); 
-    // ESP_ERROR_CHECK(ToF_init()); 
-    // ESP_LOGI(TAG, "Initialized ToF successfully"); 
+    ESP_ERROR_CHECK(ToF_init()); 
+    ESP_LOGI(TAG, "Initialized ToF successfully"); 
 
     // ESP_ERROR_CHECK(i2c_master_bus_rm_device(imu_handle));
     // ESP_ERROR_CHECK(i2c_master_bus_rm_device(gyro_handle));

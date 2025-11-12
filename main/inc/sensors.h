@@ -30,7 +30,7 @@ typedef struct gyro_data {
 #define GYRO_BANDWIDTH              0x10
 #define GYRO_DATA_START             0x02
 
-#define TOF_SENSOR_ADDR             0x52                        /* Time of Flight I2C Address*/
+#define TOF_SENSOR_ADDR             0x29                        /* Time of Flight I2C Address*/
 
 // General Constants
 #define GET_RAW_DATA_PRIORITY       6
