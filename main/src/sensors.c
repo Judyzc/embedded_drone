@@ -129,6 +129,7 @@ void vGetRawDataTask(void *pvParameters) {
     TickType_t xLastWakeTime = xTaskGetTickCount();
     const TickType_t xTimeIncrement = SENS_PERIOD_MS/portTICK_PERIOD_MS;
     BaseType_t xWasDelayed;
+    uint8_t cyles_since_last_tof = 0; 
     for (;;) {
         xWasDelayed = xTaskDelayUntil( &xLastWakeTime, xTimeIncrement);
         if (!xWasDelayed)
@@ -147,15 +148,17 @@ void vGetRawDataTask(void *pvParameters) {
         if (!xQueueSendToBack(xQueue_raw_gyro_data, (void *) raw_data, portMAX_DELAY))
             ESP_LOGE(TAG, "RAW gyro data queue is full"); 
 
-        uint8_t range_status, is_data_ready; 
+        uint8_t range_status; 
         uint16_t height_mm; 
-        VL53L1X_CheckForDataReady(0, &is_data_ready); 
-        if (is_data_ready) {
+        cyles_since_last_tof++; 
+        if (cyles_since_last_tof >= TOF_SENS_PERIOD_MS/SENS_PERIOD_MS) {
             VL53L1X_GetRangeStatus(0, &range_status);
-            if (range_status != 0)
+            if (range_status == 0) {
+                VL53L1X_GetDistance(0, &height_mm); 
+            } else {
                 ESP_LOGE(TAG, "Range Status: %d", range_status);
-            VL53L1X_GetDistance(0, &height_mm); 
-            VL53L1X_ClearInterrupt(0); 
+            }
+            cyles_since_last_tof = 0; 
             // ESP_LOGI(TAG, "Drone height (mm): %d", height_mm); 
             if (!xQueueSendToBack(xQueue_ToF_data, (void *) &height_mm, portMAX_DELAY))
                 ESP_LOGE(TAG, "ToF data queue is full"); 
