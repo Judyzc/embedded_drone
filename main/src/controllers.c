@@ -172,8 +172,8 @@ void controllers_init(void) {
 
     pid_ctrl_parameter_t altitude_rate_pid_runtime_param = {
         .kp = ALTITUDE_RATE_KP,
-        .ki = ALTITUDE_RATE_KI*TOF_DT,
-        .kd = ALTITUDE_RATE_KD/TOF_DT,
+        .ki = ALTITUDE_RATE_KI*DT,
+        .kd = ALTITUDE_RATE_KD/DT,
         .cal_type = PID_CAL_TYPE_POSITIONAL,
         .max_output   = ALTITUDE_RATE_LIMIT,
         .min_output   = -1.0*ALTITUDE_RATE_LIMIT,

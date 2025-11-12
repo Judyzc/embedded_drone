@@ -14,7 +14,6 @@ void controllers_init(void);
 
 /* ------------------------------------------- PID Tuning ------------------------------------------- */
 #define DT                      (SENS_PERIOD_MS*.001)                   // PID timestep (s)
-#define TOF_DT                  (TOF_SENS_PERIOD_MS*.001)
 #define DEG_2_RAD               (M_PI/180.0)
 #define RAD_2_DEG               (180.0/M_PI)
 
@@ -38,9 +37,9 @@ void controllers_init(void);
 #define ROLL_RATE_KD            0.0        
 #define ROLL_RATE_LIMIT         80*RAD_2_DEG
 
-#define ALTITUDE_RATE_KP            5.0      
-#define ALTITUDE_RATE_KI            1.0      
-#define ALTITUDE_RATE_KD            1.0        
+#define ALTITUDE_RATE_KP            15.0      
+#define ALTITUDE_RATE_KI            10.0      
+#define ALTITUDE_RATE_KD            0.0        
 #define ALTITUDE_RATE_LIMIT         MAX_THRUST_N
 
 #endif /* CONTROLLERS_H */ 
