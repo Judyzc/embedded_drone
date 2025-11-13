@@ -25,12 +25,15 @@
 #include "vl53l1_platform.h"
 #include "VL53L1X_api.h"
 #include "VL53L1X_calibration.h"
+#include "pmw3901.h"
 
 static const char *TAG = "sensors";
 
 /* ------------------------------------------- Initialize Public Global Variables  ------------------------------------------- */
 i2c_master_dev_handle_t tof_handle;
 float ave_g_m_s2; 
+
+static pmw3901_t g_pmw = {0};
 
 /* ------------------------------------------- Private Global Variables  ------------------------------------------- */
 QueueHandle_t xQueue_raw_acc_data, xQueue_raw_gyro_data; 
@@ -165,6 +168,13 @@ void vGetRawDataTask(void *pvParameters) {
                 ESP_LOGE(TAG, "ToF data queue is full"); 
         }
 
+        uint16_t optf_data[2*sizeof(uint16_t)]; // optical flow
+        if (pmw3901_read_motion_count(&g_pmw, &optf_data[0], &optf_data[1])) {
+            if (!xQueueSendToBack(xQueue_optf_data, (void *) optf_data, portMAX_DELAY)) {
+                ESP_LOGE(TAG, "Failed to send optical flow to queue. Full?");
+            }
+        }
+
         gpio_set_level(PIN_TOGGLE_A, 0);
     }
 }
@@ -213,6 +223,12 @@ void sensors_init(void) {
     ESP_LOGI(TAG, "Initialized gyroscope successfully"); 
     ESP_ERROR_CHECK(ToF_init()); 
     ESP_LOGI(TAG, "Initialized ToF successfully"); 
+    bool optf_ok = DECK_optf_init(); 
+    if (optf_ok) {
+        ESP_LOGI(TAG, "Initialized Optical Flow successfully"); 
+    } else {
+        ESP_LOGI(TAG, "Error with init optical flow"); 
+    }
 
     // ESP_ERROR_CHECK(i2c_master_bus_rm_device(imu_handle));
     // ESP_ERROR_CHECK(i2c_master_bus_rm_device(gyro_handle));
