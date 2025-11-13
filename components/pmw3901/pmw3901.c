@@ -262,7 +262,7 @@ bool pmw3901_read_motion_count(pmw3901_t *dev, uint16_t *delta_x, uint16_t *delt
 
     // add some other checks idek
     
-    // ESP_LOGI(TAG, "got these ? from inside pmw3901 : %d, %d, %d, %d", dx_h, dx_l, dy_h, dy_l);
+    ESP_LOGI(TAG, "got these from inside pmw3901 : %d, %d", delta_x, delta_y);
     return true;
 
 }

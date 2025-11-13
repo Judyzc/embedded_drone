@@ -30,7 +30,7 @@ void app_main(void) {
     xQueue_gyro_data = xQueueCreate(1, sizeof(gyro_data_t)); 
     xQueue_state_data = xQueueCreate(1, sizeof(state_data_t)); 
     xQueue_ToF_data = xQueueCreate(1, sizeof(uint16_t)); 
-    xQueue_optf_data = xQueueCreate(1, sizeof(2*uint16_t));
+    xQueue_optf_data = xQueueCreate(1, 2*sizeof(uint16_t));
     
     // Call initialization functions
     ESP_LOGI(TAG, "Initializing components");

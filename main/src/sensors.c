@@ -65,6 +65,14 @@ static esp_err_t ToF_init()
     return (Status == 0) ? ESP_OK : ESP_FAIL;
 }
 
+static bool DECK_optf_init() 
+{
+    bool optf_ok = pmw3901_init(&g_pmw, VSPI_HOST, 
+                                ESP_SCLK_IO, ESP_MOSI_IO, ESP_MISO_IO, ESP_CS_IO);
+    return optf_ok;
+}
+
+
 static esp_err_t IMU_acc_init() 
 {
     i2c_device_config_t acc_config = {
