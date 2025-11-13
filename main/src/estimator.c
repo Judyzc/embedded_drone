@@ -20,7 +20,8 @@ SixAxis comp_filter;
 void vUpdateEstimatorTask(void *pvParameters) { 
     acc_data_t acc_data; 
     gyro_data_t gyro_data; 
-    uint16_t height_mm, last_height_mm = 0; 
+    uint16_t raw_height_mm; 
+    float height_mm = 0, last_height_mm = 0; 
     float altitude_rate_m_s = 0; 
     for (;;) {
         xQueueReceive(xQueue_acc_data, (void *) &acc_data, portMAX_DELAY); 
@@ -38,11 +39,13 @@ void vUpdateEstimatorTask(void *pvParameters) {
             roll_rad -= 2.0*M_PI; 
         roll_rad *= -1.0; 
 
-        if (xQueueReceive(xQueue_ToF_data, (void *) &height_mm, 0)) {       // ToF samples at every 50ms (rest of loop runs every 2ms)
-            height_mm = height_mm*cos(pitch_rad)*cos(roll_rad); 
-            altitude_rate_m_s = ((float) height_mm - last_height_mm)/((float) TOF_SENS_PERIOD_MS);
+        if (xQueueReceive(xQueue_ToF_data, (void *) &raw_height_mm, 0)) {       // ToF samples at every 50ms (rest of loop runs every 2ms)
+            height_mm = ((float) raw_height_mm)*cos(pitch_rad)*cos(roll_rad); 
+            altitude_rate_m_s = (height_mm - last_height_mm)/((float) TOF_SENS_PERIOD_MS);
             last_height_mm = height_mm; 
-        }  
+        }  else {
+            altitude_rate_m_s += (acc_data.az_m_s2 - ave_g_m_s2)*DELTA_T;
+        }
 
         state_data_t state_data = {
             .pitch_rad = pitch_rad, 
@@ -50,6 +53,7 @@ void vUpdateEstimatorTask(void *pvParameters) {
             .roll_rad = roll_rad, 
             .roll_rate_rad_s = gyro_data.Gy_rad_s, 
             .yaw_rate_rad_s = gyro_data.Gz_rad_s,
+            .altitude_m = height_mm*.001, 
             .altitude_rate_m_s = altitude_rate_m_s,
         };
         if (!xQueueSendToBack(xQueue_state_data, (void *) &state_data, portMAX_DELAY))

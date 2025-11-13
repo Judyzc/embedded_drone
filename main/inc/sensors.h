@@ -42,6 +42,7 @@ typedef struct gyro_data {
 
 /* ------------------------------------------- Public Global Variables  ------------------------------------------- */
 extern i2c_master_dev_handle_t tof_handle;
+extern float ave_g_m_s2; 
 
 /* ------------------------------------------- Public Function Declarations ------------------------------------------- */
 void sensors_init(void);

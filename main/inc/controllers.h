@@ -9,7 +9,7 @@ void controllers_init(void);
 
 /* ------------------------------------------- Force/Thrust Parameters ------------------------------------------- */
 #define MOTOR_MOMENT_ARM_M      0.041275        // Moment arm from center of drone to center of motor along x and y axes (m)
-#define MAX_THRUST_N            75*0.00980665   // Motors can provide up to 75g of thrust
+#define MAX_THRUST_N            (75*0.00980665) // Motors can provide up to 75g of thrust
 #define MAX_DUTY_CYCLE_PCT      80.0            // Limit output of motors
 
 /* ------------------------------------------- PID Tuning ------------------------------------------- */
@@ -20,26 +20,26 @@ void controllers_init(void);
 #define PITCH_KP                .8           
 #define PITCH_KI                0.2           
 #define PITCH_KD                0.0
-#define PITCH_LIMIT             20.0*RAD_2_DEG
+#define PITCH_LIMIT             .350
 
-#define PITCH_RATE_KP           330.0         // originally 255
-#define PITCH_RATE_KI           600.0         // originally 500
-#define PITCH_RATE_KD           0.0           // originally 2.5
-#define PITCH_RATE_LIMIT        80*RAD_2_DEG
+#define PITCH_RATE_KP           .0317       
+#define PITCH_RATE_KI           .0577       
+#define PITCH_RATE_KD           0.0         
+#define PITCH_RATE_LIMIT        .441
 
 #define ROLL_KP                 .8           
 #define ROLL_KI                 0.2           
 #define ROLL_KD                 0.0
-#define ROLL_LIMIT              20.0*RAD_2_DEG
+#define ROLL_LIMIT              .350
 
-#define ROLL_RATE_KP            330.0      
-#define ROLL_RATE_KI            600.0      
-#define ROLL_RATE_KD            0.0        
-#define ROLL_RATE_LIMIT         80*RAD_2_DEG
+#define ROLL_RATE_KP            .0317
+#define ROLL_RATE_KI            .0577
+#define ROLL_RATE_KD            0.0  
+#define ROLL_RATE_LIMIT         .441
 
-#define ALTITUDE_RATE_KP            2000.0     
-#define ALTITUDE_RATE_KI            5000.0     
+#define ALTITUDE_RATE_KP            2.5    
+#define ALTITUDE_RATE_KI            .13   
 #define ALTITUDE_RATE_KD            0.0        
-#define ALTITUDE_RATE_LIMIT         10000
+#define ALTITUDE_RATE_LIMIT         5.0
 
 #endif /* CONTROLLERS_H */ 

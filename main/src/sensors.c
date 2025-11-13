@@ -30,6 +30,7 @@ static const char *TAG = "sensors";
 
 /* ------------------------------------------- Initialize Public Global Variables  ------------------------------------------- */
 i2c_master_dev_handle_t tof_handle;
+float ave_g_m_s2; 
 
 /* ------------------------------------------- Private Global Variables  ------------------------------------------- */
 QueueHandle_t xQueue_raw_acc_data, xQueue_raw_gyro_data; 
@@ -223,6 +224,7 @@ void calibrate_sensors(void) {
     ESP_LOGI(TAG, "Beginning Sensor calibration"); 
     float acc_x_running_total = 0.0; 
     float acc_y_running_total = 0.0; 
+    float acc_z_running_total = 0.0; 
     float gyro_x_running_total = 0.0; 
     float gyro_y_running_total = 0.0; 
     float gyro_z_running_total = 0.0; 
@@ -240,6 +242,7 @@ void calibrate_sensors(void) {
         acc_data_t acc_data = process_acc_data(raw_data); 
         acc_x_running_total += acc_data.ax_m_s2; 
         acc_y_running_total += acc_data.ay_m_s2;
+        acc_z_running_total += acc_data.az_m_s2;
 
         ESP_ERROR_CHECK(register_read(gyro_handle, GYRO_DATA_START, raw_data, sizeof(raw_data))); 
         gyro_data_t gyro_data = process_gyro_data(raw_data); 
@@ -250,6 +253,7 @@ void calibrate_sensors(void) {
 
     acc_x_offset = -1.0*acc_x_running_total/((float) CALIBRATION_SAMPLES); 
     acc_y_offset = -1.0*acc_y_running_total/((float) CALIBRATION_SAMPLES); 
+    ave_g_m_s2 = acc_z_running_total/((float) CALIBRATION_SAMPLES); 
     gyro_x_offset = -1.0*gyro_x_running_total/((float) CALIBRATION_SAMPLES); 
     gyro_y_offset = -1.0*gyro_y_running_total/((float) CALIBRATION_SAMPLES); 
     gyro_z_offset = -1.0*gyro_z_running_total/((float) CALIBRATION_SAMPLES); 

@@ -88,7 +88,9 @@ void vUpdatePIDTask(void *pvParameters) {
         pid_compute(roll_rate_pid_handle, roll_rate_error, &roll_torque_cmd_Nm);
 
         // Altitude rate PID
-        float altitude_rate_error = 0 - state_data.altitude_rate_m_s; 
+        // float desired_altitude_rate = (state_data.altitude_m < .3) ? .1 : 0.0; 
+        float desired_altitude_rate = 0.0; 
+        float altitude_rate_error = desired_altitude_rate - state_data.altitude_rate_m_s; 
         float thrust_cmd_N; 
         pid_compute(altitude_rate_pid_handle, altitude_rate_error, &thrust_cmd_N);
         // thrust_cmd_N = 0;                       // For tuning pitch and roll PIDs
