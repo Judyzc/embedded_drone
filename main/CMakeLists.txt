@@ -10,5 +10,5 @@ idf_component_register(
           "src/VL53L1X_calibration.c"
           "src/vl53l1_platform.c"
      INCLUDE_DIRS "." "inc"
-     REQUIRES esp_driver_gpio esp_driver_i2c esp_driver_ledc
+     REQUIRES esp_driver_gpio esp_driver_i2c esp_driver_ledc test_wifi
      )

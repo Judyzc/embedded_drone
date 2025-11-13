@@ -14,6 +14,8 @@
 #include "controllers.h"
 #include "motors.h"
 
+#include "esp_now_example.h"
+
 static const char *TAG = "main";
 
 /* ------------------------------------------- Global Variables  ------------------------------------------- */
@@ -35,11 +37,11 @@ void app_main(void) {
     init_osc_pin(PIN_TOGGLE_A);
     init_osc_pin(PIN_TOGGLE_B);
 
-    i2c_master_init(); 
-    sensors_init(); 
-    estimator_init(); 
-    controllers_init();
-    motors_init(); 
+    // i2c_master_init(); 
+    // sensors_init(); 
+    // estimator_init(); 
+    // controllers_init();
+    // motors_init(); 
 
     // Calibrate sensors and start stabilization loop
     calibrate_sensors();
@@ -48,6 +50,8 @@ void app_main(void) {
         vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
     start_control_loop();
+
+    // test_wifi();
 
     while (1) {
         vTaskDelay(1);      // Prevent watchdog from timing out
