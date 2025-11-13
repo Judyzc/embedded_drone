@@ -10,6 +10,11 @@
 #ifndef ESPNOW_EXAMPLE_H
 #define ESPNOW_EXAMPLE_H
 
+#include <stdint.h>
+#include <stdbool.h>
+#include <string.h>
+#include "esp_now.h"
+
 /* ESPNOW can work in both station and softap mode. It is configured in menuconfig. */
 #if CONFIG_ESPNOW_WIFI_MODE_STATION
 #define ESPNOW_WIFI_MODE WIFI_MODE_STA
@@ -23,10 +28,8 @@
 
 #define IS_BROADCAST_ADDR(addr) (memcmp(addr, s_example_broadcast_mac, ESP_NOW_ETH_ALEN) == 0)
 
-// #define RX_MAC 78:42:1c:94:b4:e0
-// #define TX_MAC 40:91:51:9b:0d:10
-#define RX_MAC_ADDR  {0x78, 0x42, 0x1c, 0x94, 0xb4, 0xe0}
-#define TX_MAC_ADDR  {0x40, 0x91, 0x51, 0x9b, 0x0d, 0x10}
+// #define RX_MAC_ADDR  {0x78, 0x42, 0x1c, 0x94, 0xb4, 0xe0} // 78:42:1c:94:b4:e0
+#define TX_MAC_ADDR  {0x24, 0xec, 0x4a, 0x52, 0xb3, 0x00} // 24:ec:4a:52:b3:00
 // uint8_t dest_mac[ESP_NOW_ETH_ALEN] = RX_MAC_ADDR;
 
 /*
@@ -52,6 +55,7 @@ extern const uint8_t s_example_broadcast_mac[ESP_NOW_ETH_ALEN];
  * Replace the bytes below with the peer's MAC you want to communicate with.
  */
 #define STATIC_PEER_MAC TX_MAC_ADDR  // if set to tx, i am rx
+
 
 /* Event IDs */
 typedef enum {
@@ -109,5 +113,8 @@ typedef struct {
     uint8_t *buffer;                      // Buffer pointing to ESPNOW data.
     uint8_t dest_mac[ESP_NOW_ETH_ALEN];   // MAC address of destination device.
 } example_espnow_send_param_t;
+
+/* ------------------------------------------- Public Function Definitions ------------------------------------------- */
+void test_wifi(void); 
 
 #endif /* ESPNOW_EXAMPLE_H */
