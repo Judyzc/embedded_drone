@@ -17,29 +17,29 @@ void controllers_init(void);
 #define DEG_2_RAD               (M_PI/180.0)
 #define RAD_2_DEG               (180.0/M_PI)
 
-#define PITCH_KP                2.0           
-#define PITCH_KI                0.5           
+#define PITCH_KP                .8           
+#define PITCH_KI                0.2           
 #define PITCH_KD                0.0
 #define PITCH_LIMIT             20.0*RAD_2_DEG
 
-#define PITCH_RATE_KP           450.0         // originally 255
-#define PITCH_RATE_KI           750.0         // originally 500
+#define PITCH_RATE_KP           330.0         // originally 255
+#define PITCH_RATE_KI           600.0         // originally 500
 #define PITCH_RATE_KD           0.0           // originally 2.5
 #define PITCH_RATE_LIMIT        80*RAD_2_DEG
 
-#define ROLL_KP                 2.0           
-#define ROLL_KI                 0.5           
+#define ROLL_KP                 .8           
+#define ROLL_KI                 0.2           
 #define ROLL_KD                 0.0
 #define ROLL_LIMIT              20.0*RAD_2_DEG
 
-#define ROLL_RATE_KP            450.0      
-#define ROLL_RATE_KI            750.0      
+#define ROLL_RATE_KP            330.0      
+#define ROLL_RATE_KI            600.0      
 #define ROLL_RATE_KD            0.0        
 #define ROLL_RATE_LIMIT         80*RAD_2_DEG
 
-#define ALTITUDE_RATE_KP            30.0     
-#define ALTITUDE_RATE_KI            50.0      
+#define ALTITUDE_RATE_KP            2000.0     
+#define ALTITUDE_RATE_KI            5000.0     
 #define ALTITUDE_RATE_KD            0.0        
-#define ALTITUDE_RATE_LIMIT         MAX_THRUST_N
+#define ALTITUDE_RATE_LIMIT         10000
 
 #endif /* CONTROLLERS_H */ 

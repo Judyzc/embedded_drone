@@ -31,9 +31,11 @@ static float torque_2_force(float torque_Nm) {
 static float force_2_duty_cycle(float force_N) {
     float duty_cycle = force_N/MAX_THRUST_N*100.0; 
     if (duty_cycle > MAX_DUTY_CYCLE_PCT) {
+        // ESP_LOGI(TAG, "Hitting max duty cycle"); 
         duty_cycle = MAX_DUTY_CYCLE_PCT; 
     } else if (duty_cycle < -1.0*MAX_DUTY_CYCLE_PCT) {
         duty_cycle = -1.0*MAX_DUTY_CYCLE_PCT; 
+        // ESP_LOGI(TAG, "Hitting max duty cycle"); 
     }
     return duty_cycle; 
 }
@@ -89,6 +91,7 @@ void vUpdatePIDTask(void *pvParameters) {
         float altitude_rate_error = 0 - state_data.altitude_rate_m_s; 
         float thrust_cmd_N; 
         pid_compute(altitude_rate_pid_handle, altitude_rate_error, &thrust_cmd_N);
+        // thrust_cmd_N = 0;                       // For tuning pitch and roll PIDs
 
         motor_cmds_t motor_cmds = sum_motor_cmds(pitch_torque_cmd_Nm, roll_torque_cmd_Nm, thrust_cmd_N); 
 
