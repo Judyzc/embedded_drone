@@ -20,7 +20,7 @@ static const char *TAG = "main";
 
 /* ------------------------------------------- Global Variables  ------------------------------------------- */
 // Initialize global variables across files
-QueueHandle_t xQueue_acc_data, xQueue_gyro_data, xQueue_ToF_data, xQueue_state_data; 
+QueueHandle_t xQueue_acc_data, xQueue_gyro_data, xQueue_ToF_data, xQueue_state_data, xQueue_optf_data; 
 TickType_t start_tick = 0, end_tick = 0; 
 
 /* ------------------------------------------- Public Function Definitions  ------------------------------------------- */
@@ -30,6 +30,7 @@ void app_main(void) {
     xQueue_gyro_data = xQueueCreate(1, sizeof(gyro_data_t)); 
     xQueue_state_data = xQueueCreate(1, sizeof(state_data_t)); 
     xQueue_ToF_data = xQueueCreate(1, sizeof(uint16_t)); 
+    xQueue_optf_data = xQueueCreate(1, sizeof(2*uint16_t));
     
     // Call initialization functions
     ESP_LOGI(TAG, "Initializing components");
