@@ -37,11 +37,11 @@ void app_main(void) {
     init_osc_pin(PIN_TOGGLE_A);
     init_osc_pin(PIN_TOGGLE_B);
 
-    // i2c_master_init(); 
-    // sensors_init(); 
-    // estimator_init(); 
-    // controllers_init();
-    // motors_init(); 
+    i2c_master_init(); 
+    sensors_init(); 
+    estimator_init(); 
+    controllers_init();
+    motors_init(); 
 
     // Calibrate sensors and start stabilization loop
     calibrate_sensors();

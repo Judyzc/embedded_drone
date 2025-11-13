@@ -25,7 +25,7 @@ void controllers_init(void);
 #define PITCH_RATE_KP           .0317       
 #define PITCH_RATE_KI           .0577       
 #define PITCH_RATE_KD           0.0         
-#define PITCH_RATE_LIMIT        .441
+#define PITCH_RATE_LIMIT        2.0
 
 #define ROLL_KP                 .8           
 #define ROLL_KI                 0.2           
@@ -35,11 +35,11 @@ void controllers_init(void);
 #define ROLL_RATE_KP            .0317
 #define ROLL_RATE_KI            .0577
 #define ROLL_RATE_KD            0.0  
-#define ROLL_RATE_LIMIT         .441
+#define ROLL_RATE_LIMIT         2.0
 
-#define ALTITUDE_RATE_KP            2.5    
-#define ALTITUDE_RATE_KI            .13   
-#define ALTITUDE_RATE_KD            0.0        
+#define ALTITUDE_RATE_KP            4.0    
+#define ALTITUDE_RATE_KI            1.0   
+#define ALTITUDE_RATE_KD            0.5        
 #define ALTITUDE_RATE_LIMIT         5.0
 
 #endif /* CONTROLLERS_H */ 

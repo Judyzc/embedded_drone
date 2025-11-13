@@ -22,12 +22,10 @@ pid_ctrl_block_handle_t pitch_pid_handle, pitch_rate_pid_handle, roll_pid_handle
 bool EMERG_STOP = false; 
 
 /* ------------------------------------------- Private Function Definitions ------------------------------------------- */
-// Placeholder
 static float torque_2_force(float torque_Nm) {
     return torque_Nm/MOTOR_MOMENT_ARM_M;  
 }
 
-// Placeholder
 static float force_2_duty_cycle(float force_N) {
     float duty_cycle = force_N/MAX_THRUST_N*100.0; 
     if (duty_cycle > MAX_DUTY_CYCLE_PCT) {
@@ -88,9 +86,9 @@ void vUpdatePIDTask(void *pvParameters) {
         pid_compute(roll_rate_pid_handle, roll_rate_error, &roll_torque_cmd_Nm);
 
         // Altitude rate PID
-        // float desired_altitude_rate = (state_data.altitude_m < .3) ? .1 : 0.0; 
-        float desired_altitude_rate = 0.0; 
-        float altitude_rate_error = desired_altitude_rate - state_data.altitude_rate_m_s; 
+        // float desired_altitude_rate_m_s = (state_data.altitude_m < .3) ? .1 : 0.0; 
+        float desired_altitude_rate_m_s = 0.1; 
+        float altitude_rate_error = desired_altitude_rate_m_s - state_data.altitude_rate_m_s; 
         float thrust_cmd_N; 
         pid_compute(altitude_rate_pid_handle, altitude_rate_error, &thrust_cmd_N);
         // thrust_cmd_N = 0;                       // For tuning pitch and roll PIDs
