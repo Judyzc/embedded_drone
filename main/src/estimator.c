@@ -39,11 +39,14 @@ void vUpdateEstimatorTask(void *pvParameters) {
             roll_rad -= 2.0*M_PI; 
         roll_rad *= -1.0; 
 
-        if (xQueueReceive(xQueue_ToF_data, (void *) &raw_height_mm, 0)) {       // ToF samples at every 50ms (rest of loop runs every 2ms)
+        if (xQueueReceive(xQueue_ToF_data, (void *) &raw_height_mm, 0)) {       
+            // ToF samples at every 50ms (rest of loop runs every 2ms)
             height_mm = ((float) raw_height_mm)*cos(pitch_rad)*cos(roll_rad); 
             altitude_rate_m_s = (height_mm - last_height_mm)/((float) TOF_SENS_PERIOD_MS);
             last_height_mm = height_mm; 
         }  else {
+            // Update height and velo in between tof measurements 
+            height_mm = height_mm + altitude_rate_m_s*DELTA_T*1000.0; 
             altitude_rate_m_s += (acc_data.az_m_s2 - ave_g_m_s2)*DELTA_T;
         }
 
@@ -75,5 +78,5 @@ void estimator_init() {
     ESP_LOGI(TAG, "Initialized complementary filter successfully"); 
 
     // Start filter update task
-    xTaskCreate(vUpdateEstimatorTask, "Acc Data Processing", 4096, NULL, ESTIMATOR_PRIORITY, NULL);
+    xTaskCreate(vUpdateEstimatorTask, "Comp filter", 4096, NULL, ESTIMATOR_PRIORITY, NULL);
 }

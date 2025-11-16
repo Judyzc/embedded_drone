@@ -33,7 +33,7 @@ static const char *TAG = "sensors";
 i2c_master_dev_handle_t tof_handle;
 float ave_g_m_s2; 
 
-static pmw3901_t g_pmw = {0};
+// static pmw3901_t g_pmw = {0};
 
 /* ------------------------------------------- Private Global Variables  ------------------------------------------- */
 QueueHandle_t xQueue_raw_acc_data, xQueue_raw_gyro_data; 
@@ -65,12 +65,12 @@ static esp_err_t ToF_init()
     return (Status == 0) ? ESP_OK : ESP_FAIL;
 }
 
-static bool DECK_optf_init() 
-{
-    bool optf_ok = pmw3901_init(&g_pmw, VSPI_HOST, 
-                                ESP_SCLK_IO, ESP_MOSI_IO, ESP_MISO_IO, ESP_CS_IO);
-    return optf_ok;
-}
+// static bool DECK_optf_init() 
+// {
+//     bool optf_ok = pmw3901_init(&g_pmw, VSPI_HOST, 
+//                                 ESP_SCLK_IO, ESP_MOSI_IO, ESP_MISO_IO, ESP_CS_IO);
+//     return optf_ok;
+// }
 
 
 static esp_err_t IMU_acc_init() 
@@ -146,7 +146,6 @@ void vGetRawDataTask(void *pvParameters) {
         xWasDelayed = xTaskDelayUntil( &xLastWakeTime, xTimeIncrement);
         if (!xWasDelayed)
             ESP_LOGE(TAG, "Can't get I2C data this fast");
-        start_tick = xLastWakeTime; 
         
         gpio_set_level(PIN_TOGGLE_A, 1);
         uint8_t raw_data[3*2*sizeof(uint8_t)]; 
@@ -176,12 +175,12 @@ void vGetRawDataTask(void *pvParameters) {
                 ESP_LOGE(TAG, "ToF data queue is full"); 
         }
 
-        uint16_t optf_data[2*sizeof(uint16_t)]; // optical flow
-        if (pmw3901_read_motion_count(&g_pmw, &optf_data[0], &optf_data[1])) {
-            if (!xQueueSendToBack(xQueue_optf_data, (void *) optf_data, portMAX_DELAY)) {
-                ESP_LOGE(TAG, "Failed to send optical flow to queue. Full?");
-            }
-        }
+        // uint16_t optf_data[2*sizeof(uint16_t)]; // optical flow
+        // if (pmw3901_read_motion_count(&g_pmw, &optf_data[0], &optf_data[1])) {
+        //     if (!xQueueSendToBack(xQueue_optf_data, (void *) optf_data, portMAX_DELAY)) {
+        //         ESP_LOGE(TAG, "Failed to send optical flow to queue. Full?");
+        //     }
+        // }
 
         gpio_set_level(PIN_TOGGLE_A, 0);
     }
@@ -231,12 +230,12 @@ void sensors_init(void) {
     ESP_LOGI(TAG, "Initialized gyroscope successfully"); 
     ESP_ERROR_CHECK(ToF_init()); 
     ESP_LOGI(TAG, "Initialized ToF successfully"); 
-    bool optf_ok = DECK_optf_init(); 
-    if (optf_ok) {
-        ESP_LOGI(TAG, "Initialized Optical Flow successfully"); 
-    } else {
-        ESP_LOGI(TAG, "Error with init optical flow"); 
-    }
+    // bool optf_ok = DECK_optf_init(); 
+    // if (optf_ok) {
+    //     ESP_LOGI(TAG, "Initialized Optical Flow successfully"); 
+    // } else {
+    //     ESP_LOGI(TAG, "Error with init optical flow"); 
+    // }
 
     // ESP_ERROR_CHECK(i2c_master_bus_rm_device(imu_handle));
     // ESP_ERROR_CHECK(i2c_master_bus_rm_device(gyro_handle));

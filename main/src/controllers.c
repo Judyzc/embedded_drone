@@ -17,7 +17,8 @@
 
 static const char *TAG = "controllers";
 /* ------------------------------------------- Global Variables ------------------------------------------- */
-pid_ctrl_block_handle_t pitch_pid_handle, pitch_rate_pid_handle, roll_pid_handle, roll_rate_pid_handle, altitude_rate_pid_handle;
+pid_ctrl_block_handle_t pitch_pid_handle, pitch_rate_pid_handle, roll_pid_handle, roll_rate_pid_handle, 
+                        altitude_pid_handle, altitude_rate_pid_handle;
 
 bool EMERG_STOP = false; 
 
@@ -85,9 +86,12 @@ void vUpdatePIDTask(void *pvParameters) {
         float roll_torque_cmd_Nm; 
         pid_compute(roll_rate_pid_handle, roll_rate_error, &roll_torque_cmd_Nm);
 
-        // Altitude rate PID
-        // float desired_altitude_rate_m_s = (state_data.altitude_m < .3) ? .1 : 0.0; 
-        float desired_altitude_rate_m_s = 0.1; 
+        // Altitude cascaded PIDs
+        float altitdue_error_m = .5 - state_data.altitude_m; 
+        float desired_altitude_rate_m_s; 
+        pid_compute(altitude_pid_handle, altitdue_error_m, &desired_altitude_rate_m_s);
+        // desired_roll_rate_rad_s = 0;        // For tuning second PID
+
         float altitude_rate_error = desired_altitude_rate_m_s - state_data.altitude_rate_m_s; 
         float thrust_cmd_N; 
         pid_compute(altitude_rate_pid_handle, altitude_rate_error, &thrust_cmd_N);
@@ -103,7 +107,6 @@ void vUpdatePIDTask(void *pvParameters) {
         }
 
         update_pwm(motor_cmds);
-        end_tick = xTaskGetTickCount(); 
 
         gpio_set_level(PIN_TOGGLE_B, 0);
         // ESP_LOGI(TAG, "Sensor to Motor Time: %d ticks", end_tick - start_tick);  
@@ -172,6 +175,21 @@ void controllers_init(void) {
         .init_param = roll_rate_pid_runtime_param,
     };
     ESP_ERROR_CHECK(pid_new_control_block(&roll_rate_pid_config, &roll_rate_pid_handle));
+
+    pid_ctrl_parameter_t altitude_pid_runtime_param = {
+        .kp = ALTITUDE_KP,
+        .ki = ALTITUDE_KI*DT,
+        .kd = ALTITUDE_KD/DT,
+        .cal_type = PID_CAL_TYPE_POSITIONAL,
+        .max_output   = ALTITUDE_LIMIT,
+        .min_output   = -1.0*ALTITUDE_LIMIT,
+        .max_integral = ALTITUDE_LIMIT,
+        .min_integral = -1.0*ALTITUDE_LIMIT,
+    };
+    pid_ctrl_config_t altitude_pid_config = {
+        .init_param = altitude_pid_runtime_param,
+    };
+    ESP_ERROR_CHECK(pid_new_control_block(&altitude_pid_config, &altitude_pid_handle));
 
     pid_ctrl_parameter_t altitude_rate_pid_runtime_param = {
         .kp = ALTITUDE_RATE_KP,

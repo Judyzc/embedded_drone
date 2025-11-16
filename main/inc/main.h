@@ -7,7 +7,6 @@
 
 /* ------------------------------------------- Global Variables  ------------------------------------------- */
 extern QueueHandle_t xQueue_acc_data, xQueue_gyro_data, xQueue_state_data, xQueue_ToF_data, xQueue_optf_data; 
-extern TickType_t start_tick, end_tick; 
 
 #define PIN_TOGGLE_A    25
 #define PIN_TOGGLE_B    10
