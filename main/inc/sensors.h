@@ -32,6 +32,12 @@ typedef struct gyro_data {
 
 #define TOF_SENSOR_ADDR             0x29                        /* Time of Flight I2C Address*/
 
+#define ESP_SCLK_IO 18  // 3, right side of deck
+#define ESP_MOSI_IO 23  // 5, right side of deck
+#define ESP_MISO_IO 19  // 4, right side of deck
+#define ESP_CS_IO   5   // 8, left side of deck
+
+
 // General Constants
 #define GET_RAW_DATA_PRIORITY       6
 #define DATA_PROC_PRIORITY          5
