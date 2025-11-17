@@ -14,6 +14,7 @@
 #include "estimator.h"
 #include "controllers.h"
 #include "motors.h"
+#include "driver/gpio.h"
 
 static const char *TAG = "controllers";
 /* ------------------------------------------- Global Variables ------------------------------------------- */
@@ -56,6 +57,8 @@ static motor_cmds_t sum_motor_cmds(float pitch_torque_cmd_Nm, float roll_torque_
 void vUpdatePIDTask(void *pvParameters) {
     state_data_t state_data; 
     for (;;) {
+        EMERG_STOP = true; 
+        
         // Check for unstable flight -> kill motors
         if (!EMERG_STOP && (fabs(state_data.pitch_rad) > M_PI/4.0 || fabs(state_data.roll_rad) > M_PI/4.0)) {
             ESP_LOGE(TAG, "Stopping Motors"); 

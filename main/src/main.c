@@ -40,7 +40,8 @@ static SemaphoreHandle_t s_button_sem = NULL;
 static void on_cmd(const char *cmd)
 {
     if (strcmp(cmd, "start") == 0) {
-        start_my_process();
+        ESP_LOGI(TAG, "%s", cmd);
+        // start_my_process();
     }
 }
 
@@ -59,6 +60,7 @@ static void button_task(void *pv)
             int level = gpio_get_level(BUTTON_GPIO);
             if (level == 0) {
 #if ROLE_TRANSMITTER
+                ESP_LOGI(TAG, "espnow_send_start attempted");
                 if (espnow_send_start() != ESP_OK) {
                     ESP_LOGW(TAG, "espnow_send_start failed");
                 }
@@ -82,13 +84,13 @@ void app_main(void) {
     init_osc_pin(PIN_TOGGLE_B);
 
 
-    // i2c_master_init(); 
-    // sensors_init(); 
-    // estimator_init(); 
-    // controllers_init();
-    // motors_init(); 
+    i2c_master_init(); 
+    sensors_init(); 
+    estimator_init(); 
+    controllers_init();
+    motors_init(); 
 
-    // // Calibrate sensors and start stabilization loop
+    // Calibrate sensors and start stabilization loop
     // calibrate_sensors();
     // for (int i=3; i>0; i--) {
     //     ESP_LOGI(TAG, "Starting in: %d", i);
@@ -96,7 +98,7 @@ void app_main(void) {
     // }
     // start_control_loop();
 
-    test_wifi();
+    comms_init();
     espnow_register_cmd_cb(on_cmd);
 
 #if ROLE_TRANSMITTER

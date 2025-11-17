@@ -3,6 +3,7 @@
 
 #include "sensors.h"
 #include "math.h"
+#include "main.h"
 
 /* ------------------------------------------- Public Function Definitions ------------------------------------------- */
 void controllers_init(void); 

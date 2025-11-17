@@ -9,7 +9,7 @@
 /* ESPNOW can work in both station and softap mode. It is configured in menuconfig. */
 #if CONFIG_ESPNOW_WIFI_MODE_STATION
 #define ESPNOW_WIFI_MODE WIFI_MODE_STA
-#define ESPNOW_WIFI_IF   ESP_IF_WIFI_STA
+#define ESPNOW_WIFI_IF   WIFI_IF_STA
 #else
 #define ESPNOW_WIFI_MODE WIFI_MODE_AP
 #define ESPNOW_WIFI_IF   ESP_IF_WIFI_AP
@@ -106,7 +106,7 @@ typedef struct {
 } example_espnow_send_param_t;
 
 /* ------------------------------------------- Public Function Definitions ------------------------------------------- */
-void test_wifi(void);
+void comms_init(void);
 void espnow_register_cmd_cb(void (*cb)(const char *cmd));
 esp_err_t espnow_send_start(void);
 

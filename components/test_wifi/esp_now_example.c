@@ -62,6 +62,7 @@ static void wifi_init(void)
 // called by esp-now when send completed (status + dest mac)
 static void espnow_send_cb(const esp_now_send_info_t *tx_info, esp_now_send_status_t status)
 {
+    ESP_LOGI(TAG, "ESP NOW send callback");
     example_espnow_event_t evt;
     example_espnow_event_send_cb_t *send_cb = &evt.info.send_cb;
     if (tx_info == NULL) {
@@ -79,6 +80,7 @@ static void espnow_send_cb(const esp_now_send_info_t *tx_info, esp_now_send_stat
 // called by esp-now when a packet arrives. data is ro until callback returns, so malloc a copy
 static void espnow_recv_cb(const esp_now_recv_info_t *recv_info, const uint8_t *data, int len)
 {
+    ESP_LOGI(TAG, "ESP NOW recv callback");
     example_espnow_event_t evt;
     example_espnow_event_recv_cb_t *recv_cb = &evt.info.recv_cb;
     uint8_t * mac_addr = (uint8_t *)recv_info->src_addr;
@@ -110,6 +112,7 @@ static void espnow_recv_cb(const esp_now_recv_info_t *recv_info, const uint8_t *
 // parse received buffer, cast raw bytes to example_espnow_data_t
 int parse_packet(uint8_t *data, uint16_t data_len, uint8_t *state, uint16_t *seq, int *magic)
 {
+    ESP_LOGI(TAG, "Parse received ESP NOW packet");
     example_espnow_data_t *buf = (example_espnow_data_t *)data;
     uint16_t crc, crc_cal = 0;
     if (data_len < sizeof(example_espnow_data_t)) {
@@ -383,7 +386,7 @@ static void espnow_deinit(example_espnow_send_param_t *send_param)
 }
 
 
-void test_wifi(void)
+void comms_init(void)
 {
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
