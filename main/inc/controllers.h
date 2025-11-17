@@ -37,6 +37,11 @@ void controllers_init(void);
 #define ROLL_RATE_KD            0.0  
 #define ROLL_RATE_LIMIT         2.0
 
+#define ALTITUDE_KP            2.0    
+#define ALTITUDE_KI            0.5   
+#define ALTITUDE_KD            0.0        
+#define ALTITUDE_LIMIT         2.0
+
 #define ALTITUDE_RATE_KP            4.0    
 #define ALTITUDE_RATE_KI            1.0   
 #define ALTITUDE_RATE_KD            0.5        
