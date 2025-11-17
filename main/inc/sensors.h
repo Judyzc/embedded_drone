@@ -41,7 +41,7 @@ typedef struct gyro_data {
 // General Constants
 #define GET_RAW_DATA_PRIORITY       6
 #define DATA_PROC_PRIORITY          5
-#define SENS_PERIOD_MS              10                           /* Sensor polling rate during stabilization loop */
+#define SENS_PERIOD_MS              4                           /* Sensor polling rate during stabilization loop */
 #define TOF_SENS_PERIOD_MS          50                          /* Data rate of ToF sensor */
 #define CALIBRATION_PERIOD_MS       2                           /* Sensor polling rate during calibration */
 #define CALIBRATION_SAMPLES         1500                        /* Number of samples to take while calibrating sensors */

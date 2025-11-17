@@ -18,7 +18,7 @@
 static const char *TAG = "controllers";
 /* ------------------------------------------- Global Variables ------------------------------------------- */
 pid_ctrl_block_handle_t pitch_pid_handle, pitch_rate_pid_handle, roll_pid_handle, roll_rate_pid_handle, 
-                        altitude_pid_handle, altitude_rate_pid_handle;
+                        altitude_pid_handle, altitude_rate_pid_handle, vel_x_pid_handle, vel_y_pid_handle;
 
 bool EMERG_STOP = false; 
 
@@ -67,20 +67,32 @@ void vUpdatePIDTask(void *pvParameters) {
 
         // Pitch cascaded PIDs
         xQueueReceive(xQueue_state_data, (void *) &state_data, portMAX_DELAY); 
-        float pitch_error_rad = 0.0 - state_data.pitch_rad; 
+
+        float vel_y_error_m_s = 0.0 - state_data.vel_y_m_s; 
+        float desired_pitch_rad; 
+        pid_compute(vel_y_pid_handle, vel_y_error_m_s, &desired_pitch_rad);
+        desired_pitch_rad *= -1.0; 
+        // desired_pitch_rad = 0;                  // For tuning the second PID
+
+        float pitch_error_rad = desired_pitch_rad - state_data.pitch_rad; 
         float desired_pitch_rate_rad_s; 
         pid_compute(pitch_pid_handle, pitch_error_rad, &desired_pitch_rate_rad_s);
-        // desired_pitch_rate_rad_s = 0;       // For tuning the second PID
+        // desired_pitch_rate_rad_s = 0;           // For tuning the third PID
 
         float pitch_rate_error = desired_pitch_rate_rad_s - state_data.pitch_rate_rad_s; 
         float pitch_torque_cmd_Nm; 
         pid_compute(pitch_rate_pid_handle, pitch_rate_error, &pitch_torque_cmd_Nm); 
         
         // Roll cascaded PIDs 
-        float roll_error_rad = 0.0 - state_data.roll_rad; 
+        float vel_x_error_m_s = 0.0 - state_data.vel_x_m_s; 
+        float desired_roll_rad; 
+        pid_compute(vel_x_pid_handle, vel_x_error_m_s, &desired_roll_rad);
+        // desired_roll_rad = 0;               // For tuning the second PID
+
+        float roll_error_rad = desired_roll_rad - state_data.roll_rad; 
         float desired_roll_rate_rad_s; 
         pid_compute(roll_pid_handle, roll_error_rad, &desired_roll_rate_rad_s);
-        // desired_roll_rate_rad_s = 0;        // For tuning second PID
+        // desired_roll_rate_rad_s = 0;        // For tuning the third PID
      
         float roll_rate_error = desired_roll_rate_rad_s - state_data.roll_rate_rad_s; 
         float roll_torque_cmd_Nm; 
@@ -116,6 +128,21 @@ void vUpdatePIDTask(void *pvParameters) {
 /* ------------------------------------------- Public Function Definitions ------------------------------------------- */
 void controllers_init(void) {
     // Initialize each PID controller 
+    pid_ctrl_parameter_t vel_x_pid_runtime_param = {
+        .kp = VEL_X_KP,
+        .ki = VEL_X_KI*DT,
+        .kd = VEL_X_KD/DT,
+        .cal_type = PID_CAL_TYPE_POSITIONAL,
+        .max_output   = VEL_X_LIMIT,
+        .min_output   = -1.0*VEL_X_LIMIT,
+        .max_integral = VEL_X_LIMIT,
+        .min_integral = -1.0*VEL_X_LIMIT,
+    };
+    pid_ctrl_config_t vel_x_pid_config = {
+        .init_param = vel_x_pid_runtime_param,
+    };
+    ESP_ERROR_CHECK(pid_new_control_block(&vel_x_pid_config, &vel_x_pid_handle));
+
     pid_ctrl_parameter_t pitch_pid_runtime_param = {
         .kp = PITCH_KP,
         .ki = PITCH_KI*DT,
@@ -160,6 +187,21 @@ void controllers_init(void) {
         .init_param = roll_pid_runtime_param,
     };
     ESP_ERROR_CHECK(pid_new_control_block(&roll_pid_config, &roll_pid_handle));
+    
+    pid_ctrl_parameter_t vel_y_pid_runtime_param = {
+        .kp = VEL_Y_KP,
+        .ki = VEL_Y_KI*DT,
+        .kd = VEL_Y_KD/DT,
+        .cal_type = PID_CAL_TYPE_POSITIONAL,
+        .max_output   = VEL_Y_LIMIT,
+        .min_output   = -1.0*VEL_Y_LIMIT,
+        .max_integral = VEL_Y_LIMIT,
+        .min_integral = -1.0*VEL_Y_LIMIT,
+    };
+    pid_ctrl_config_t vel_y_pid_config = {
+        .init_param = vel_y_pid_runtime_param,
+    };
+    ESP_ERROR_CHECK(pid_new_control_block(&vel_y_pid_config, &vel_y_pid_handle));
 
     pid_ctrl_parameter_t roll_rate_pid_runtime_param = {
         .kp = ROLL_RATE_KP,

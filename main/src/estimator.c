@@ -55,7 +55,7 @@ void vUpdateEstimatorTask(void *pvParameters) {
         xQueueReceive(xQueue_optf_data, (void *) &opt_flow_data_px, portMAX_DELAY); 
         vel_x_m_s = raw_height_mm*.001*(42.0*0.0174533)*opt_flow_data_px[0]/(SENS_PERIOD_MS*.001*35) - raw_height_mm*.001*gyro_data.Gy_rad_s;
         vel_y_m_s = raw_height_mm*.001*(42.0*0.0174533)*opt_flow_data_px[1]/(SENS_PERIOD_MS*.001*35) - raw_height_mm*.001*gyro_data.Gy_rad_s;
-        ESP_LOGI(TAG, "Velocity data (m/s): %.2f", vel_x_m_s); 
+        // ESP_LOGI(TAG, "Velocity data (m/s): x=%.2f, y=%.2f", vel_x_m_s, vel_y_m_s); 
 
         state_data_t state_data = {
             .pitch_rad = pitch_rad, 
