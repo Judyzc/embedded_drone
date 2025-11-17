@@ -11,6 +11,7 @@
    The sensor used in this example is a MPU9250 inertial measurement unit.
 */
 #include <stdio.h>
+#include <math.h>
 #include "sdkconfig.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -26,6 +27,8 @@
 #include "VL53L1X_api.h"
 #include "VL53L1X_calibration.h"
 #include "pmw3901.h"
+#include "esp_timer.h"
+
 
 static const char *TAG = "sensors";
 
@@ -33,7 +36,11 @@ static const char *TAG = "sensors";
 i2c_master_dev_handle_t tof_handle;
 float ave_g_m_s2; 
 
-// static pmw3901_t g_pmw = {0};
+static pmw3901_t g_pmw = {0};
+uint16_t vel_x;
+uint16_t vel_y;
+uint16_t dt;
+uint64_t lastTime;
 
 /* ------------------------------------------- Private Global Variables  ------------------------------------------- */
 QueueHandle_t xQueue_raw_acc_data, xQueue_raw_gyro_data; 
@@ -65,12 +72,12 @@ static esp_err_t ToF_init()
     return (Status == 0) ? ESP_OK : ESP_FAIL;
 }
 
-// static bool DECK_optf_init() 
-// {
-//     bool optf_ok = pmw3901_init(&g_pmw, VSPI_HOST, 
-//                                 ESP_SCLK_IO, ESP_MOSI_IO, ESP_MISO_IO, ESP_CS_IO);
-//     return optf_ok;
-// }
+static bool DECK_optf_init() 
+{
+    bool optf_ok = pmw3901_init(&g_pmw, VSPI_HOST, 
+                                ESP_SCLK_IO, ESP_MOSI_IO, ESP_MISO_IO, ESP_CS_IO);
+    return optf_ok;
+}
 
 
 static esp_err_t IMU_acc_init() 
@@ -175,16 +182,44 @@ void vGetRawDataTask(void *pvParameters) {
                 ESP_LOGE(TAG, "ToF data queue is full"); 
         }
 
-        // uint16_t optf_data[2*sizeof(uint16_t)]; // optical flow
-        // if (pmw3901_read_motion_count(&g_pmw, &optf_data[0], &optf_data[1])) {
-        //     if (!xQueueSendToBack(xQueue_optf_data, (void *) optf_data, portMAX_DELAY)) {
-        //         ESP_LOGE(TAG, "Failed to send optical flow to queue. Full?");
-        //     }
-        // }
+        uint16_t optf_data[2*sizeof(uint16_t)]; // optical flow
+        if (pmw3901_read_motion_count(&g_pmw, &optf_data[0], &optf_data[1])) {
+            process_flow(optf_data[0], optf_data[1], height_mm);
+            // if (!xQueueSendToBack(xQueue_optf_data, (void *) optf_data, portMAX_DELAY)) {
+            //     ESP_LOGE(TAG, "Failed to send optical flow to queue. Full?");
+            // }
+        }
 
         gpio_set_level(PIN_TOGGLE_A, 0);
     }
 }
+
+void process_flow(int16_t dx_pixels, int16_t dy_pixels, uint16_t height_mm) {
+    // Ensure we treat fields as floats
+    float fov_radians = (fov_degrees) * PI / 180.0f; // Convert FOV to radians
+    float height_m = (float)height_mm / 1000.0f; // convert mm to meters
+    // FOV width in meters (width of sensor's view at that height)
+    float fov_width_meters = 2.0f * height_m * tanf(fov_radians / 2.0f);
+    float scale_factor = fov_width_meters / (float)image_width_pixels; // meters per pixel
+
+    // compute dt in seconds; lastTime is microseconds
+    // dt = (float)(esp_timer_get_time()-lastTime)/1000000.0f;    
+    dt = 1000 * SENS_PERIOD_MS;
+    // Convert pixel displacement to meters
+    float dx_m = (float)dx_pixels * scale_factor;
+    float dy_m = (float)dy_pixels * scale_factor;
+
+    // ESP_LOGI(TAG, "BEFORE dx_pixels: %d, dy_pixels: %d", dx_pixels, dy_pixels);
+    // ESP_LOGI(TAG, "AFTER dx_m: %f m, dy_m: %f m, scale %f m/px", dx_m, dy_m, scale_factor);
+
+    vel_x = dx_m / dt; // m/s
+    vel_y = dy_m / dt; // m/s
+
+    ESP_LOGI(TAG, "dt: %f s, velocity x: %f m/s, y: %f m/s", dt, vel_x, vel_y);
+    // lastTime = esp_timer_get_time();
+    return;
+}
+
 
 void vProcessAccDataTask(void *pvParameters) {
     uint8_t raw_data[6];
@@ -209,6 +244,7 @@ void vProcessGyroDataTask(void *pvParameters) {
     }
 }
 
+
 /* ------------------------------------------- Public Function Definitions  ------------------------------------------- */
 void init_osc_pin(int pin) {
     gpio_config_t io_conf = {
@@ -230,12 +266,12 @@ void sensors_init(void) {
     ESP_LOGI(TAG, "Initialized gyroscope successfully"); 
     ESP_ERROR_CHECK(ToF_init()); 
     ESP_LOGI(TAG, "Initialized ToF successfully"); 
-    // bool optf_ok = DECK_optf_init(); 
-    // if (optf_ok) {
-    //     ESP_LOGI(TAG, "Initialized Optical Flow successfully"); 
-    // } else {
-    //     ESP_LOGI(TAG, "Error with init optical flow"); 
-    // }
+    bool optf_ok = DECK_optf_init(); 
+    if (optf_ok) {
+        ESP_LOGI(TAG, "Initialized Optical Flow successfully"); 
+    } else {
+        ESP_LOGI(TAG, "Error with init optical flow"); 
+    }
 
     // ESP_ERROR_CHECK(i2c_master_bus_rm_device(imu_handle));
     // ESP_ERROR_CHECK(i2c_master_bus_rm_device(gyro_handle));
@@ -287,6 +323,8 @@ void start_control_loop(void) {
     xQueue_raw_acc_data = xQueueCreate(1, 6*sizeof(uint8_t)); 
     xQueue_raw_gyro_data = xQueueCreate(1, 6*sizeof(uint8_t));
     
+    lastTime = esp_timer_get_time();
+
     // Start Tasks
     xTaskCreate(vProcessAccDataTask, "Acc Data Processing", 4096, NULL, DATA_PROC_PRIORITY, NULL);
     xTaskCreate(vProcessGyroDataTask, "Gyro Data Processing", 4096, NULL, DATA_PROC_PRIORITY, NULL);

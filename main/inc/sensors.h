@@ -37,11 +37,14 @@ typedef struct gyro_data {
 #define ESP_MISO_IO 19  // 4, right side of deck
 #define ESP_CS_IO   5   // 8, left side of deck
 
+#define PI 3.1415
+#define fov_degrees  42 // FOV of the sensor in degrees
+#define image_width_pixels  35 // Image width in pixels
 
 // General Constants
 #define GET_RAW_DATA_PRIORITY       6
 #define DATA_PROC_PRIORITY          5
-#define SENS_PERIOD_MS              2                           /* Sensor polling rate during stabilization loop */
+#define SENS_PERIOD_MS              2                          /* Sensor polling rate during stabilization loop */
 #define TOF_SENS_PERIOD_MS          50                          /* Data rate of ToF sensor */
 #define CALIBRATION_PERIOD_MS       2                           /* Sensor polling rate during calibration */
 #define CALIBRATION_SAMPLES         1500                        /* Number of samples to take while calibrating sensors */
@@ -51,6 +54,7 @@ extern i2c_master_dev_handle_t tof_handle;
 extern float ave_g_m_s2; 
 
 /* ------------------------------------------- Public Function Declarations ------------------------------------------- */
+void process_flow(int16_t dx_pixels, int16_t dy_pixels, uint16_t height_mm);
 void sensors_init(void);
 void calibrate_sensors(void);
 void start_control_loop(void);

@@ -12,6 +12,7 @@ extern "C" {
 #define PMW_CHIP_ID         0x49u
 #define PMW_CHIP_ID_INVERSE 0xB6u
 
+
 typedef struct {
     spi_device_handle_t spi;       // SPI device handle (internal)
     spi_host_device_t   host;      // SPI host used (HSPI_HOST/VSPI_HOST)

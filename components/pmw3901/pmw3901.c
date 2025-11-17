@@ -36,6 +36,7 @@ static void write_reg(pmw3901_t *dev, uint8_t reg, uint8_t value)
     memset(&t, 0, sizeof(t));
     t.length = 8 * 2; // 2 B
     t.flags = SPI_TRANS_USE_TXDATA;
+    
     t.tx_data[0] = (uint8_t)(reg | 0x80u);
     t.tx_data[1] = value;
     esp_err_t ret = spi_device_polling_transmit(dev->spi, &t);
@@ -242,9 +243,10 @@ bool pmw3901_init(pmw3901_t *dev, spi_host_device_t host,
     /* Initialize sensor registers (Bitcraze sequence) */
     init_registers(dev);
 
-    // ESP_LOGI(TAG, "PMW3901 initialized (chip id OK)");
+    ESP_LOGI(TAG, "PMW3901 initialized (chip id OK)");
     return true;
 }
+
 
 
 bool pmw3901_read_motion_count(pmw3901_t *dev, uint16_t *delta_x, uint16_t *delta_y)
@@ -259,10 +261,11 @@ bool pmw3901_read_motion_count(pmw3901_t *dev, uint16_t *delta_x, uint16_t *delt
     uint8_t dy_l = read_reg(dev, 0x05);
     *delta_x = (uint16_t)((uint16_t)dx_h << 8 | dx_l);
     *delta_y = (uint16_t)((uint16_t)dy_h << 8 | dy_l);
-
-    // add some other checks idek
     
-    ESP_LOGI(TAG, "got these from inside pmw3901 : %d, %d", delta_x, delta_y);
+    // add some other checks idek
+    // ESP_LOGI(TAG, "x: %d, %d, y: %d, %d", dx_h, dx_l, dy_h, dy_l);
+    // ESP_LOGI(TAG, "got these from inside pmw3901 : %d, %d", *delta_x, *delta_y);
+
     return true;
 
 }
