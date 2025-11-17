@@ -21,8 +21,10 @@ void vUpdateEstimatorTask(void *pvParameters) {
     acc_data_t acc_data; 
     gyro_data_t gyro_data; 
     uint16_t raw_height_mm; 
+    int16_t opt_flow_data_px[2]; 
     float height_mm = 0, last_height_mm = 0; 
     float altitude_rate_m_s = 0; 
+    float vel_x_m_s, vel_y_m_s; 
     for (;;) {
         xQueueReceive(xQueue_acc_data, (void *) &acc_data, portMAX_DELAY); 
         xQueueReceive(xQueue_gyro_data, (void *) &gyro_data, portMAX_DELAY); 
@@ -50,6 +52,11 @@ void vUpdateEstimatorTask(void *pvParameters) {
             altitude_rate_m_s += (acc_data.az_m_s2 - ave_g_m_s2)*DELTA_T;
         }
 
+        xQueueReceive(xQueue_optf_data, (void *) &opt_flow_data_px, portMAX_DELAY); 
+        vel_x_m_s = raw_height_mm*.001*(42.0*0.0174533)*opt_flow_data_px[0]/(SENS_PERIOD_MS*.001*35) - raw_height_mm*.001*gyro_data.Gy_rad_s;
+        vel_y_m_s = raw_height_mm*.001*(42.0*0.0174533)*opt_flow_data_px[1]/(SENS_PERIOD_MS*.001*35) - raw_height_mm*.001*gyro_data.Gy_rad_s;
+        ESP_LOGI(TAG, "Velocity data (m/s): %.2f", vel_x_m_s); 
+
         state_data_t state_data = {
             .pitch_rad = pitch_rad, 
             .pitch_rate_rad_s = gyro_data.Gx_rad_s,
@@ -58,6 +65,8 @@ void vUpdateEstimatorTask(void *pvParameters) {
             .yaw_rate_rad_s = gyro_data.Gz_rad_s,
             .altitude_m = height_mm*.001, 
             .altitude_rate_m_s = altitude_rate_m_s,
+            .vel_x_m_s = vel_x_m_s, 
+            .vel_y_m_s = vel_y_m_s, 
         };
         if (!xQueueSendToBack(xQueue_state_data, (void *) &state_data, portMAX_DELAY))
             ESP_LOGE(TAG, "State data queue is full"); 

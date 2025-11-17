@@ -12,6 +12,8 @@ typedef struct state_data {
     float yaw_rate_rad_s; 
     float altitude_m; 
     float altitude_rate_m_s; 
+    float vel_x_m_s; 
+    float vel_y_m_s;
 } state_data_t;
 
 /* ------------------------------------------- Public Function Definitions ------------------------------------------- */

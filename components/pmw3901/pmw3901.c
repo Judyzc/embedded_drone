@@ -247,7 +247,7 @@ bool pmw3901_init(pmw3901_t *dev, spi_host_device_t host,
 }
 
 
-bool pmw3901_read_motion_count(pmw3901_t *dev, uint16_t *delta_x, uint16_t *delta_y)
+bool pmw3901_read_motion_count(pmw3901_t *dev, int16_t *delta_x, int16_t *delta_y)
 {
     // ESP_LOGI(TAG, "trying to read motion");
     if (!dev) return false;
@@ -257,12 +257,7 @@ bool pmw3901_read_motion_count(pmw3901_t *dev, uint16_t *delta_x, uint16_t *delt
     uint8_t dx_l = read_reg(dev, 0x03);
     uint8_t dy_h = read_reg(dev, 0x06);
     uint8_t dy_l = read_reg(dev, 0x05);
-    *delta_x = (uint16_t)((uint16_t)dx_h << 8 | dx_l);
-    *delta_y = (uint16_t)((uint16_t)dy_h << 8 | dy_l);
-
-    // add some other checks idek
-    
-    ESP_LOGI(TAG, "got these from inside pmw3901 : %d, %d", delta_x, delta_y);
+    *delta_x = (int16_t)(dx_h << 8 | dx_l);
+    *delta_y = (int16_t)(dy_h << 8 | dy_l);
     return true;
-
 }

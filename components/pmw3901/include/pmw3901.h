@@ -23,7 +23,7 @@ typedef struct {
 
 bool pmw3901_init(pmw3901_t *dev, spi_host_device_t host,
                   int sclk_io, int mosi_io, int miso_io, int cs_io);
-bool pmw3901_read_motion_count(pmw3901_t *dev, uint16_t *delta_x, uint16_t *delta_y);
+bool pmw3901_read_motion_count(pmw3901_t *dev, int16_t *delta_x, int16_t *delta_y);
 
 #ifdef __cplusplus
 }
