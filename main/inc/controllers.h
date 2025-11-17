@@ -17,6 +17,11 @@ void controllers_init(void);
 #define DEG_2_RAD               (M_PI/180.0)
 #define RAD_2_DEG               (180.0/M_PI)
 
+#define VEL_Y_KP                10.0           
+#define VEL_Y_KI                6.0           
+#define VEL_Y_KD                0.0
+#define VEL_Y_LIMIT             2.0
+
 #define PITCH_KP                .8           
 #define PITCH_KI                0.2           
 #define PITCH_KD                0.0
@@ -26,6 +31,11 @@ void controllers_init(void);
 #define PITCH_RATE_KI           .0577       
 #define PITCH_RATE_KD           0.0         
 #define PITCH_RATE_LIMIT        2.0
+
+#define VEL_X_KP                10.0           
+#define VEL_X_KI                6.0           
+#define VEL_X_KD                0.0
+#define VEL_X_LIMIT             2.0
 
 #define ROLL_KP                 .8           
 #define ROLL_KI                 0.2           
