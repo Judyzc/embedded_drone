@@ -6,25 +6,26 @@
 
 #include "math.h"
 
-#include "main.h"
-#include "sensors.h"
+#include "bmi088.h"
+#include "vl53l1_platform.h"
 #include "six_axis_comp_filter.h"
 #include "estimator.h"
 
 static const char *TAG = "estimator"; 
 
-/* ------------------------------------------- Global Variables  ------------------------------------------- */
-SixAxis comp_filter;
+/* ------------------------------------------- Private Global Variables  ------------------------------------------- */
+static SixAxis comp_filter;
+static QueueHandle_t xQueue_acc_data, xQueue_gyro_data, xQueue_tof_data, xQueue_opt_flow_data, xQueue_state_data;
 
 /* ------------------------------------------- Private Function Definitions  ------------------------------------------- */
 void vUpdateEstimatorTask(void *pvParameters) { 
     acc_data_t acc_data; 
     gyro_data_t gyro_data; 
     uint16_t raw_height_mm; 
-    int16_t opt_flow_data_px[2]; 
+    // int16_t opt_flow_data_px[2]; 
     float height_mm = 0, last_height_mm = 0; 
     float altitude_rate_m_s = 0; 
-    float vel_x_m_s, vel_y_m_s; 
+    float vel_x_m_s = 0, vel_y_m_s = 0; 
     for (;;) {
         xQueueReceive(xQueue_acc_data, (void *) &acc_data, portMAX_DELAY); 
         xQueueReceive(xQueue_gyro_data, (void *) &gyro_data, portMAX_DELAY); 
@@ -41,7 +42,7 @@ void vUpdateEstimatorTask(void *pvParameters) {
             roll_rad -= 2.0*M_PI; 
         roll_rad *= -1.0; 
 
-        if (xQueueReceive(xQueue_ToF_data, (void *) &raw_height_mm, 0)) {       
+        if (xQueueReceive(xQueue_tof_data, (void *) &raw_height_mm, 0)) {       
             // ToF samples at every 50ms (rest of loop runs every 2ms)
             height_mm = ((float) raw_height_mm)*cos(pitch_rad)*cos(roll_rad); 
             altitude_rate_m_s = (height_mm - last_height_mm)/((float) TOF_SENS_PERIOD_MS);
@@ -52,9 +53,9 @@ void vUpdateEstimatorTask(void *pvParameters) {
             altitude_rate_m_s += (acc_data.az_m_s2 - ave_g_m_s2)*DELTA_T;
         }
 
-        xQueueReceive(xQueue_optf_data, (void *) &opt_flow_data_px, portMAX_DELAY); 
-        vel_x_m_s = raw_height_mm*.001*(42.0*0.0174533)*opt_flow_data_px[0]/(SENS_PERIOD_MS*.001*35) - raw_height_mm*.001*gyro_data.Gy_rad_s;
-        vel_y_m_s = raw_height_mm*.001*(42.0*0.0174533)*opt_flow_data_px[1]/(SENS_PERIOD_MS*.001*35) - raw_height_mm*.001*gyro_data.Gy_rad_s;
+        // xQueueReceive(xQueue_opt_flow_data, (void *) &opt_flow_data_px, portMAX_DELAY); 
+        // vel_x_m_s = raw_height_mm*.001*(42.0*0.0174533)*opt_flow_data_px[0]/(SENS_PERIOD_MS*.001*35) - raw_height_mm*.001*gyro_data.Gy_rad_s;
+        // vel_y_m_s = raw_height_mm*.001*(42.0*0.0174533)*opt_flow_data_px[1]/(SENS_PERIOD_MS*.001*35) - raw_height_mm*.001*gyro_data.Gy_rad_s;
         // ESP_LOGI(TAG, "Velocity data (m/s): x=%.2f, y=%.2f", vel_x_m_s, vel_y_m_s); 
 
         state_data_t state_data = {
@@ -79,7 +80,20 @@ void vUpdateEstimatorTask(void *pvParameters) {
 }
 
 /* ------------------------------------------- Public Function Definitions  ------------------------------------------- */
-void estimator_init() {
+void estimator_init(
+    QueueHandle_t *pxQueue_acc_data, 
+    QueueHandle_t *pxQueue_gyro_data,
+    QueueHandle_t *pxQueue_tof_data,
+    QueueHandle_t *pxQueue_opt_flow_data,
+    QueueHandle_t *pxQueue_state_data) 
+{
+    // Save queues
+    xQueue_acc_data = *pxQueue_acc_data; 
+    xQueue_gyro_data = *pxQueue_gyro_data; 
+    xQueue_tof_data = *pxQueue_tof_data;
+    xQueue_opt_flow_data = *pxQueue_opt_flow_data; 
+    xQueue_state_data = *pxQueue_state_data;
+
     // Initialize complementary filter 
     CompInit(&comp_filter, DELTA_T, TAU);
     CompAccelUpdate(&comp_filter, 0.0, 0.0, 9.81);          // Assume drone is level when starting

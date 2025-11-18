@@ -8,19 +8,18 @@
 #include "pid_ctrl.h"
 #include "math.h"
 
-#include "main.h"
-#include "sensors.h"
-#include "six_axis_comp_filter.h"
-#include "estimator.h"
 #include "controllers.h"
+// #include "sensors.h"
+// #include "six_axis_comp_filter.h"
+#include "estimator.h"
 #include "motors.h"
 
 static const char *TAG = "controllers";
-/* ------------------------------------------- Global Variables ------------------------------------------- */
-pid_ctrl_block_handle_t pitch_pid_handle, pitch_rate_pid_handle, roll_pid_handle, roll_rate_pid_handle, 
-                        altitude_pid_handle, altitude_rate_pid_handle, vel_x_pid_handle, vel_y_pid_handle;
-
-bool EMERG_STOP = false; 
+/* ------------------------------------------- Private Global Variables ------------------------------------------- */
+static pid_ctrl_block_handle_t pitch_pid_handle, pitch_rate_pid_handle, roll_pid_handle, roll_rate_pid_handle, 
+                               altitude_pid_handle, altitude_rate_pid_handle, vel_x_pid_handle, vel_y_pid_handle;
+static QueueHandle_t xQueue_state_data; 
+static bool EMERG_STOP = false; 
 
 /* ------------------------------------------- Private Function Definitions ------------------------------------------- */
 static float torque_2_force(float torque_Nm) {
@@ -63,16 +62,16 @@ void vUpdatePIDTask(void *pvParameters) {
             EMERG_STOP = true; 
         }
 
-        gpio_set_level(PIN_TOGGLE_B, 1);
+        gpio_set_level(CONFIG_PIN_TOGGLE_B, 1);
 
-        // Pitch cascaded PIDs
+        /* ----------------------------- Pitch cascaded PIDs ----------------------------- */
         xQueueReceive(xQueue_state_data, (void *) &state_data, portMAX_DELAY); 
 
         float vel_y_error_m_s = 0.0 - state_data.vel_y_m_s; 
         float desired_pitch_rad; 
         pid_compute(vel_y_pid_handle, vel_y_error_m_s, &desired_pitch_rad);
         desired_pitch_rad *= -1.0; 
-        // desired_pitch_rad = 0;                  // For tuning the second PID
+        desired_pitch_rad = 0;                  // For tuning the second PID
 
         float pitch_error_rad = desired_pitch_rad - state_data.pitch_rad; 
         float desired_pitch_rate_rad_s; 
@@ -83,11 +82,11 @@ void vUpdatePIDTask(void *pvParameters) {
         float pitch_torque_cmd_Nm; 
         pid_compute(pitch_rate_pid_handle, pitch_rate_error, &pitch_torque_cmd_Nm); 
         
-        // Roll cascaded PIDs 
+        /* ----------------------------- Roll cascaded PIDs ----------------------------- */
         float vel_x_error_m_s = 0.0 - state_data.vel_x_m_s; 
         float desired_roll_rad; 
         pid_compute(vel_x_pid_handle, vel_x_error_m_s, &desired_roll_rad);
-        // desired_roll_rad = 0;               // For tuning the second PID
+        desired_roll_rad = 0;               // For tuning the second PID
 
         float roll_error_rad = desired_roll_rad - state_data.roll_rad; 
         float desired_roll_rate_rad_s; 
@@ -98,7 +97,7 @@ void vUpdatePIDTask(void *pvParameters) {
         float roll_torque_cmd_Nm; 
         pid_compute(roll_rate_pid_handle, roll_rate_error, &roll_torque_cmd_Nm);
 
-        // Altitude cascaded PIDs
+        /* ----------------------------- Altitude cascaded PIDs ----------------------------- */
         float altitdue_error_m = .5 - state_data.altitude_m; 
         float desired_altitude_rate_m_s; 
         pid_compute(altitude_pid_handle, altitdue_error_m, &desired_altitude_rate_m_s);
@@ -120,13 +119,16 @@ void vUpdatePIDTask(void *pvParameters) {
 
         update_pwm(motor_cmds);
 
-        gpio_set_level(PIN_TOGGLE_B, 0);
+        gpio_set_level(CONFIG_PIN_TOGGLE_B, 0);
         // ESP_LOGI(TAG, "Sensor to Motor Time: %d ticks", end_tick - start_tick);  
     }
 }
 
 /* ------------------------------------------- Public Function Definitions ------------------------------------------- */
-void controllers_init(void) {
+void controllers_init(QueueHandle_t *pxQueue_state_data) {
+    // Save Queue
+    xQueue_state_data = *pxQueue_state_data; 
+
     // Initialize each PID controller 
     pid_ctrl_parameter_t vel_x_pid_runtime_param = {
         .kp = VEL_X_KP,

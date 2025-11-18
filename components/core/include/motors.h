@@ -24,7 +24,7 @@ typedef struct motor_cmds {
 #define MOTOR_3_CHANNEL             LEDC_CHANNEL_2
 #define MOTOR_4_CHANNEL             LEDC_CHANNEL_3
 #define PWM_DUTY_RES                LEDC_TIMER_13_BIT // Set duty resolution to 13 bits
-#define PWM_DUTY                    (4096) // Set duty to 50%. (2 ** 13) * 50% = 4096
+// #define PWM_DUTY                    (4096) // Set duty to 50%. (2 ** 13) * 50% = 4096
 #define PWM_FREQUENCY_HZ            (4000) // Frequency in Hertz. Set frequency at 4 kHz
 #define MAX_PWM_DUTY                ((int) pow(2.0, PWM_DUTY_RES))-1
 

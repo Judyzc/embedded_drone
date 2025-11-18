@@ -7,7 +7,6 @@
 
 #include "math.h"
 
-#include "main.h"
 #include "sensors.h"
 #include "six_axis_comp_filter.h"
 #include "estimator.h"

@@ -1,6 +1,7 @@
-#ifndef SENSORS_H
-#define SENSORS_H
+#ifndef BMI088_H
+#define BMI088_H
 
+#include "esp_err.h"
 #include "driver/i2c_master.h"
 
 /* ------------------------------------------- Structs ------------------------------------------- */
@@ -30,30 +31,19 @@ typedef struct gyro_data {
 #define GYRO_BANDWIDTH              0x10
 #define GYRO_DATA_START             0x02
 
-#define TOF_SENSOR_ADDR             0x29                        /* Time of Flight I2C Address*/
-
-#define ESP_SCLK_IO 18  // 3, right side of deck
-#define ESP_MOSI_IO 23  // 5, right side of deck
-#define ESP_MISO_IO 19  // 4, right side of deck
-#define ESP_CS_IO   5   // 8, left side of deck
-
-
-// General Constants
-#define GET_RAW_DATA_PRIORITY       6
-#define DATA_PROC_PRIORITY          5
-#define SENS_PERIOD_MS              4                           /* Sensor polling rate during stabilization loop */
-#define TOF_SENS_PERIOD_MS          50                          /* Data rate of ToF sensor */
-#define CALIBRATION_PERIOD_MS       2                           /* Sensor polling rate during calibration */
+// General constants
+#define IMU_CALIBRATION_PERIOD_MS   2                           /* Sensor polling rate during calibration */
 #define CALIBRATION_SAMPLES         1500                        /* Number of samples to take while calibrating sensors */
 
-/* ------------------------------------------- Public Global Variables  ------------------------------------------- */
-extern i2c_master_dev_handle_t tof_handle;
+/* ------------------------------------------- Public Global Variables ------------------------------------------- */
 extern float ave_g_m_s2; 
 
 /* ------------------------------------------- Public Function Declarations ------------------------------------------- */
-void sensors_init(void);
-void calibrate_sensors(void);
-void start_control_loop(void);
-void init_osc_pin(int pin);
+esp_err_t IMU_acc_init(i2c_master_bus_handle_t *bus_handle);  
+esp_err_t IMU_gyro_init(i2c_master_bus_handle_t *bus_handle);
+void calibrate_IMU(void);
+acc_data_t get_acc_data(void);
+gyro_data_t get_gyro_data(void);
+void calibrate_IMU(void); 
 
-#endif /* SENSORS_H */
+#endif /* BMI088_H */
