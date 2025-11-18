@@ -11,7 +11,7 @@
 
 // General Constants
 #define GET_RAW_DATA_PRIORITY       6
-#define SENS_PERIOD_MS              2                           /* Sensor polling rate during stabilization loop */
+#define SENS_PERIOD_MS              10                           /* Sensor polling rate during stabilization loop */
 
 /* ------------------------------------------- Public Function Declarations ------------------------------------------- */
 void sensors_init(

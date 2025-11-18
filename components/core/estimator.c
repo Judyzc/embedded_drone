@@ -44,13 +44,29 @@ void vUpdateEstimatorTask(void *pvParameters) {
 
         if (xQueueReceive(xQueue_tof_data, (void *) &raw_height_mm, 0)) {       
             // ToF samples at every 50ms (rest of loop runs every 2ms)
+            last_height_mm = height_mm; 
+            // Convert body frame to inertial frame
             height_mm = ((float) raw_height_mm)*cos(pitch_rad)*cos(roll_rad); 
             altitude_rate_m_s = (height_mm - last_height_mm)/((float) TOF_SENS_PERIOD_MS);
-            last_height_mm = height_mm; 
         }  else {
-            // Update height and velo in between tof measurements 
-            height_mm = height_mm + altitude_rate_m_s*DELTA_T*1000.0; 
-            altitude_rate_m_s += (acc_data.az_m_s2 - ave_g_m_s2)*DELTA_T;
+            // Update height and velo in between tof measurements
+            // Convert accel meas from imu frame to body frame
+            float accel_xb_m_s2 = acc_data.ay_m_s2*-1.0f; 
+            float accel_yb_m_s2 = acc_data.ax_m_s2*-1.0f; 
+            float accel_zb_m_s2 = acc_data.az_m_s2; 
+            
+            // Convert accel meas from body frame to inertial frame
+            float accel_zi_m_s2 = -1.0*accel_xb_m_s2*sin(pitch_rad) \
+                                  + accel_yb_m_s2*cos(pitch_rad)*sin(roll_rad) \
+                                  + accel_zb_m_s2*cos(pitch_rad)*cos(roll_rad);
+
+            // Subtract gravity vector
+            accel_zi_m_s2 -= ave_g_m_s2; 
+
+            // Numerically integrate
+            last_height_mm = height_mm;
+            height_mm = last_height_mm + altitude_rate_m_s*DELTA_T*1000.0; 
+            altitude_rate_m_s -= accel_zi_m_s2*DELTA_T;
         }
 
         // xQueueReceive(xQueue_opt_flow_data, (void *) &opt_flow_data_px, portMAX_DELAY); 
@@ -75,7 +91,8 @@ void vUpdateEstimatorTask(void *pvParameters) {
         // float pitch_deg = CompRadiansToDegrees(pitch_rad); 
         // float roll_deg = CompRadiansToDegrees(roll_rad);
         // ESP_LOGI(TAG, "Attitude (deg): Pitch=%.1f Roll=%.1f", pitch_deg, roll_deg);
-        // ESP_LOGI(TAG, "Altitude Rate (m/z): %.2f", altitude_rate_m_s);
+        ESP_LOGI(TAG, "Altitude (m): %.3f", height_mm*.001);
+        // ESP_LOGI(TAG, "Altitude Rate (m/s): %.2f", altitude_rate_m_s);
     } 
 }
 

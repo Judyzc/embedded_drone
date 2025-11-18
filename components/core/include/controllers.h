@@ -1,6 +1,7 @@
 #ifndef CONTROLLERS_H
 #define CONTROLLERS_H
 
+#include "freertos/queue.h"
 #include "sensors.h"
 #include "math.h"
 
