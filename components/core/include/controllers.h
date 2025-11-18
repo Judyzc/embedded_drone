@@ -8,7 +8,7 @@
 /* ------------------------------------------- Force/Thrust Parameters ------------------------------------------- */
 #define MOTOR_MOMENT_ARM_M      0.041275        // Moment arm from center of drone to center of motor along x and y axes (m)
 #define MAX_THRUST_N            (75*0.00980665) // Motors can provide up to 75g of thrust
-#define MAX_DUTY_CYCLE_PCT      80.0            // Limit output of motors
+#define MAX_DUTY_CYCLE_PCT      0.0            // Limit output of motors
 
 /* ------------------------------------------- PID Tuning ------------------------------------------- */
 #define DT                      (SENS_PERIOD_MS*.001)                   // PID timestep (s)

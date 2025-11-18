@@ -8,6 +8,7 @@
 #include "driver/i2c_master.h"
 
 #include "i2c_setup.h"
+#include "spi_setup.h"
 #include "sensors.h"
 #include "estimator.h"
 #include "controllers.h"
@@ -35,6 +36,8 @@ void app_main(void) {
 
     i2c_master_bus_handle_t bus_handle;
     i2c_master_init(&bus_handle); 
+
+    spi_master_init(VSPI_HOST); 
 
     sensors_init(&bus_handle, &xQueue_acc_data, &xQueue_gyro_data, &xQueue_tof_data, &xQueue_opt_flow_data); 
     estimator_init(&xQueue_acc_data, &xQueue_gyro_data, &xQueue_tof_data, &xQueue_opt_flow_data, &xQueue_state_data); 

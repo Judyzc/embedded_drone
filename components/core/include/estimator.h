@@ -2,6 +2,7 @@
 #define ESTIMATOR_H
 
 #include "sensors.h"
+#include "math.h"
 
 /* ------------------------------------------- Structs ------------------------------------------- */
 typedef struct state_data {
@@ -23,6 +24,8 @@ typedef struct state_data {
 
 // General Constants
 #define ESTIMATOR_PRIORITY      4
+#define OPT_FLOW_FOV_RAD        (42.0f*M_PI/180.0f)
+#define OPT_FLOW_PX_LENGTH      35
 
 /* ------------------------------------------- Public Function Definitions ------------------------------------------- */
 void estimator_init(
