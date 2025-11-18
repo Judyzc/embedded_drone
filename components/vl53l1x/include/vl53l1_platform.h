@@ -19,18 +19,32 @@
 #define _VL53L1_PLATFORM_H_
 
 #include "vl53l1_types.h"
+#include "driver/i2c_master.h"
+#include "esp_err.h"
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
+/* ------------------------------------------- Structs  ------------------------------------------- */
 typedef struct {
 	uint32_t dummy;
 } VL53L1_Dev_t;
 
 typedef VL53L1_Dev_t *VL53L1_DEV;
 
+/* ------------------------------------------- Constants  ------------------------------------------- */
+// I2C addresses and device registers 
+#define TOF_SENSOR_ADDR             0x29                        /* Time of Flight I2C Address*/
+
+// General constants
+#define TOF_SENS_PERIOD_MS          50                          /* Data rate of ToF sensor */
+
+/* ------------------------------------------- Public Function Declarations  ------------------------------------------- */
+esp_err_t tof_init(i2c_master_bus_handle_t *bus_handle);
+
+/* ------------------------------------------- Platform API  ------------------------------------------- */
 /** @brief VL53L1_WriteMulti() definition.\n
  * To be implemented by the developer
  */

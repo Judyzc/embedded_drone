@@ -13,12 +13,9 @@
 #define I2C_MASTER_RX_BUF_DISABLE   0                           /*!< I2C master doesn't need buffer */
 #define I2C_MASTER_TIMEOUT_MS       1000
 
-/* ------------------------------------------- Global Variables ------------------------------------------- */
-extern i2c_master_bus_handle_t bus_handle;
-
 /* ------------------------------------------- Public Function Declarations ------------------------------------------- */
 esp_err_t register_read(i2c_master_dev_handle_t dev_handle, uint8_t reg_addr, uint8_t *data, size_t len); 
 esp_err_t register_write_byte(i2c_master_dev_handle_t dev_handle, uint8_t reg_addr, uint8_t data); 
-void i2c_master_init(); 
+void i2c_master_init(i2c_master_bus_handle_t *handle); 
 
 #endif /* I2C_SETUP_H */

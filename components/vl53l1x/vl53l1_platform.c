@@ -11,6 +11,7 @@
   */
 
 #include "vl53l1_platform.h"
+#include "VL53L1X_api.h"
 #include <string.h>
 #include <time.h>
 #include <math.h>
@@ -22,10 +23,34 @@
 #include "driver/i2c_master.h"
 
 #include "i2c_setup.h"
-#include "sensors.h"
 
-// static const char* TAG = "platform"; 
+/* ------------------------------------------- Private Global Variables  ------------------------------------------- */
+i2c_master_dev_handle_t tof_handle;
 
+/* ------------------------------------------- Public Function Definitions  ------------------------------------------- */
+esp_err_t tof_init(i2c_master_bus_handle_t *bus_handle) {
+	i2c_device_config_t tof_config = {
+        .dev_addr_length = I2C_ADDR_BIT_LEN_7,
+        .device_address = TOF_SENSOR_ADDR,
+        .scl_speed_hz = I2C_MASTER_FREQ_HZ,
+    };
+    ESP_ERROR_CHECK(i2c_master_bus_add_device(*bus_handle, &tof_config, &tof_handle));
+
+    VL53L1X_ERROR Status;
+    uint8_t state = 0;  
+    while(!state){
+        Status = VL53L1X_BootState(0, &state);
+        vTaskDelay(2 / portTICK_PERIOD_MS);
+    }
+    Status = VL53L1X_SensorInit(0);
+    Status = VL53L1X_SetInterMeasurementInMs(0, TOF_SENS_PERIOD_MS);
+    Status = VL53L1X_SetTimingBudgetInMs(0, 33);
+    Status = VL53L1X_StartRanging(0);
+
+    return (Status == 0) ? ESP_OK : ESP_FAIL;
+}
+
+/* ------------------------------------------- Platform API  ------------------------------------------- */
 int8_t VL53L1_WriteMulti( uint16_t dev, uint16_t index, uint8_t *pdata, uint32_t count) {
 	// uint8_t status = 255;
 	
@@ -42,7 +67,7 @@ int8_t VL53L1_WriteMulti( uint16_t dev, uint16_t index, uint8_t *pdata, uint32_t
 	return 0;
 }
 
-int8_t VL53L1_ReadMulti(uint16_t dev, uint16_t index, uint8_t *pdata, uint32_t count){
+int8_t VL53L1_ReadMulti(uint16_t dev, uint16_t index, uint8_t *pdata, uint32_t count) {
 	// uint8_t status = 255;
 
 	/* To be filled by customer. Return 0 if OK */

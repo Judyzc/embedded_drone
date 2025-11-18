@@ -22,4 +22,16 @@ menu "Example Configuration"
         help
             I2C Speed of Master device.
 
+    config PIN_TOGGLE_A
+        int "Pin A GPIO pin Num"
+        default 25
+        help
+            Pin number of pin A used for oscilloscope timing.
+
+    config PIN_TOGGLE_B
+        int "Pin B GPIO pin Num"
+        default 10
+        help
+            Pin number of pin A used for oscilloscope timing.
+
 endmenu

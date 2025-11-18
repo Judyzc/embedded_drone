@@ -16,9 +16,6 @@ typedef struct state_data {
     float vel_y_m_s;
 } state_data_t;
 
-/* ------------------------------------------- Public Function Definitions ------------------------------------------- */
-void estimator_init(void);
-
 /* ------------------------------------------- Constants  ------------------------------------------- */
 // Complementary filter parameters
 #define TAU                     1.0f
@@ -26,5 +23,14 @@ void estimator_init(void);
 
 // General Constants
 #define ESTIMATOR_PRIORITY      4
+
+/* ------------------------------------------- Public Function Definitions ------------------------------------------- */
+void estimator_init(
+    QueueHandle_t *pxQueue_acc_data, 
+    QueueHandle_t *pxQueue_gyro_data,
+    QueueHandle_t *pxQueue_tof_data,
+    QueueHandle_t *pxQueue_opt_flow_data,
+    QueueHandle_t *pxQueue_state_data
+);
 
 #endif /* ESTIMATOR_H */
