@@ -24,7 +24,9 @@ void vUpdateEstimatorTask(void *pvParameters) {
     uint16_t raw_height_mm; 
     // int16_t opt_flow_data_px[2]; 
     float height_mm = 0, last_height_mm = 0; 
-    float altitude_rate_m_s = 0; 
+    float raw_altitude_rate_m_s = 0; 
+    float filtered_altitude_rate_m_s = 0; 
+    float alpha = DELTA_T/.04;
     float vel_x_m_s = 0, vel_y_m_s = 0; 
     for (;;) {
         xQueueReceive(xQueue_acc_data, (void *) &acc_data, portMAX_DELAY); 
@@ -47,7 +49,7 @@ void vUpdateEstimatorTask(void *pvParameters) {
             last_height_mm = height_mm; 
             // Convert body frame to inertial frame
             height_mm = ((float) raw_height_mm)*cos(pitch_rad)*cos(roll_rad); 
-            altitude_rate_m_s = (height_mm - last_height_mm)/((float) TOF_SENS_PERIOD_MS);
+            raw_altitude_rate_m_s = (height_mm - last_height_mm)/((float) TOF_SENS_PERIOD_MS);
         }  else {
             // Update height and velo in between tof measurements
             // Convert accel meas from imu frame to body frame
@@ -65,9 +67,11 @@ void vUpdateEstimatorTask(void *pvParameters) {
 
             // Numerically integrate
             last_height_mm = height_mm;
-            height_mm = last_height_mm + altitude_rate_m_s*DELTA_T*1000.0; 
-            altitude_rate_m_s -= accel_zi_m_s2*DELTA_T;
+            height_mm = last_height_mm + filtered_altitude_rate_m_s*DELTA_T*1000.0; 
+            raw_altitude_rate_m_s = filtered_altitude_rate_m_s - accel_zi_m_s2*DELTA_T;
         }
+        // Low pass filter the altitude rate
+        filtered_altitude_rate_m_s = filtered_altitude_rate_m_s - (alpha*(filtered_altitude_rate_m_s - raw_altitude_rate_m_s));
 
         // xQueueReceive(xQueue_opt_flow_data, (void *) &opt_flow_data_px, portMAX_DELAY); 
         // vel_x_m_s = raw_height_mm*.001*(42.0*0.0174533)*opt_flow_data_px[0]/(SENS_PERIOD_MS*.001*35) - raw_height_mm*.001*gyro_data.Gy_rad_s;
@@ -81,7 +85,7 @@ void vUpdateEstimatorTask(void *pvParameters) {
             .roll_rate_rad_s = gyro_data.Gy_rad_s, 
             .yaw_rate_rad_s = gyro_data.Gz_rad_s,
             .altitude_m = height_mm*.001, 
-            .altitude_rate_m_s = altitude_rate_m_s,
+            .altitude_rate_m_s = raw_altitude_rate_m_s,
             .vel_x_m_s = vel_x_m_s, 
             .vel_y_m_s = vel_y_m_s, 
         };
@@ -91,8 +95,8 @@ void vUpdateEstimatorTask(void *pvParameters) {
         // float pitch_deg = CompRadiansToDegrees(pitch_rad); 
         // float roll_deg = CompRadiansToDegrees(roll_rad);
         // ESP_LOGI(TAG, "Attitude (deg): Pitch=%.1f Roll=%.1f", pitch_deg, roll_deg);
-        ESP_LOGI(TAG, "Altitude (m): %.3f", height_mm*.001);
-        // ESP_LOGI(TAG, "Altitude Rate (m/s): %.2f", altitude_rate_m_s);
+        // ESP_LOGI(TAG, "Altitude (m): %.3f", height_mm*.001);
+        // ESP_LOGI(TAG, "Altitude Rate (m/s): %.3f", filtered_altitude_rate_m_s);
     } 
 }
 
