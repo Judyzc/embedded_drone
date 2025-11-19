@@ -16,6 +16,7 @@
 #include "espnow.h"
 #include "digital_io.h"
 #include "bmi088.h"
+#include "pmw3901.h"
 
 static const char *TAG = "main";
 
@@ -26,7 +27,7 @@ void app_main(void) {
     QueueHandle_t xQueue_gyro_data = xQueueCreate(1, sizeof(gyro_data_t)); 
     QueueHandle_t xQueue_state_data = xQueueCreate(1, sizeof(state_data_t)); 
     QueueHandle_t xQueue_tof_data = xQueueCreate(1, sizeof(uint16_t)); 
-    QueueHandle_t xQueue_opt_flow_data = xQueueCreate(1, 2*sizeof(uint16_t));
+    QueueHandle_t xQueue_opt_flow_data = xQueueCreate(1, sizeof(motionBurst_t));
     
     // Call initialization functions
     ESP_LOGI(TAG, "Initializing components");

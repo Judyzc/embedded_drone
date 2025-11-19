@@ -4,246 +4,234 @@
 #include "esp_log.h"
 #include "esp_rom_sys.h"
 
+#include "esp_timer.h"
+#include "driver/gpio.h"
 #include <string.h>
 #include <stdio.h>
 
 #include "pmw3901.h"
 #include "spi_setup.h"
 
-static const char *TAG = "PMW3901";
+// static const char *TAG = "PMW3901";
 
-/* ------------------------------------------- Private Function Declarations  ------------------------------------------- */
-static void write_reg(pmw3901_t *dev, uint8_t reg, uint8_t value);
-static uint8_t read_reg(pmw3901_t *dev, uint8_t reg);
-static void init_registers(pmw3901_t *dev);
+/* ------------------------------------------- Private global variables  ------------------------------------------- */
+spi_device_handle_t opt_flow_handle;
+static bool isInit = false; 
 
 /* ------------------------------------------- Private Function Definitions  ------------------------------------------- */
-static inline void pmw_cs_low(pmw3901_t *dev)
+void sleepus(uint32_t us)
 {
-    gpio_set_level(dev->cs_io, 0);
-    esp_rom_delay_us(10);
-}
-static inline void pmw_cs_high(pmw3901_t *dev)
-{
-    esp_rom_delay_us(10);
-    gpio_set_level(dev->cs_io, 1);
-    esp_rom_delay_us(20);
+  int64_t start = esp_timer_get_time();
+
+  while ((start+us) > esp_timer_get_time());
 }
 
-/* Write register: CS low, send (reg|0x80) then value, small delays, CS high. */
-static void write_reg(pmw3901_t *dev, uint8_t reg, uint8_t value)
+static void registerWrite(uint32_t csPin, uint8_t reg, uint8_t value)
 {
-    if (!dev || !dev->spi) return;
-    pmw_cs_low(dev);
-    spi_transaction_t t;
-    memset(&t, 0, sizeof(t));
-    t.length = 8 * 2; // 2 B
-    t.flags = SPI_TRANS_USE_TXDATA;
-    t.tx_data[0] = (uint8_t)(reg | 0x80u);
-    t.tx_data[1] = value;
-    esp_err_t ret = spi_device_polling_transmit(dev->spi, &t);
-    if (ret != ESP_OK) {
-        ESP_LOGE(TAG, "SPI write error: %d", ret);
-    }
-    // small post-write delay
-    esp_rom_delay_us(200);
-    pmw_cs_high(dev);
+    // Set MSB to 1 for write
+    reg |= 0x80u;
+
+    spiBeginTransaction(SPI_BAUDRATE_2MHZ);
+    gpio_set_level(csPin, 0);
+
+    sleepus(50);
+
+    spiExchange(opt_flow_handle, 1, 1, &reg, &reg);
+    sleepus(50);
+    spiExchange(opt_flow_handle, 1, 1, &value, &value);
+
+    sleepus(50);
+
+    gpio_set_level(csPin, 1);
+    spiEndTransaction();
+    sleepus(200);
 }
 
-
-/* Read registers */
-static uint8_t read_reg(pmw3901_t *dev, uint8_t reg)
+static uint8_t registerRead(uint32_t csPin, uint8_t reg)
 {
-    if (!dev || !dev->spi) return 0;
-    uint8_t rx = 0;
+    uint8_t data = 0;
+    uint8_t dummy = 0;
+
+    // Set MSB to 0 for read
     reg &= ~0x80u;
-    pmw_cs_low(dev);
-    // send address Byte
-    {
-        spi_transaction_t t;
-        memset(&t, 0, sizeof(t));
-        t.length = 8;
-        t.flags = SPI_TRANS_USE_TXDATA;
-        t.tx_data[0] = reg;
-        esp_err_t r = spi_device_polling_transmit(dev->spi, &t);
-        if (r != ESP_OK) {
-            ESP_LOGE(TAG, "SPI addr tx error: %d", r);
-            pmw_cs_high(dev);
-            return 0;
-        }
-    }
-    // data delay
-    esp_rom_delay_us(160);
-    // read data Byte
-    {
-        spi_transaction_t t;
-        memset(&t, 0, sizeof(t));
-        t.length = 8;
-        t.flags = SPI_TRANS_USE_RXDATA;
-        t.tx_data[0] = 0x00; // dummy
-        esp_err_t r = spi_device_polling_transmit(dev->spi, &t);
-        if (r != ESP_OK) {
-            ESP_LOGE(TAG, "SPI read error: %d", r);
-            pmw_cs_high(dev);
-            return 0;
-        }
-        rx = t.rx_data[0];
-    }
-    esp_rom_delay_us(200);
-    pmw_cs_high(dev);
-    return rx;
+
+    spiBeginTransaction(SPI_BAUDRATE_2MHZ);
+    gpio_set_level(csPin, 0);
+
+    sleepus(50);
+
+    spiExchange(opt_flow_handle, 1, 1, &reg, &reg);
+    sleepus(500);
+    spiExchange(opt_flow_handle, 1, 0, &dummy, &data);
+
+    sleepus(50);
+
+    gpio_set_level(csPin, 1);
+    spiEndTransaction();
+    sleepus(200);
+
+    return data;
 }
 
-
-/* Register initialization sequence */
-static void init_registers(pmw3901_t *dev)
+static void InitRegisters(uint32_t csPin)
 {
-    if (!dev) return;
-    write_reg(dev, 0x7F, 0x00);
-    write_reg(dev, 0x61, 0xAD);
-    write_reg(dev, 0x7F, 0x03);
-    write_reg(dev, 0x40, 0x00);
-    write_reg(dev, 0x7F, 0x05);
-    write_reg(dev, 0x41, 0xB3);
-    write_reg(dev, 0x43, 0xF1);
-    write_reg(dev, 0x45, 0x14);
-    write_reg(dev, 0x5B, 0x32);
-    write_reg(dev, 0x5F, 0x34);
-    write_reg(dev, 0x7B, 0x08);
-    write_reg(dev, 0x7F, 0x06);
-    write_reg(dev, 0x44, 0x1B);
-    write_reg(dev, 0x40, 0xBF);
-    write_reg(dev, 0x4E, 0x3F);
-    write_reg(dev, 0x7F, 0x08);
-    write_reg(dev, 0x65, 0x20);
-    write_reg(dev, 0x6A, 0x18);
-    write_reg(dev, 0x7F, 0x09);
-    write_reg(dev, 0x4F, 0xAF);
-    write_reg(dev, 0x5F, 0x40);
-    write_reg(dev, 0x48, 0x80);
-    write_reg(dev, 0x49, 0x80);
-    write_reg(dev, 0x57, 0x77);
-    write_reg(dev, 0x60, 0x78);
-    write_reg(dev, 0x61, 0x78);
-    write_reg(dev, 0x62, 0x08);
-    write_reg(dev, 0x63, 0x50);
-    write_reg(dev, 0x7F, 0x0A);
-    write_reg(dev, 0x45, 0x60);
-    write_reg(dev, 0x7F, 0x00);
-    write_reg(dev, 0x4D, 0x11);
-    write_reg(dev, 0x55, 0x80);
-    write_reg(dev, 0x74, 0x1F);
-    write_reg(dev, 0x75, 0x1F);
-    write_reg(dev, 0x4A, 0x78);
-    write_reg(dev, 0x4B, 0x78);
-    write_reg(dev, 0x44, 0x08);
-    write_reg(dev, 0x45, 0x50);
-    write_reg(dev, 0x64, 0xFF);
-    write_reg(dev, 0x65, 0x1F);
-    write_reg(dev, 0x7F, 0x14);
-    write_reg(dev, 0x65, 0x67);
-    write_reg(dev, 0x66, 0x08);
-    write_reg(dev, 0x63, 0x70);
-    write_reg(dev, 0x7F, 0x15);
-    write_reg(dev, 0x48, 0x48);
-    write_reg(dev, 0x7F, 0x07);
-    write_reg(dev, 0x41, 0x0D);
-    write_reg(dev, 0x43, 0x14);
-    write_reg(dev, 0x4B, 0x0E);
-    write_reg(dev, 0x45, 0x0F);
-    write_reg(dev, 0x44, 0x42);
-    write_reg(dev, 0x4C, 0x80);
-    write_reg(dev, 0x7F, 0x10);
-    write_reg(dev, 0x5B, 0x02);
-    write_reg(dev, 0x7F, 0x07);
-    write_reg(dev, 0x40, 0x41);
-    write_reg(dev, 0x70, 0x00);
-    vTaskDelay(pdMS_TO_TICKS(10));
-    write_reg(dev, 0x32, 0x44);
-    write_reg(dev, 0x7F, 0x07);
-    write_reg(dev, 0x40, 0x40);
-    write_reg(dev, 0x7F, 0x06);
-    write_reg(dev, 0x62, 0xF0);
-    write_reg(dev, 0x63, 0x00);
-    write_reg(dev, 0x7F, 0x0D);
-    write_reg(dev, 0x48, 0xC0);
-    write_reg(dev, 0x6F, 0xD5);
-    write_reg(dev, 0x7F, 0x00);
-    write_reg(dev, 0x5B, 0xA0);
-    write_reg(dev, 0x4E, 0xA8);
-    write_reg(dev, 0x5A, 0x50);
-    write_reg(dev, 0x40, 0x80);
-    write_reg(dev, 0x7F, 0x00);
-    write_reg(dev, 0x5A, 0x10);
-    write_reg(dev, 0x54, 0x00);
-}
+    registerWrite(csPin, 0x7F, 0x00);
+    registerWrite(csPin, 0x61, 0xAD);
+    registerWrite(csPin, 0x7F, 0x03);
+    registerWrite(csPin, 0x40, 0x00);
+    registerWrite(csPin, 0x7F, 0x05);
+    registerWrite(csPin, 0x41, 0xB3);
+    registerWrite(csPin, 0x43, 0xF1);
+    registerWrite(csPin, 0x45, 0x14);
+    registerWrite(csPin, 0x5B, 0x32);
+    registerWrite(csPin, 0x5F, 0x34);
+    registerWrite(csPin, 0x7B, 0x08);
+    registerWrite(csPin, 0x7F, 0x06);
+    registerWrite(csPin, 0x44, 0x1B);
+    registerWrite(csPin, 0x40, 0xBF);
+    registerWrite(csPin, 0x4E, 0x3F);
+    registerWrite(csPin, 0x7F, 0x08);
+    registerWrite(csPin, 0x65, 0x20);
+    registerWrite(csPin, 0x6A, 0x18);
+    registerWrite(csPin, 0x7F, 0x09);
+    registerWrite(csPin, 0x4F, 0xAF);
+    registerWrite(csPin, 0x5F, 0x40);
+    registerWrite(csPin, 0x48, 0x80);
+    registerWrite(csPin, 0x49, 0x80);
+    registerWrite(csPin, 0x57, 0x77);
+    registerWrite(csPin, 0x60, 0x78);
+    registerWrite(csPin, 0x61, 0x78);
+    registerWrite(csPin, 0x62, 0x08);
+    registerWrite(csPin, 0x63, 0x50);
+    registerWrite(csPin, 0x7F, 0x0A);
+    registerWrite(csPin, 0x45, 0x60);
+    registerWrite(csPin, 0x7F, 0x00);
+    registerWrite(csPin, 0x4D, 0x11);
+    registerWrite(csPin, 0x55, 0x80);
+    registerWrite(csPin, 0x74, 0x1F);
+    registerWrite(csPin, 0x75, 0x1F);
+    registerWrite(csPin, 0x4A, 0x78);
+    registerWrite(csPin, 0x4B, 0x78);
+    registerWrite(csPin, 0x44, 0x08);
+    registerWrite(csPin, 0x45, 0x50);
+    registerWrite(csPin, 0x64, 0xFF);
+    registerWrite(csPin, 0x65, 0x1F);
+    registerWrite(csPin, 0x7F, 0x14);
+    registerWrite(csPin, 0x65, 0x67);
+    registerWrite(csPin, 0x66, 0x08);
+    registerWrite(csPin, 0x63, 0x70);
+    registerWrite(csPin, 0x7F, 0x15);
+    registerWrite(csPin, 0x48, 0x48);
+    registerWrite(csPin, 0x7F, 0x07);
+    registerWrite(csPin, 0x41, 0x0D);
+    registerWrite(csPin, 0x43, 0x14);
+    registerWrite(csPin, 0x4B, 0x0E);
+    registerWrite(csPin, 0x45, 0x0F);
+    registerWrite(csPin, 0x44, 0x42);
+    registerWrite(csPin, 0x4C, 0x80);
+    registerWrite(csPin, 0x7F, 0x10);
+    registerWrite(csPin, 0x5B, 0x02);
+    registerWrite(csPin, 0x7F, 0x07);
+    registerWrite(csPin, 0x40, 0x41);
+    registerWrite(csPin, 0x70, 0x00);
 
+    vTaskDelay(10/portTICK_PERIOD_MS); // delay 10ms
+
+    registerWrite(csPin, 0x32, 0x44);
+    registerWrite(csPin, 0x7F, 0x07);
+    registerWrite(csPin, 0x40, 0x40);
+    registerWrite(csPin, 0x7F, 0x06);
+    registerWrite(csPin, 0x62, 0xF0);
+    registerWrite(csPin, 0x63, 0x00);
+    registerWrite(csPin, 0x7F, 0x0D);
+    registerWrite(csPin, 0x48, 0xC0);
+    registerWrite(csPin, 0x6F, 0xD5);
+    registerWrite(csPin, 0x7F, 0x00);
+    registerWrite(csPin, 0x5B, 0xA0);
+    registerWrite(csPin, 0x4E, 0xA8);
+    registerWrite(csPin, 0x5A, 0x50);
+    registerWrite(csPin, 0x40, 0x80);
+
+    registerWrite(csPin, 0x7F, 0x00);
+    registerWrite(csPin, 0x5A, 0x10);
+    registerWrite(csPin, 0x54, 0x00);
+}
 
 /* ------------------------------------------- Public Function Definitions  ------------------------------------------- */
-void pmw3901_init(pmw3901_t *dev, spi_host_device_t host,
-                  int sclk_io, int mosi_io, int miso_io, int cs_io)
+bool pmw3901Init(spi_host_device_t host, uint32_t csPin)
 {
-    // ESP_LOGI(TAG, "pmw3901_init start");
-    // if (!dev) return false;
-    memset(dev, 0, sizeof(*dev));
-    dev->host = host;
-    dev->sclk_io = sclk_io;
-    dev->mosi_io = mosi_io;
-    dev->miso_io = miso_io;
-    dev->cs_io   = cs_io;
-    // ESP_LOGI(TAG, "Using SPI host=%d SCLK=%d MOSI=%d MISO=%d CS=%d",
-    //          (int)dev->host, dev->sclk_io, dev->mosi_io, dev->miso_io, dev->cs_io);
-    
-    // Configure CS as manual GPIO (we toggle it ourselves)
-    gpio_set_direction(dev->cs_io, GPIO_MODE_OUTPUT);
-    gpio_set_level(dev->cs_io, 1); // idle high
-    // Device config: mode 3 is required by PMW3901 (CPOL=1, CPHA=1)
-    spi_device_interface_config_t devcfg = {
-        .clock_speed_hz = 1000000, // start conservative 1 MHz
-        .mode = 3,
-        .spics_io_num = -1,        // manual CS
-        .queue_size = 1,
-    };
-    ESP_ERROR_CHECK(spi_bus_add_device(dev->host, &devcfg, &dev->spi));
-    // ESP_LOGI(TAG, "SPI bus/device ready");
-
-    // Reset (power-on reset register)
-    write_reg(dev, 0x3A, 0x5A);
-    vTaskDelay(pdMS_TO_TICKS(5));
-    uint8_t chipId = read_reg(dev, 0x00);
-    uint8_t chipIdInv = read_reg(dev, 0x5F);
-    // ESP_LOGI(TAG, "chip id raw: %02x / %02x", chipId, chipIdInv);
-    if (chipId != PMW_CHIP_ID || chipIdInv != PMW_CHIP_ID_INVERSE) {
-        ESP_LOGE(TAG, "bad chip id: %02x / %02x", chipId, chipIdInv);
-        spi_bus_remove_device(dev->spi);
-        dev->spi = NULL;
-        // return false;
+    if (isInit) {
+        return true;
     }
 
-    // motion registers
-    read_reg(dev, 0x02);
-    read_reg(dev, 0x03);
-    read_reg(dev, 0x04);
-    read_reg(dev, 0x05);
-    read_reg(dev, 0x06);
-    vTaskDelay(pdMS_TO_TICKS(1));
+    spi_device_interface_config_t devcfg = {
+        .clock_speed_hz = SPI_BAUDRATE_2MHZ, //Clock out at 10 MHz
+        .mode = 3,							 //SPI mode 0
+        .spics_io_num = -1,					 //CS pin
+        .queue_size = 8,					 //We want to be able to queue 7 transactions at a time
+        /*.pre_cb = lcd_spi_pre_transfer_callback, //Specify pre-transfer callback to handle D/C line*/
+    };
+    ESP_ERROR_CHECK(spi_bus_add_device(host, &devcfg, &opt_flow_handle)); 
 
-    /* Initialize sensor registers (Bitcraze sequence) */
-    init_registers(dev);
-    // ESP_LOGI(TAG, "PMW3901 initialized (chip id OK)");
+    // Initialize CS Pin
+    gpio_config_t io_conf = {
+        .pin_bit_mask = (1ULL << csPin),
+        .mode = GPIO_MODE_OUTPUT,
+        .pull_up_en = GPIO_PULLUP_DISABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type = GPIO_INTR_DISABLE
+    };
+    gpio_config(&io_conf);
+    gpio_set_level(csPin, 1);
+
+    gpio_set_level(csPin, 1);
+    vTaskDelay(2/portTICK_PERIOD_MS);
+    gpio_set_level(csPin, 0);
+    vTaskDelay(2/portTICK_PERIOD_MS);
+    gpio_set_level(csPin, 1);
+    vTaskDelay(2/portTICK_PERIOD_MS);
+
+    uint8_t chipId    = registerRead(csPin, 0x00);
+    uint8_t invChipId = registerRead(csPin, 0x5f);
+
+    // ESP_LOGI(TAG, "Motion chip id: 0x%x:0x%x\n", chipId, invChipId);
+
+    if (chipId == 0x49 || invChipId == 0xB6) {
+        // Power on reset
+        registerWrite(csPin, 0x3a, 0x5a);
+        vTaskDelay(5/portTICK_PERIOD_MS);
+
+        // Reading the motion registers one time
+        registerRead(csPin, 0x02);
+        registerRead(csPin, 0x03);
+        registerRead(csPin, 0x04);
+        registerRead(csPin, 0x05);
+        registerRead(csPin, 0x06);
+        vTaskDelay(1/portTICK_PERIOD_MS);
+
+        InitRegisters(csPin);
+
+        isInit = true;
+    }
+
+    return isInit;
 }
 
-
-void pmw3901_read_motion_count(pmw3901_t *dev, int16_t *delta_x, int16_t *delta_y)
+void pmw3901ReadMotion(uint32_t csPin, motionBurst_t *motion)
 {
-    // ESP_LOGI(TAG, "trying to read motion");
-    // if (!dev) return false;
-    // motion reg
-    (void) read_reg(dev, 0x02);
-    uint8_t dx_h = read_reg(dev, 0x04);
-    uint8_t dx_l = read_reg(dev, 0x03);
-    uint8_t dy_h = read_reg(dev, 0x06);
-    uint8_t dy_l = read_reg(dev, 0x05);
-    *delta_x = (int16_t)(dx_h << 8 | dx_l);
-    *delta_y = (int16_t)(dy_h << 8 | dy_l);
+    uint8_t address = 0x16;
+
+    spiBeginTransaction(SPI_BAUDRATE_2MHZ);
+    gpio_set_level(csPin, 0);
+    sleepus(10);
+    spiExchange(opt_flow_handle, 1, 1, &address, &address);
+    sleepus(10);
+    spiExchange(opt_flow_handle, sizeof(motionBurst_t), 0, (uint8_t *)motion, (uint8_t *)motion);
+    sleepus(10);
+    gpio_set_level(csPin, 1);
+    spiEndTransaction();
+
+    uint16_t realShutter = (motion->shutter >> 8) & 0x0FF;
+    realShutter |= (motion->shutter & 0x0ff) << 8;
+    motion->shutter = realShutter;
 }

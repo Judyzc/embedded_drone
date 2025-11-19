@@ -62,8 +62,6 @@ void vUpdatePIDTask(void *pvParameters) {
             EMERG_STOP = true; 
         }
 
-        gpio_set_level(CONFIG_PIN_TOGGLE_B, 1);
-
         /* ----------------------------- Pitch cascaded PIDs ----------------------------- */
         xQueueReceive(xQueue_state_data, (void *) &state_data, portMAX_DELAY); 
 
@@ -117,10 +115,7 @@ void vUpdatePIDTask(void *pvParameters) {
             motor_cmds.motor4_duty_cycle_pct = 0;  
         }
 
-        update_pwm(motor_cmds);
-
-        gpio_set_level(CONFIG_PIN_TOGGLE_B, 0);
-        // ESP_LOGI(TAG, "Sensor to Motor Time: %d ticks", end_tick - start_tick);  
+        update_pwm(motor_cmds); 
     }
 }
 

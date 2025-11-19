@@ -33,7 +33,6 @@ static const char *TAG = "sensors";
 /* ------------------------------------------- Private Global Variables  ------------------------------------------- */
 static QueueHandle_t xQueue_acc_data, xQueue_gyro_data, xQueue_tof_data, xQueue_opt_flow_data; 
 static SemaphoreHandle_t xSemaphore_i2c, xSemaphore_spi; 
-static pmw3901_t g_pmw;
 
 /* ------------------------------------------- Private function definitions  ------------------------------------------- */
 static void vPollI2CSensorsTask(void *pvParameters) {    
@@ -79,9 +78,9 @@ static void vPollSPISensorsTask(void *pvParameters) {
 
         gpio_set_level(CONFIG_PIN_TOGGLE_B, 1);
         
-        int16_t optf_data[2];
-        pmw3901_read_motion_count(&g_pmw, &optf_data[0], &optf_data[1]);
-        if (!xQueueSendToBack(xQueue_opt_flow_data, (void *) optf_data, portMAX_DELAY)) 
+        motionBurst_t motion;
+        pmw3901ReadMotion(OPT_FLOW_CS_PIN, &motion);
+        if (!xQueueSendToBack(xQueue_opt_flow_data, (void *) &motion, portMAX_DELAY)) 
             ESP_LOGE(TAG, "Optical flow data queue is full");
         // ESP_LOGI(TAG, "Opt flow (px): dx=%d, dy=%d", optf_data[0], optf_data[1]);
         
@@ -137,7 +136,7 @@ void sensors_init(
     ESP_ERROR_CHECK(tof_init(bus_handle)); 
     ESP_LOGI(TAG, "Initialized ToF successfully"); 
 
-    pmw3901_init(&g_pmw, VSPI_HOST, ESP_SCLK_IO, ESP_MOSI_IO, ESP_MISO_IO, ESP_CS_IO);
+    pmw3901Init(VSPI_HOST, OPT_FLOW_CS_PIN);
     ESP_LOGI(TAG, "Initialized Optical Flow successfully");
 
     // ESP_ERROR_CHECK(i2c_master_bus_rm_device(imu_handle));

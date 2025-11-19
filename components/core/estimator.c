@@ -7,6 +7,7 @@
 #include "math.h"
 
 #include "bmi088.h"
+#include "pmw3901.h"
 #include "vl53l1_platform.h"
 #include "six_axis_comp_filter.h"
 #include "estimator.h"
@@ -27,7 +28,7 @@ void vUpdateEstimatorTask(void *pvParameters) {
     acc_data_t acc_data; 
     gyro_data_t gyro_data; 
     uint16_t raw_height_mm; 
-    int16_t opt_flow_data_px[2]; 
+    motionBurst_t motion;  
     float height_mm = 0, last_height_mm = 0; 
     float raw_altitude_rate_m_s = 0; 
     float filtered_altitude_rate_m_s = 0; 
@@ -81,9 +82,9 @@ void vUpdateEstimatorTask(void *pvParameters) {
         // Low pass filter the altitude rate
         filtered_altitude_rate_m_s = filtered_altitude_rate_m_s - (alpha*(filtered_altitude_rate_m_s - raw_altitude_rate_m_s));
 
-        xQueueReceive(xQueue_opt_flow_data, (void *) &opt_flow_data_px, portMAX_DELAY); 
-        vel_x_m_s = opt_flow_calc(opt_flow_data_px[0], raw_height_mm, -1.0f*gyro_data.Gy_rad_s); 
-        vel_y_m_s = opt_flow_calc(opt_flow_data_px[1], raw_height_mm, gyro_data.Gx_rad_s);
+        xQueueReceive(xQueue_opt_flow_data, (void *) &motion, portMAX_DELAY); 
+        vel_x_m_s = opt_flow_calc(motion.deltaX, raw_height_mm, -1.0f*gyro_data.Gy_rad_s); 
+        vel_y_m_s = opt_flow_calc(motion.deltaY, raw_height_mm, gyro_data.Gx_rad_s);
 
         state_data_t state_data = {
             .pitch_rad = pitch_rad, 
