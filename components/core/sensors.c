@@ -50,7 +50,7 @@ static void vPollI2CSensorsTask(void *pvParameters) {
         gyro_data_t gyro_data = get_gyro_data();
         if (!xQueueSendToBack(xQueue_gyro_data, (void *) &gyro_data, portMAX_DELAY))
             ESP_LOGE(TAG, "Gyro data queue is full"); 
-        // ESP_LOGI(TAG, "Attitude Rate (rad/s): x=%.2f y=%.2f z=%.2f", gyro_data.Gx_rad_s, gyro_data.Gy_rad_s, gyro_data.Gz_rad_s); 
+        // ESP_LOGI(TAG, "Attitude Rate (rad/s): x=%.02f y=%.02f z=%.02f", gyro_data.Gx_rad_s, gyro_data.Gy_rad_s, gyro_data.Gz_rad_s); 
 
         uint8_t range_status; 
         uint16_t height_mm; 
@@ -73,17 +73,22 @@ static void vPollI2CSensorsTask(void *pvParameters) {
 }
 
 static void vPollSPISensorsTask(void *pvParameters) {
+    uint8_t cyles_since_last_opt_flow = 0; 
     for (;;) {        
         xSemaphoreTake(xSemaphore_spi, portMAX_DELAY);
 
         gpio_set_level(CONFIG_PIN_TOGGLE_B, 1);
         
-        motionBurst_t motion;
-        pmw3901ReadMotion(OPT_FLOW_CS_PIN, &motion);
-        if (!xQueueSendToBack(xQueue_opt_flow_data, (void *) &motion, portMAX_DELAY)) 
-            ESP_LOGE(TAG, "Optical flow data queue is full");
-        // ESP_LOGI(TAG, "Opt flow (px): dx=%d, dy=%d", optf_data[0], optf_data[1]);
-        
+        cyles_since_last_opt_flow++; 
+        if (cyles_since_last_opt_flow >= OPT_FLOW_SENS_PERIOD_MS/SENS_PERIOD_MS) {
+            motionBurst_t motion;
+            pmw3901ReadMotion(OPT_FLOW_CS_PIN, &motion);
+            if (!xQueueSendToBack(xQueue_opt_flow_data, (void *) &motion, portMAX_DELAY)) 
+                ESP_LOGE(TAG, "Optical flow data queue is full");
+            // ESP_LOGI(TAG, "Opt flow (px): dx=%d, dy=%d", motion.deltaX, motion.deltaY);
+            cyles_since_last_opt_flow = 0;
+        }
+
         gpio_set_level(CONFIG_PIN_TOGGLE_B, 0); 
     }
 }

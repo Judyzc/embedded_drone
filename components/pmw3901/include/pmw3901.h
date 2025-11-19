@@ -10,9 +10,10 @@ extern "C" {
 #endif
 
 /* ------------------------------------------- Constants ------------------------------------------- */
-#define PMW_CHIP_ID         0x49u
-#define PMW_CHIP_ID_INVERSE 0xB6u
-#define OPT_FLOW_CS_PIN     5               // 8, left side of deck
+#define PMW_CHIP_ID                 0x49u
+#define PMW_CHIP_ID_INVERSE         0xB6u
+#define OPT_FLOW_CS_PIN             5               // 8, left side of deck
+#define OPT_FLOW_SENS_PERIOD_MS     50
 
 /* ------------------------------------------- Structs ------------------------------------------- */
 typedef struct motionBurst_s {

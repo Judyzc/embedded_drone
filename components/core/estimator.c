@@ -19,9 +19,11 @@ static SixAxis comp_filter;
 static QueueHandle_t xQueue_acc_data, xQueue_gyro_data, xQueue_tof_data, xQueue_opt_flow_data, xQueue_state_data;
 
 /* ------------------------------------------- Private Function Definitions  ------------------------------------------- */
-float opt_flow_calc(int16_t dx_px, uint16_t height_mm, float attitude_rate_rad_s) {
+float opt_flow_calc(int16_t dx_px, uint16_t height_mm, float attitude_rate_rad_s) { 
     float height_m = ((float) height_mm)*.001f; 
-    return height_m*OPT_FLOW_FOV_RAD*((float) dx_px)/(SENS_PERIOD_MS*.001*OPT_FLOW_PX_LENGTH) - height_m*attitude_rate_rad_s; 
+    float dt = ((float) SENS_PERIOD_MS)*.001f;
+    float scalar = 100.0; 
+    return height_m*OPT_FLOW_FOV_RAD*((float) dx_px)/(dt*((float) OPT_FLOW_PX_LENGTH)*scalar) - height_m*attitude_rate_rad_s; 
 }
 
 void vUpdateEstimatorTask(void *pvParameters) { 
@@ -82,9 +84,10 @@ void vUpdateEstimatorTask(void *pvParameters) {
         // Low pass filter the altitude rate
         filtered_altitude_rate_m_s = filtered_altitude_rate_m_s - (alpha*(filtered_altitude_rate_m_s - raw_altitude_rate_m_s));
 
-        xQueueReceive(xQueue_opt_flow_data, (void *) &motion, portMAX_DELAY); 
-        vel_x_m_s = opt_flow_calc(motion.deltaX, raw_height_mm, -1.0f*gyro_data.Gy_rad_s); 
-        vel_y_m_s = opt_flow_calc(motion.deltaY, raw_height_mm, gyro_data.Gx_rad_s);
+        if (xQueueReceive(xQueue_opt_flow_data, (void *) &motion, 0)) {
+            vel_x_m_s = opt_flow_calc(motion.deltaX, raw_height_mm, -1.0f*gyro_data.Gy_rad_s); 
+            vel_y_m_s = opt_flow_calc(-1*motion.deltaY, raw_height_mm, gyro_data.Gx_rad_s);
+        }
 
         state_data_t state_data = {
             .pitch_rad = pitch_rad, 
@@ -104,6 +107,7 @@ void vUpdateEstimatorTask(void *pvParameters) {
         // float roll_deg = CompRadiansToDegrees(roll_rad);
         // ESP_LOGI(TAG, "Attitude (deg): Pitch=%.1f Roll=%.1f", pitch_deg, roll_deg);
         // ESP_LOGI(TAG, "Altitude (m): %.3f", height_mm*.001);
+        // ESP_LOGI(TAG, "Raw Altitude (m): %.3f", raw_height_mm*.001);
         // ESP_LOGI(TAG, "Altitude Rate (m/s): %.3f", filtered_altitude_rate_m_s);
         // ESP_LOGI(TAG, "Velocity data (m/s): x=%.2f, y=%.2f", vel_x_m_s, vel_y_m_s); 
     } 
