@@ -19,7 +19,7 @@ typedef struct state_data {
 
 /* ------------------------------------------- Constants  ------------------------------------------- */
 // Complementary filter parameters
-#define TAU                     1.0f
+#define TAU                     .5f
 #define DELTA_T                 (((float) SENS_PERIOD_MS)*.001f)
 
 // General Constants

@@ -96,7 +96,7 @@ void vUpdateEstimatorTask(void *pvParameters) {
             .roll_rate_rad_s = gyro_data.Gy_rad_s, 
             .yaw_rate_rad_s = gyro_data.Gz_rad_s,
             .altitude_m = height_mm*.001, 
-            .altitude_rate_m_s = raw_altitude_rate_m_s,
+            .altitude_rate_m_s = filtered_altitude_rate_m_s,
             .vel_x_m_s = vel_x_m_s, 
             .vel_y_m_s = vel_y_m_s, 
         };
