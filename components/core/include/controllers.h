@@ -13,17 +13,19 @@
 /* ------------------------------------------- PID Tuning ------------------------------------------- */
 #define DT                      (SENS_PERIOD_MS*.001)                   // PID timestep (s)
 
-// Attitude cascaded PID parameters
-#define VEL_KP                  10.0           
-#define VEL_KI                  6.0           
+// Attitude cascaded PID parameters (optical flow)
+#define VEL_KP                  0.2           
+#define VEL_KI                  0.0        
 #define VEL_KD                  0.0
 #define VEL_LIMIT               2.0
 
-#define ATTITUDE_KP             10.0          
-#define ATTITUDE_KI             5.0           
+// Roll and pitch use same PID values
+#define ATTITUDE_KP             3.0          
+#define ATTITUDE_KI             4.0           
 #define ATTITUDE_KD             0.0
 #define ATTITUDE_LIMIT          2*M_PI
 
+// Roll and pitch rates
 #define ATTITUDE_RATE_KP        50.0       
 #define ATTITUDE_RATE_KI        40.0        // 50.0      
 #define ATTITUDE_RATE_KD        0.0         //05.0       
@@ -36,14 +38,14 @@
 #define YAW_RATE_LIMIT     100.0
 
 // Height cascaded PID parameters
-#define ALTITUDE_KP             1.0    
-#define ALTITUDE_KI             0.5   
-#define ALTITUDE_KD             0.0        
-#define ALTITUDE_LIMIT          .15
+#define ALTITUDE_KP             0.7 // 1 had clear oscillations and overshoot
+#define ALTITUDE_KI             0.0 // 0.5   
+#define ALTITUDE_KD             0.0 // 0.3        
+#define ALTITUDE_LIMIT          .25
 
-#define ALTITUDE_RATE_KP        60.0    
-#define ALTITUDE_RATE_KI        80.0   
-#define ALTITUDE_RATE_KD        10.0        
+#define ALTITUDE_RATE_KP        40.0
+#define ALTITUDE_RATE_KI        30.0 // 80.0   
+#define ALTITUDE_RATE_KD        0.0 // 20.0        
 #define ALTITUDE_RATE_LIMIT     100.0
 
 /* ------------------------------------------- Public Function Definitions ------------------------------------------- */

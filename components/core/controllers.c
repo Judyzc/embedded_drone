@@ -105,10 +105,10 @@ void vUpdatePIDTask(void *pvParameters) {
         // yaw_cmd = 0;        // For tuning the other PIDs
 
         /* ----------------------------- Altitude cascaded PIDs ----------------------------- */
-        float altitdue_error_m = .5 - state_data.altitude_m; 
+        float altitude_error_m = 1.0 - state_data.altitude_m; 
         float desired_altitude_rate_m_s; 
-        pid_compute(altitude_pid_handle, altitdue_error_m, &desired_altitude_rate_m_s);
-        // desired_altitude_rate_m_s = 0;        // For tuning second PID
+        pid_compute(altitude_pid_handle, altitude_error_m, &desired_altitude_rate_m_s);
+        // desired_altitude_rate_m_s = 0.0;        // For tuning second PID
 
         float altitude_rate_error = desired_altitude_rate_m_s - state_data.altitude_rate_m_s; 
         float thrust_cmd; 

@@ -23,7 +23,8 @@ float opt_flow_calc(int16_t dx_px, uint16_t height_mm, float attitude_rate_rad_s
     float height_m = ((float) height_mm)*.001f; 
     float dt = ((float) SENS_PERIOD_MS)*.001f;
     float scalar = 100.0; 
-    return height_m*OPT_FLOW_FOV_RAD*((float) dx_px)/(dt*((float) OPT_FLOW_PX_LENGTH)*scalar) - height_m*attitude_rate_rad_s; 
+    float vel = height_m*OPT_FLOW_FOV_RAD*((float) dx_px)/(dt*((float) OPT_FLOW_PX_LENGTH)*scalar) - (height_m*attitude_rate_rad_s);
+    return vel; 
 }
 
 void vUpdateEstimatorTask(void *pvParameters) { 
@@ -87,6 +88,32 @@ void vUpdateEstimatorTask(void *pvParameters) {
         if (xQueueReceive(xQueue_opt_flow_data, (void *) &motion, 0)) {
             vel_x_m_s = opt_flow_calc(motion.deltaX, raw_height_mm, -1.0f*gyro_data.Gy_rad_s); 
             vel_y_m_s = opt_flow_calc(-1*motion.deltaY, raw_height_mm, gyro_data.Gx_rad_s);
+
+            // if (vel_x_m_s < OPT_FLOW_MIN_M_S && vel_x_m_s > -OPT_FLOW_MIN_M_S) {
+            //     vel_x_m_s = 0;
+            // } else if (vel_x_m_s > OPT_FLOW_MAX_M_S) {
+            //     vel_x_m_s = OPT_FLOW_MAX_M_S;
+            // } else if (vel_x_m_s < -OPT_FLOW_MAX_M_S) {
+            //     vel_x_m_s = -OPT_FLOW_MAX_M_S;
+            // }
+
+            // if (vel_y_m_s < OPT_FLOW_MIN_M_S && vel_y_m_s > -OPT_FLOW_MIN_M_S) {
+            //     vel_y_m_s = 0;
+            // } else if (vel_y_m_s > OPT_FLOW_MAX_M_S) {
+            //     vel_y_m_s = OPT_FLOW_MAX_M_S;
+            // } else if (vel_y_m_s < -OPT_FLOW_MAX_M_S) {
+            //     vel_y_m_s = -OPT_FLOW_MAX_M_S;
+            // }
+
+            // if (pitch_rad > OPT_FLOW_MAX_RAD || 
+            //     pitch_rad < -OPT_FLOW_MAX_RAD || 
+            //     roll_rad > OPT_FLOW_MAX_RAD || 
+            //     roll_rad < -OPT_FLOW_MAX_RAD) {
+            //     vel_x_m_s = 0;
+            //     vel_y_m_s = 0;
+            // }
+
+            // ESP_LOGI(TAG, "Vel X: %f, Vel Y: %f", vel_x_m_s, vel_y_m_s);
         }
 
         state_data_t state_data = {
