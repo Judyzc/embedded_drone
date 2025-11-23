@@ -118,6 +118,13 @@ void vUpdatePIDTask(void *pvParameters) {
         /* ----------------------------- Sum commands and send to motors ----------------------------- */
         motor_cmds_t motor_cmds = sum_motor_cmds(pitch_cmd, roll_cmd, thrust_cmd, yaw_cmd); 
 
+        /* For testing with fixed motor output
+        motor_cmds.motor1_duty_cycle_pct = 0;
+        motor_cmds.motor2_duty_cycle_pct = 0;
+        motor_cmds.motor3_duty_cycle_pct = 0;
+        motor_cmds.motor4_duty_cycle_pct = 0;
+        */
+
         if (EMERG_STOP) {
             motor_cmds.motor1_duty_cycle_pct = 0; 
             motor_cmds.motor2_duty_cycle_pct = 0; 

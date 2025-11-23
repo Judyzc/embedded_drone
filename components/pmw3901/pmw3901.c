@@ -12,7 +12,7 @@
 #include "pmw3901.h"
 #include "spi_setup.h"
 
-// static const char *TAG = "PMW3901";
+static const char *TAG = "PMW3901";
 
 /* ------------------------------------------- Private global variables  ------------------------------------------- */
 spi_device_handle_t opt_flow_handle;
@@ -212,6 +212,8 @@ bool pmw3901Init(spi_host_device_t host, uint32_t csPin)
         InitRegisters(csPin);
 
         isInit = true;
+    } else {
+        ESP_LOGE(TAG, "Invalid chip id: 0x%x:0x%x\n", chipId, invChipId);
     }
 
     return isInit;
