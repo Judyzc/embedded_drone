@@ -1,6 +1,7 @@
 dependencies:
   espressif/pid_ctrl:
-    component_hash: 22af0226d7adbea821e4c1a8c1fa5dad23c883eb7457e95e19342883a37c44a3
+    component_hash: 
+      22af0226d7adbea821e4c1a8c1fa5dad23c883eb7457e95e19342883a37c44a3
     dependencies:
     - name: idf
       require: private
@@ -12,7 +13,7 @@ dependencies:
   idf:
     source:
       type: idf
-    version: 5.5.1
+    version: 6.0.0
 direct_dependencies:
 - espressif/pid_ctrl
 - idf
