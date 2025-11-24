@@ -14,10 +14,10 @@
 #define DT                      (SENS_PERIOD_MS*.001)                   // PID timestep (s)
 
 // Attitude cascaded PID parameters (optical flow)
-#define VEL_KP                  0.2           
-#define VEL_KI                  0.0        
+#define VEL_KP                  0.0           
+#define VEL_KI                  0.2      
 #define VEL_KD                  0.0
-#define VEL_LIMIT               2.0
+#define VEL_LIMIT               (M_PI/4)
 
 // Roll and pitch use same PID values
 #define ATTITUDE_KP             3.0          
@@ -39,9 +39,9 @@
 
 // Height cascaded PID parameters
 #define ALTITUDE_KP             0.7 // 1 had clear oscillations and overshoot
-#define ALTITUDE_KI             0.0 // 0.5   
+#define ALTITUDE_KI             0.1 // 0.5   
 #define ALTITUDE_KD             0.0 // 0.3        
-#define ALTITUDE_LIMIT          .25
+#define ALTITUDE_LIMIT          .50
 
 #define ALTITUDE_RATE_KP        40.0
 #define ALTITUDE_RATE_KI        30.0 // 80.0   
