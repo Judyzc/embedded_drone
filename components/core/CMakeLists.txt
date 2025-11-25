@@ -4,6 +4,7 @@ idf_component_register(
           "estimator.c" 
           "sensors.c"
           "six_axis_comp_filter.c" 
+          "esp_task.c" 
      INCLUDE_DIRS "include"
      REQUIRES esp_driver_gpio 
               esp_driver_i2c 
@@ -14,4 +15,8 @@ idf_component_register(
               bmi088
               vl53l1x 
               pmw3901 
+              nvs_flash 
+              esp_event 
+              esp_wifi 
+              esp_system
      )

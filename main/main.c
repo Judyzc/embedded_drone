@@ -17,6 +17,7 @@
 #include "digital_io.h"
 #include "bmi088.h"
 #include "pmw3901.h"
+#include "espnow_basic_config.h"
 
 static const char *TAG = "main";
 
@@ -44,6 +45,7 @@ void app_main(void) {
     estimator_init(&xQueue_acc_data, &xQueue_gyro_data, &xQueue_tof_data, &xQueue_opt_flow_data, &xQueue_state_data); 
     controllers_init(&xQueue_state_data);
     motors_init(); 
+    start_espnow_task();
 
     // Calibrate sensors and start stabilization loop
     calibrate_IMU();
