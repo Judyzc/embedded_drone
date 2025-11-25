@@ -52,8 +52,7 @@ static void queue_process_task(void *p)
             continue;
         }
 
-        // Refer to user function
-        // const uint8_t *sender_mac_addr = recv_packet.sender_mac_addr;
+        //////////////////////////// data saved here ////////////////////////////
         data = &recv_packet.data;
         ESP_LOGI(TAG, "thrust: %.3f, yaw: %.3f, pitch: %.3f, roll: %.3f, L: %d, R: %d", data->joystick_thrust, data->joystick_yaw, data->joystick_pitch, data->joystick_roll, data->button_L, data->button_R);
     }
@@ -68,7 +67,7 @@ static void recv_cb(const esp_now_recv_info_t *recv_info, const uint8_t *data, i
 
     const uint8_t *mac_addr = recv_info->src_addr;
 
-    ESP_LOGI(TAG, "%d bytes incoming from " MACSTR, len, MAC2STR(mac_addr));
+    // ESP_LOGI(TAG, "%d bytes incoming from " MACSTR, len, MAC2STR(mac_addr));
 
     if (len != sizeof(joystick_t)) {
         ESP_LOGE(TAG, "Unexpected data length: %d != %u", len, sizeof(joystick_t));
