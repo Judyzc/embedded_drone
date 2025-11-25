@@ -19,8 +19,6 @@ typedef struct __attribute__((packed)){
     int button_L;
 } joystick_t;
 
-void start_espnow_task(void);
-
 // Destination MAC address
 // The default address is the broadcast address, which will work out of the box, but the slave will assume every tx succeeds.
 // Setting to the master's address will allow the slave to determine if sending succeeded or failed.

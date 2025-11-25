@@ -1,15 +1,3 @@
-idf_component_register(
-     SRCS "main.c"
-     INCLUDE_DIRS "."
-     REQUIRES esp_driver_gpio 
-              esp_driver_i2c 
-              esp_driver_ledc
-              core 
-              bmi088
-              digital_io
-              espnow
-              i2c_setup
-              pmw3901
-              spi_setup
-              vl53l1x
-     )
+idf_component_register(SRCS "continuous_read_main.c"
+                    PRIV_REQUIRES esp_adc esp_driver_dac esp_driver_gpio nvs_flash esp_event esp_wifi esp_system
+                    INCLUDE_DIRS ".")
