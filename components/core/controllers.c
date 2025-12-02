@@ -8,6 +8,8 @@
 #include "pid_ctrl.h"
 #include "math.h"
 
+#include "espnow_basic_config.h"
+
 #include "controllers.h"
 // #include "sensors.h"
 // #include "six_axis_comp_filter.h"
@@ -23,7 +25,30 @@ static QueueHandle_t xQueue_state_data;
 static bool EMERG_STOP = false; 
 static int fault_count = 0; 
 
+typedef struct {
+    float height;
+    float yaw_rate_sp;
+    float vel_y;
+    float vel_x;
+    int button_L;
+    int button_R;
+} controller_input_t;
+
+static controller_input_t user_sp = {0};
+
 /* ------------------------------------------- Private Function Definitions ------------------------------------------- */
+void controllers_set_joystick(const joystick_t* js) {
+    user_sp.height   = (js->joystick_thrust)/100.0 * MAX_CONTROLLER_HEIGHT; 
+    user_sp.yaw_rate_sp = (js->joystick_yaw)/100.0 * MAX_CONTROLLER_YAWRATE;
+    user_sp.vel_y    = (js->joystick_pitch)/100.0 * MAX_CONTROLLER_VEL_X;
+    user_sp.vel_x     = (js->joystick_roll)/100.0 * MAX_CONTROLLER_VEL_Y;
+    user_sp.button_L    = js->button_L;
+    user_sp.button_R    = js->button_R;
+
+    if (user_sp.height < 0) user_sp.height = 0;
+    // ESP_LOGI(TAG, "height: %.3f, yaw: %.3f, vel_y: %.3f, vel_x: %.3f, L: %d, R: %d", user_sp.height, user_sp.yaw_rate_sp, user_sp.vel_y, user_sp.vel_x, user_sp.button_L, user_sp.button_R);
+}
+
 static float limit_motor_cmd(float motor_cmd) {
     if (motor_cmd > MAX_DUTY_CYCLE_PCT) {
         return MAX_DUTY_CYCLE_PCT; 
@@ -57,6 +82,12 @@ void vUpdatePIDTask(void *pvParameters) {
                     ESP_LOGE(TAG, "Stopping Motors"); 
                     EMERG_STOP = true; 
                 }
+            } else if (!user_sp.button_L && !user_sp.button_R){
+                fault_count++; 
+                if (fault_count > 10) {
+                    ESP_LOGE(TAG, "Stopping Motors"); 
+                    EMERG_STOP = true; 
+                }
             } else {
                 fault_count = 0; 
             }
@@ -65,7 +96,7 @@ void vUpdatePIDTask(void *pvParameters) {
         /* ----------------------------- Pitch cascaded PIDs ----------------------------- */
         xQueueReceive(xQueue_state_data, (void *) &state_data, portMAX_DELAY); 
 
-        float vel_y_error_m_s = 0.0 - state_data.vel_y_m_s; 
+        float vel_y_error_m_s = user_sp.vel_y - state_data.vel_y_m_s; 
         float desired_pitch_rad; 
         pid_compute(vel_y_pid_handle, vel_y_error_m_s, &desired_pitch_rad);
         desired_pitch_rad *= -1.0; 
@@ -82,7 +113,7 @@ void vUpdatePIDTask(void *pvParameters) {
         // pitch_cmd = 0;                          // For tuning other PIDs
         
         /* ----------------------------- Roll cascaded PIDs ----------------------------- */
-        float vel_x_error_m_s = 0.0 - state_data.vel_x_m_s; 
+        float vel_x_error_m_s = user_sp.vel_x - state_data.vel_x_m_s; 
         float desired_roll_rad; 
         pid_compute(vel_x_pid_handle, vel_x_error_m_s, &desired_roll_rad);
         desired_roll_rad = 0;               // For tuning the second PID
@@ -105,7 +136,7 @@ void vUpdatePIDTask(void *pvParameters) {
         // yaw_cmd = 0;        // For tuning the other PIDs
 
         /* ----------------------------- Altitude cascaded PIDs ----------------------------- */
-        float altitdue_error_m = .5 - state_data.altitude_m; 
+        float altitdue_error_m = user_sp.height - state_data.altitude_m; 
         float desired_altitude_rate_m_s; 
         pid_compute(altitude_pid_handle, altitdue_error_m, &desired_altitude_rate_m_s);
         // desired_altitude_rate_m_s = 0;        // For tuning second PID

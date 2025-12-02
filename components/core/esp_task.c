@@ -24,10 +24,9 @@
 #include "esp_system.h"
 #include "esp_now.h"
 #include "esp_mac.h"
-
 #include "sdkconfig.h"
-
 #include "espnow_basic_config.h"
+#include "controllers.h"
 
 static const char *TAG = "Basic_Master";
 
@@ -54,7 +53,8 @@ static void queue_process_task(void *p)
 
         //////////////////////////// data saved here ////////////////////////////
         data = &recv_packet.data;
-        ESP_LOGI(TAG, "thrust: %.3f, yaw: %.3f, pitch: %.3f, roll: %.3f, L: %d, R: %d", data->joystick_thrust, data->joystick_yaw, data->joystick_pitch, data->joystick_roll, data->button_L, data->button_R);
+        // ESP_LOGI(TAG, "thrust: %.3f, yaw: %.3f, pitch: %.3f, roll: %.3f, L: %d, R: %d", data->joystick_thrust, data->joystick_yaw, data->joystick_pitch, data->joystick_roll, data->button_L, data->button_R);
+        controllers_set_joystick(data);
     }
 }
 

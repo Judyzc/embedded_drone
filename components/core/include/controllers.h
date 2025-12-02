@@ -4,11 +4,12 @@
 #include "freertos/queue.h"
 #include "sensors.h"
 #include "math.h"
+#include "espnow_basic_config.h"
 
 /* ------------------------------------------- Force/Thrust Parameters ------------------------------------------- */
 #define MOTOR_MOMENT_ARM_M      0.041275        // Moment arm from center of drone to center of motor along x and y axes (m)
 #define MAX_THRUST_N            (75*0.00980665) // Motors can provide up to 75g of thrust
-#define MAX_DUTY_CYCLE_PCT      0.0            // Limit output of motors
+#define MAX_DUTY_CYCLE_PCT      100.0            // Limit output of motors
 
 /* ------------------------------------------- PID Tuning ------------------------------------------- */
 #define DT                      (SENS_PERIOD_MS*.001)                   // PID timestep (s)
@@ -46,7 +47,14 @@
 #define ALTITUDE_RATE_KD        10.0        
 #define ALTITUDE_RATE_LIMIT     100.0
 
+#define MAX_CONTROLLER_HEIGHT   2.0
+#define MAX_CONTROLLER_YAWRATE  0
+#define MAX_CONTROLLER_VEL_X    0.5
+#define MAX_CONTROLLER_VEL_Y    0.5
+
+
 /* ------------------------------------------- Public Function Definitions ------------------------------------------- */
 void controllers_init(QueueHandle_t *pxQueue_state_data); 
+void controllers_set_joystick(const joystick_t* js);
 
 #endif /* CONTROLLERS_H */ 
