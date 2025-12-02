@@ -41,7 +41,7 @@
 #define ALTITUDE_KP             0.7 // 1 had clear oscillations and overshoot
 #define ALTITUDE_KI             0.1 // 0.5   
 #define ALTITUDE_KD             0.0 // 0.3        
-#define ALTITUDE_LIMIT          .50
+#define ALTITUDE_LIMIT          1.0
 
 #define ALTITUDE_RATE_KP        40.0
 #define ALTITUDE_RATE_KI        30.0 // 80.0   

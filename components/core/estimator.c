@@ -22,7 +22,7 @@ static QueueHandle_t xQueue_acc_data, xQueue_gyro_data, xQueue_tof_data, xQueue_
 float opt_flow_calc(int16_t dx_px, uint16_t height_mm, float attitude_rate_rad_s) { 
     float height_m = ((float) height_mm)*.001f; 
     float dt = ((float) OPT_FLOW_SENS_PERIOD_MS)*.001f;
-    float scalar = 10.0; 
+    float scalar = 15.0; 
     float vel = height_m*OPT_FLOW_FOV_RAD*((float) dx_px)/(dt*((float) OPT_FLOW_PX_LENGTH)*scalar) - (height_m*attitude_rate_rad_s);
     return vel; 
 }
@@ -35,7 +35,9 @@ void vUpdateEstimatorTask(void *pvParameters) {
     float height_mm = 0, last_height_mm = 0; 
     float raw_altitude_rate_m_s = 0; 
     float filtered_altitude_rate_m_s = 0; 
-    float alpha = DELTA_T/.04;
+    float alpha_height = DELTA_T/.04;
+    float alpha_velo = ((float) OPT_FLOW_SENS_PERIOD_MS)*.001/.25;
+    float raw_vel_x_m_s = 0, raw_vel_y_m_s = 0; 
     float vel_x_m_s = 0, vel_y_m_s = 0; 
     for (;;) {
         xQueueReceive(xQueue_acc_data, (void *) &acc_data, portMAX_DELAY); 
@@ -83,38 +85,14 @@ void vUpdateEstimatorTask(void *pvParameters) {
             raw_height_mm = (uint16_t) (height_mm/cos(pitch_rad)/cos(roll_rad));
         }
         // Low pass filter the altitude rate
-        filtered_altitude_rate_m_s = filtered_altitude_rate_m_s - (alpha*(filtered_altitude_rate_m_s - raw_altitude_rate_m_s));
+        filtered_altitude_rate_m_s = filtered_altitude_rate_m_s - (alpha_height*(filtered_altitude_rate_m_s - raw_altitude_rate_m_s));
 
         if (xQueueReceive(xQueue_opt_flow_data, (void *) &motion, 0)) {
-            vel_x_m_s = opt_flow_calc(motion.deltaX, raw_height_mm, -1.0f*gyro_data.Gy_rad_s); 
-            vel_y_m_s = opt_flow_calc(-1*motion.deltaY, raw_height_mm, gyro_data.Gx_rad_s);
+            raw_vel_x_m_s = opt_flow_calc(motion.deltaX, raw_height_mm, -1.0f*gyro_data.Gy_rad_s); 
+            raw_vel_y_m_s = opt_flow_calc(-1*motion.deltaY, raw_height_mm, gyro_data.Gx_rad_s);
+            vel_x_m_s = vel_x_m_s - (alpha_velo*(vel_x_m_s - raw_vel_x_m_s));
+            vel_y_m_s = vel_y_m_s - (alpha_velo*(vel_y_m_s - raw_vel_y_m_s));
             // ESP_LOGI(TAG, "Velocity data (m/s): x=%.2f, y=%.2f", vel_x_m_s, vel_y_m_s); 
-
-            // if (vel_x_m_s < OPT_FLOW_MIN_M_S && vel_x_m_s > -OPT_FLOW_MIN_M_S) {
-            //     vel_x_m_s = 0;
-            // } else if (vel_x_m_s > OPT_FLOW_MAX_M_S) {
-            //     vel_x_m_s = OPT_FLOW_MAX_M_S;
-            // } else if (vel_x_m_s < -OPT_FLOW_MAX_M_S) {
-            //     vel_x_m_s = -OPT_FLOW_MAX_M_S;
-            // }
-
-            // if (vel_y_m_s < OPT_FLOW_MIN_M_S && vel_y_m_s > -OPT_FLOW_MIN_M_S) {
-            //     vel_y_m_s = 0;
-            // } else if (vel_y_m_s > OPT_FLOW_MAX_M_S) {
-            //     vel_y_m_s = OPT_FLOW_MAX_M_S;
-            // } else if (vel_y_m_s < -OPT_FLOW_MAX_M_S) {
-            //     vel_y_m_s = -OPT_FLOW_MAX_M_S;
-            // }
-
-            // if (pitch_rad > OPT_FLOW_MAX_RAD || 
-            //     pitch_rad < -OPT_FLOW_MAX_RAD || 
-            //     roll_rad > OPT_FLOW_MAX_RAD || 
-            //     roll_rad < -OPT_FLOW_MAX_RAD) {
-            //     vel_x_m_s = 0;
-            //     vel_y_m_s = 0;
-            // }
-
-            // ESP_LOGI(TAG, "Vel X: %f, Vel Y: %f", vel_x_m_s, vel_y_m_s);
         }
 
         state_data_t state_data = {
