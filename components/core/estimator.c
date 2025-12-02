@@ -62,6 +62,7 @@ void vUpdateEstimatorTask(void *pvParameters) {
             height_mm = ((float) raw_height_mm)*cos(pitch_rad)*cos(roll_rad); 
             raw_altitude_rate_m_s = (height_mm - last_height_mm)/((float) TOF_SENS_PERIOD_MS);
         }  else {
+            /*
             // Update height and velo in between tof measurements
             // Convert accel meas from imu frame to body frame
             float accel_xb_m_s2 = acc_data.ay_m_s2*-1.0f; 
@@ -83,9 +84,11 @@ void vUpdateEstimatorTask(void *pvParameters) {
 
             // "Spoof" raw height measurement for optical flow data processing
             raw_height_mm = (uint16_t) (height_mm/cos(pitch_rad)/cos(roll_rad));
+            */
         }
         // Low pass filter the altitude rate
-        filtered_altitude_rate_m_s = filtered_altitude_rate_m_s - (alpha_height*(filtered_altitude_rate_m_s - raw_altitude_rate_m_s));
+        // filtered_altitude_rate_m_s = filtered_altitude_rate_m_s - (alpha_height*(filtered_altitude_rate_m_s - raw_altitude_rate_m_s));
+        filtered_altitude_rate_m_s = raw_altitude_rate_m_s;
 
         if (xQueueReceive(xQueue_opt_flow_data, (void *) &motion, 0)) {
             raw_vel_x_m_s = opt_flow_calc(motion.deltaX, raw_height_mm, -1.0f*gyro_data.Gy_rad_s); 

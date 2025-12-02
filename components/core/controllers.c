@@ -70,7 +70,7 @@ void vUpdatePIDTask(void *pvParameters) {
         float desired_pitch_rad; 
         pid_compute(vel_y_pid_handle, vel_y_error_m_s, &desired_pitch_rad);
         desired_pitch_rad *= -1.0; 
-        // desired_pitch_rad = 0;                  // For tuning the second PID
+        desired_pitch_rad = 0;                  // For tuning the second PID
 
         float pitch_error_rad = desired_pitch_rad - state_data.pitch_rad; 
         float desired_pitch_rate_rad_s; 
@@ -86,7 +86,7 @@ void vUpdatePIDTask(void *pvParameters) {
         float vel_x_error_m_s = 0.0 - state_data.vel_x_m_s; 
         float desired_roll_rad; 
         pid_compute(vel_x_pid_handle, vel_x_error_m_s, &desired_roll_rad);
-        // desired_roll_rad = 0;               // For tuning the second PID
+        desired_roll_rad = 0;               // For tuning the second PID
 
         float roll_error_rad = desired_roll_rad - state_data.roll_rad; 
         float desired_roll_rate_rad_s; 

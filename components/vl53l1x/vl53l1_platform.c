@@ -44,7 +44,7 @@ esp_err_t tof_init(i2c_master_bus_handle_t *bus_handle) {
     }
     Status = VL53L1X_SensorInit(0);
     Status = VL53L1X_SetInterMeasurementInMs(0, TOF_SENS_PERIOD_MS);
-    Status = VL53L1X_SetTimingBudgetInMs(0, 33);
+    Status = VL53L1X_SetTimingBudgetInMs(0, 50);
     Status = VL53L1X_StartRanging(0);
 
     return (Status == 0) ? ESP_OK : ESP_FAIL;
