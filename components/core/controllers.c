@@ -92,15 +92,14 @@ void vUpdatePIDTask(void *pvParameters) {
                 fault_count = 0; 
             }
         }
-
-        /* ----------------------------- Pitch cascaded PIDs ----------------------------- */
+        
         xQueueReceive(xQueue_state_data, (void *) &state_data, portMAX_DELAY); 
 
         float vel_y_error_m_s = user_sp.vel_y - state_data.vel_y_m_s; 
         float desired_pitch_rad; 
         pid_compute(vel_y_pid_handle, vel_y_error_m_s, &desired_pitch_rad);
         desired_pitch_rad *= -1.0; 
-        desired_pitch_rad = 0;                  // For tuning the second PID
+        // desired_pitch_rad = 0;                  // For tuning the second PID
 
         float pitch_error_rad = desired_pitch_rad - state_data.pitch_rad; 
         float desired_pitch_rate_rad_s; 
@@ -116,7 +115,7 @@ void vUpdatePIDTask(void *pvParameters) {
         float vel_x_error_m_s = user_sp.vel_x - state_data.vel_x_m_s; 
         float desired_roll_rad; 
         pid_compute(vel_x_pid_handle, vel_x_error_m_s, &desired_roll_rad);
-        desired_roll_rad = 0;               // For tuning the second PID
+        // desired_roll_rad = 0;               // For tuning the second PID
 
         float roll_error_rad = desired_roll_rad - state_data.roll_rad; 
         float desired_roll_rate_rad_s; 
@@ -138,8 +137,8 @@ void vUpdatePIDTask(void *pvParameters) {
         /* ----------------------------- Altitude cascaded PIDs ----------------------------- */
         float altitdue_error_m = user_sp.height - state_data.altitude_m; 
         float desired_altitude_rate_m_s; 
-        pid_compute(altitude_pid_handle, altitdue_error_m, &desired_altitude_rate_m_s);
-        // desired_altitude_rate_m_s = 0;        // For tuning second PID
+        pid_compute(altitude_pid_handle, altitude_error_m, &desired_altitude_rate_m_s);
+        // desired_altitude_rate_m_s = 0.0;        // For tuning second PID
 
         float altitude_rate_error = desired_altitude_rate_m_s - state_data.altitude_rate_m_s; 
         float thrust_cmd; 
@@ -148,6 +147,13 @@ void vUpdatePIDTask(void *pvParameters) {
 
         /* ----------------------------- Sum commands and send to motors ----------------------------- */
         motor_cmds_t motor_cmds = sum_motor_cmds(pitch_cmd, roll_cmd, thrust_cmd, yaw_cmd); 
+
+        // For testing with fixed motor output
+        // motor_cmds.motor1_duty_cycle_pct = 0;
+        // motor_cmds.motor2_duty_cycle_pct = 0;
+        // motor_cmds.motor3_duty_cycle_pct = 0;
+        // motor_cmds.motor4_duty_cycle_pct = 0;
+        
 
         if (EMERG_STOP) {
             motor_cmds.motor1_duty_cycle_pct = 0; 
