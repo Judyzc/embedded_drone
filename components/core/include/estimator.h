@@ -25,7 +25,7 @@ typedef struct state_data {
 // General Constants
 #define ESTIMATOR_PRIORITY      4
 #define OPT_FLOW_FOV_RAD        (42.0f*M_PI/180.0f)
-#define OPT_FLOW_PX_LENGTH      30
+#define OPT_FLOW_PX_LENGTH      35
 #define OPT_FLOW_MAX_M_S        3.0f  // limit vel measurements above this (abs val)
 #define OPT_FLOW_MIN_M_S        0.008f // zero vel measurements if less than this (abs val)
 #define OPT_FLOW_MAX_RAD        (15.0f * M_PI/180.0f) // throw out vel measurements if pitch or roll beyond this

@@ -14,8 +14,8 @@
 #define DT                      (SENS_PERIOD_MS*.001)                   // PID timestep (s)
 
 // Attitude cascaded PID parameters (optical flow)
-#define VEL_KP                  0.0           
-#define VEL_KI                  0.2      
+#define VEL_KP                  0.1           
+#define VEL_KI                  0.1      
 #define VEL_KD                  0.0
 #define VEL_LIMIT               (M_PI/4)
 
