@@ -7,6 +7,7 @@
 #include "math.h"
 
 #include "bmi088.h"
+#include "pmw3901.h"
 #include "vl53l1_platform.h"
 #include "six_axis_comp_filter.h"
 #include "estimator.h"
@@ -18,13 +19,23 @@ static SixAxis comp_filter;
 static QueueHandle_t xQueue_acc_data, xQueue_gyro_data, xQueue_tof_data, xQueue_opt_flow_data, xQueue_state_data;
 
 /* ------------------------------------------- Private Function Definitions  ------------------------------------------- */
+float opt_flow_calc(int16_t dx_px, uint16_t height_mm, float attitude_rate_rad_s) { 
+    float height_m = ((float) height_mm)*.001f; 
+    float dt = ((float) OPT_FLOW_SENS_PERIOD_MS)*.001f;
+    float scalar = 10.0; 
+    float vel = height_m*OPT_FLOW_FOV_RAD*((float) dx_px)/(dt*((float) OPT_FLOW_PX_LENGTH)*scalar) - (height_m*attitude_rate_rad_s);
+    return vel; 
+}
+
 void vUpdateEstimatorTask(void *pvParameters) { 
     acc_data_t acc_data; 
     gyro_data_t gyro_data; 
     uint16_t raw_height_mm; 
-    // int16_t opt_flow_data_px[2]; 
+    motionBurst_t motion;  
     float height_mm = 0, last_height_mm = 0; 
     float altitude_rate_m_s = 0; 
+    float alpha_velo = ((float) OPT_FLOW_SENS_PERIOD_MS)*.001/.25;
+    float raw_vel_x_m_s = 0, raw_vel_y_m_s = 0; 
     float vel_x_m_s = 0, vel_y_m_s = 0; 
     for (;;) {
         xQueueReceive(xQueue_acc_data, (void *) &acc_data, portMAX_DELAY); 
@@ -41,22 +52,27 @@ void vUpdateEstimatorTask(void *pvParameters) {
         if (roll_rad > M_PI)
             roll_rad -= 2.0*M_PI; 
         roll_rad *= -1.0; 
+        // float pitch_deg = CompRadiansToDegrees(pitch_rad); 
+        // float roll_deg = CompRadiansToDegrees(roll_rad);
+        // ESP_LOGI(TAG, "Attitude (deg): Pitch=%.1f Roll=%.1f", pitch_deg, roll_deg);
 
         if (xQueueReceive(xQueue_tof_data, (void *) &raw_height_mm, 0)) {       
             // ToF samples at every 50ms (rest of loop runs every 2ms)
-            height_mm = ((float) raw_height_mm)*cos(pitch_rad)*cos(roll_rad); 
-            altitude_rate_m_s = (height_mm - last_height_mm)/((float) TOF_SENS_PERIOD_MS);
             last_height_mm = height_mm; 
-        }  else {
-            // Update height and velo in between tof measurements 
-            height_mm = height_mm + altitude_rate_m_s*DELTA_T*1000.0; 
-            altitude_rate_m_s += (acc_data.az_m_s2 - ave_g_m_s2)*DELTA_T;
+            // Convert body frame to inertial frame
+            height_mm = ((float) raw_height_mm)*cos(pitch_rad)*cos(roll_rad); 
+            // ESP_LOGI(TAG, "Altitude (m): %.3f", height_mm*.001);
+            altitude_rate_m_s = (height_mm - last_height_mm)/((float) TOF_SENS_PERIOD_MS);
+            // ESP_LOGI(TAG, "Altitude Rate (m/s): %.3f", filtered_altitude_rate_m_s);
         }
 
-        // xQueueReceive(xQueue_opt_flow_data, (void *) &opt_flow_data_px, portMAX_DELAY); 
-        // vel_x_m_s = raw_height_mm*.001*(42.0*0.0174533)*opt_flow_data_px[0]/(SENS_PERIOD_MS*.001*35) - raw_height_mm*.001*gyro_data.Gy_rad_s;
-        // vel_y_m_s = raw_height_mm*.001*(42.0*0.0174533)*opt_flow_data_px[1]/(SENS_PERIOD_MS*.001*35) - raw_height_mm*.001*gyro_data.Gy_rad_s;
-        // ESP_LOGI(TAG, "Velocity data (m/s): x=%.2f, y=%.2f", vel_x_m_s, vel_y_m_s); 
+        if (xQueueReceive(xQueue_opt_flow_data, (void *) &motion, 0)) {
+            raw_vel_x_m_s = opt_flow_calc(motion.deltaX, raw_height_mm, -1.0f*gyro_data.Gy_rad_s); 
+            raw_vel_y_m_s = opt_flow_calc(-1*motion.deltaY, raw_height_mm, gyro_data.Gx_rad_s);
+            vel_x_m_s = vel_x_m_s - (alpha_velo*(vel_x_m_s - raw_vel_x_m_s));
+            vel_y_m_s = vel_y_m_s - (alpha_velo*(vel_y_m_s - raw_vel_y_m_s));
+            // ESP_LOGI(TAG, "Velocity data (m/s): x=%.2f, y=%.2f", vel_x_m_s, vel_y_m_s); 
+        }
 
         state_data_t state_data = {
             .pitch_rad = pitch_rad, 
@@ -71,11 +87,6 @@ void vUpdateEstimatorTask(void *pvParameters) {
         };
         if (!xQueueSendToBack(xQueue_state_data, (void *) &state_data, portMAX_DELAY))
             ESP_LOGE(TAG, "State data queue is full"); 
-
-        // float pitch_deg = CompRadiansToDegrees(pitch_rad); 
-        // float roll_deg = CompRadiansToDegrees(roll_rad);
-        // ESP_LOGI(TAG, "Attitude (deg): Pitch=%.1f Roll=%.1f", pitch_deg, roll_deg);
-        // ESP_LOGI(TAG, "Altitude Rate (m/z): %.2f", altitude_rate_m_s);
     } 
 }
 

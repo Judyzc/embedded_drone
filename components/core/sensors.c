@@ -30,34 +30,18 @@
 
 static const char *TAG = "sensors";
 
-/* ------------------------------------------- Public Global Variables  ------------------------------------------- */
-// static pmw3901_t g_pmw = {0};
-
 /* ------------------------------------------- Private Global Variables  ------------------------------------------- */
 static QueueHandle_t xQueue_acc_data, xQueue_gyro_data, xQueue_tof_data, xQueue_opt_flow_data; 
+static SemaphoreHandle_t xSemaphore_i2c, xSemaphore_spi; 
 
 /* ------------------------------------------- Private function definitions  ------------------------------------------- */
-// static bool DECK_optf_init() 
-// {
-//     bool optf_ok = pmw3901_init(&g_pmw, VSPI_HOST, 
-//                                 ESP_SCLK_IO, ESP_MOSI_IO, ESP_MISO_IO, ESP_CS_IO);
-//     return optf_ok;
-// }
-
-static void vPollI2CSensorsTask(void *pvParameters) {
-    ESP_LOGI(TAG, "Beginning I2C Polling"); 
-    
+static void vPollI2CSensorsTask(void *pvParameters) {    
     uint8_t cyles_since_last_tof = 0; 
-    BaseType_t xWasDelayed;
-    const TickType_t xTimeIncrement = SENS_PERIOD_MS/portTICK_PERIOD_MS;
-    TickType_t xLastWakeTime = xTaskGetTickCount();
-    for (;;) {
-        xWasDelayed = xTaskDelayUntil( &xLastWakeTime, xTimeIncrement);
-        if (!xWasDelayed)
-            ESP_LOGE(TAG, "Can't get I2C data this fast");
+    for (;;) {        
+        xSemaphoreTake(xSemaphore_i2c, portMAX_DELAY); 
         
         gpio_set_level(CONFIG_PIN_TOGGLE_A, 1);
-        
+
         acc_data_t acc_data = get_acc_data();
         if (!xQueueSendToBack(xQueue_acc_data, (void *) &acc_data, portMAX_DELAY))
             ESP_LOGE(TAG, "Accel data queue is full");  
@@ -66,7 +50,7 @@ static void vPollI2CSensorsTask(void *pvParameters) {
         gyro_data_t gyro_data = get_gyro_data();
         if (!xQueueSendToBack(xQueue_gyro_data, (void *) &gyro_data, portMAX_DELAY))
             ESP_LOGE(TAG, "Gyro data queue is full"); 
-        // ESP_LOGI(TAG, "Attitude Rate (rad/s): x=%.2f y=%.2f z=%.2f", gyro_data.Gx_rad_s, gyro_data.Gy_rad_s, gyro_data.Gz_rad_s); 
+        // ESP_LOGI(TAG, "Attitude Rate (rad/s): x=%.02f y=%.02f z=%.02f", gyro_data.Gx_rad_s, gyro_data.Gy_rad_s, gyro_data.Gz_rad_s); 
 
         uint8_t range_status; 
         uint16_t height_mm; 
@@ -83,16 +67,53 @@ static void vPollI2CSensorsTask(void *pvParameters) {
             if (!xQueueSendToBack(xQueue_tof_data, (void *) &height_mm, portMAX_DELAY))
                 ESP_LOGE(TAG, "ToF data queue is full"); 
         }
-
-        // int16_t optf_data[2*sizeof(int16_t)]; // optical flow
-        // if (pmw3901_read_motion_count(&g_pmw, &optf_data[0], &optf_data[1])) {
-        //     optf_data[1] *= -1; 
-        //     if (!xQueueSendToBack(xQueue_optf_data, (void *) optf_data, portMAX_DELAY)) 
-        //         ESP_LOGE(TAG, "Optical flow data queue is full");
-        //     // ESP_LOGI(TAG, "Opt flow (px): x=%d, y=%d", optf_data[0], optf_data[1]); 
-        // }
-
+        
         gpio_set_level(CONFIG_PIN_TOGGLE_A, 0);
+    }
+}
+
+static void vPollSPISensorsTask(void *pvParameters) {
+    uint8_t cyles_since_last_opt_flow = 0; 
+    for (;;) {        
+        xSemaphoreTake(xSemaphore_spi, portMAX_DELAY);
+
+        gpio_set_level(CONFIG_PIN_TOGGLE_B, 1);
+        
+        cyles_since_last_opt_flow++; 
+        if (cyles_since_last_opt_flow >= OPT_FLOW_SENS_PERIOD_MS/SENS_PERIOD_MS) {
+            motionBurst_t motion;
+            pmw3901ReadMotion(OPT_FLOW_CS_PIN, &motion);
+            if (!xQueueSendToBack(xQueue_opt_flow_data, (void *) &motion, portMAX_DELAY)) 
+                ESP_LOGE(TAG, "Optical flow data queue is full");
+            // ESP_LOGI(TAG, "Opt flow (px): dx=%d, dy=%d", motion.deltaX, motion.deltaY);
+            cyles_since_last_opt_flow = 0;
+        }
+
+        gpio_set_level(CONFIG_PIN_TOGGLE_B, 0); 
+    }
+}
+
+static void vPollSensorsTask(void *pvParameters) {
+    ESP_LOGI(TAG, "Beginning sensor polling"); 
+
+    xSemaphore_i2c = xSemaphoreCreateBinary(); 
+    xSemaphore_spi = xSemaphoreCreateBinary(); 
+
+    xTaskCreate(vPollI2CSensorsTask, "Poll I2C", 4096, NULL, 8, NULL);
+    xTaskCreate(vPollSPISensorsTask, "Poll SPI", 4096, NULL, 8, NULL);
+    
+    BaseType_t xWasDelayed;
+    const TickType_t xTimeIncrement = SENS_PERIOD_MS/portTICK_PERIOD_MS;
+    TickType_t xLastWakeTime = xTaskGetTickCount();
+    for (;;) {
+        xWasDelayed = xTaskDelayUntil( &xLastWakeTime, xTimeIncrement);
+        if (!xWasDelayed)
+            ESP_LOGE(TAG, "Can't poll sensors this fast");
+
+        if(!xSemaphoreGive(xSemaphore_i2c))
+            ESP_LOGE(TAG, "Can't give to i2c semaphore"); 
+        if(!xSemaphoreGive(xSemaphore_spi))
+            ESP_LOGE(TAG, "Can't give to spi semaphore"); 
     }
 }
 
@@ -120,12 +141,8 @@ void sensors_init(
     ESP_ERROR_CHECK(tof_init(bus_handle)); 
     ESP_LOGI(TAG, "Initialized ToF successfully"); 
 
-    // bool optf_ok = DECK_optf_init(); 
-    // if (optf_ok) {
-    //     ESP_LOGI(TAG, "Initialized Optical Flow successfully"); 
-    // } else {
-    //     ESP_LOGI(TAG, "Error with init optical flow"); 
-    // }
+    pmw3901Init(VSPI_HOST, OPT_FLOW_CS_PIN);
+    ESP_LOGI(TAG, "Initialized Optical Flow successfully");
 
     // ESP_ERROR_CHECK(i2c_master_bus_rm_device(imu_handle));
     // ESP_ERROR_CHECK(i2c_master_bus_rm_device(gyro_handle));
@@ -135,5 +152,5 @@ void sensors_init(
 
 void start_control_loop(void) {
     // Start Tasks
-    xTaskCreate(vPollI2CSensorsTask, "Poll I2C", 4096, NULL, GET_RAW_DATA_PRIORITY, NULL);
+    xTaskCreate(vPollSensorsTask, "Sens loop", 4096, NULL, 10, NULL);
 }

@@ -9,21 +9,42 @@
 extern "C" {
 #endif
 
-#define PMW_CHIP_ID         0x49u
-#define PMW_CHIP_ID_INVERSE 0xB6u
+/* ------------------------------------------- Constants ------------------------------------------- */
+#define PMW_CHIP_ID                 0x49u
+#define PMW_CHIP_ID_INVERSE         0xB6u
+#define OPT_FLOW_CS_PIN             5               // 8, left side of deck
+#define OPT_FLOW_SENS_PERIOD_MS     50
 
-typedef struct {
-    spi_device_handle_t spi;       // SPI device handle (internal)
-    spi_host_device_t   host;      // SPI host used (HSPI_HOST/VSPI_HOST)
-    int sclk_io;
-    int mosi_io;
-    int miso_io;
-    int cs_io;
-} pmw3901_t;
+/* ------------------------------------------- Structs ------------------------------------------- */
+typedef struct motionBurst_s {
+    union {
+        uint8_t motion;
+        struct {
+            uint8_t frameFrom0    : 1;
+            uint8_t runMode       : 2;
+            uint8_t reserved1     : 1;
+            uint8_t rawFrom0      : 1;
+            uint8_t reserved2     : 2;
+            uint8_t motionOccured : 1;
+        };
+    };
 
-bool pmw3901_init(pmw3901_t *dev, spi_host_device_t host,
-                  int sclk_io, int mosi_io, int miso_io, int cs_io);
-bool pmw3901_read_motion_count(pmw3901_t *dev, int16_t *delta_x, int16_t *delta_y);
+    uint8_t observation;
+    int16_t deltaX;
+    int16_t deltaY;
+
+    uint8_t squal;
+
+    uint8_t rawDataSum;
+    uint8_t maxRawData;
+    uint8_t minRawData;
+
+    uint16_t shutter;
+} __attribute__((packed)) motionBurst_t;
+
+/* ------------------------------------------- Public Function Declarations ------------------------------------------- */
+bool pmw3901Init(spi_host_device_t host, uint32_t csPin);
+void pmw3901ReadMotion(uint32_t csPin, motionBurst_t *motion);
 
 #ifdef __cplusplus
 }
