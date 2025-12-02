@@ -15,7 +15,7 @@
 
 // Attitude cascaded PID parameters (optical flow)
 #define VEL_KP                  0.1           
-#define VEL_KI                  0.1      
+#define VEL_KI                  1.0      
 #define VEL_KD                  0.0
 #define VEL_LIMIT               (M_PI/4)
 
@@ -41,10 +41,10 @@
 #define ALTITUDE_KP             0.4 // 1 had clear oscillations and overshoot
 #define ALTITUDE_KI             0.1 // 0.5   
 #define ALTITUDE_KD             0.0 // 0.3        
-#define ALTITUDE_LIMIT          1.0
+#define ALTITUDE_LIMIT          2.0
 
 #define ALTITUDE_RATE_KP        75.0
-#define ALTITUDE_RATE_KI        25.0 // 80.0   
+#define ALTITUDE_RATE_KI        30.0 // 80.0   
 #define ALTITUDE_RATE_KD        0.0 // 20.0        
 #define ALTITUDE_RATE_LIMIT     100.0
 
