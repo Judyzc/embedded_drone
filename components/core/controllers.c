@@ -24,6 +24,7 @@ static pid_ctrl_block_handle_t pitch_pid_handle, pitch_rate_pid_handle, roll_pid
 static QueueHandle_t xQueue_state_data; 
 static bool EMERG_STOP = false; 
 static int fault_count = 0; 
+static int reset_count = 0; 
 
 typedef struct {
     float height;
@@ -34,7 +35,14 @@ typedef struct {
     int button_R;
 } controller_input_t;
 
-static controller_input_t user_sp = {0};
+static controller_input_t user_sp = {
+    .height = 0.0,
+    .yaw_rate_sp = 0.0,
+    .vel_x = 0.0,
+    .vel_y = 0.0,
+    .button_L = 1,
+    .button_R = 1
+};
 
 /* ------------------------------------------- Private Function Definitions ------------------------------------------- */
 void controllers_set_joystick(const joystick_t* js) {
@@ -82,7 +90,7 @@ void vUpdatePIDTask(void *pvParameters) {
                     ESP_LOGE(TAG, "Stopping Motors"); 
                     EMERG_STOP = true; 
                 }
-            } else if (!user_sp.button_L && !user_sp.button_R){
+            } else if (!user_sp.button_L){
                 fault_count++; 
                 if (fault_count > 10) {
                     ESP_LOGE(TAG, "Stopping Motors"); 
@@ -90,6 +98,16 @@ void vUpdatePIDTask(void *pvParameters) {
                 }
             } else {
                 fault_count = 0; 
+            }
+        } else {
+            if (!user_sp.button_R) {
+               reset_count++; 
+                if (reset_count > 10) {
+                    ESP_LOGE(TAG, "Restarting Motors"); 
+                    EMERG_STOP = false; 
+                } 
+            } else {
+                reset_count = 0;
             }
         }
         
@@ -128,14 +146,14 @@ void vUpdatePIDTask(void *pvParameters) {
         // roll_cmd = 0;                           // For tuning other PIDs
 
         /* ----------------------------- Yaw rate PID ----------------------------- */
-        float desired_yaw_rate_rad_s = 0; 
+        float desired_yaw_rate_rad_s = user_sp.yaw_rate_sp; 
         float yaw_rate_error_rad_s = desired_yaw_rate_rad_s - state_data.yaw_rate_rad_s; 
         float yaw_cmd; 
         pid_compute(yaw_rate_pid_handle, yaw_rate_error_rad_s, &yaw_cmd);
         // yaw_cmd = 0;        // For tuning the other PIDs
 
         /* ----------------------------- Altitude cascaded PIDs ----------------------------- */
-        float altitdue_error_m = user_sp.height - state_data.altitude_m; 
+        float altitude_error_m = user_sp.height - state_data.altitude_m; 
         float desired_altitude_rate_m_s; 
         pid_compute(altitude_pid_handle, altitude_error_m, &desired_altitude_rate_m_s);
         // desired_altitude_rate_m_s = 0.0;        // For tuning second PID
