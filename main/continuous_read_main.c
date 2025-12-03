@@ -293,27 +293,27 @@ void app_main(void)
 
                     switch (chan_num) {
                         case 4:
-                            my_joystick.joystick_thrust = joystick_percent;
+                            my_joystick.joystick_roll = joystick_percent;
                             // ESP_LOGI(TAG, "Unit: %s, Channel: %"PRIu32", Value: %f", unit, chan_num, my_joystick.joystick_thrust);
                             break;
                         case 5:
-                            my_joystick.joystick_yaw = joystick_percent;
+                            my_joystick.joystick_pitch = joystick_percent;
                             // ESP_LOGI(TAG, "Unit: %s, Channel: %"PRIu32", Value: %f", unit, chan_num, my_joystick.joystick_yaw);
                             break;
                         case 6:
-                            my_joystick.joystick_pitch = joystick_percent;
+                            my_joystick.joystick_yaw = joystick_percent;
                             // ESP_LOGI(TAG, "Unit: %s, Channel: %"PRIu32", Value: %f", unit, chan_num, my_joystick.joystick_pitch);
                             break;
                         case 7:
-                            my_joystick.joystick_roll = joystick_percent;
+                            my_joystick.joystick_thrust = joystick_percent;
                             // ESP_LOGI(TAG, "Unit: %s, Channel: %"PRIu32", Value: %f", unit, chan_num, my_joystick.joystick_roll);
                             break;
                         default:
                             ESP_LOGW(TAG, "Invalid data [%s_%"PRIu32"_%"PRIx32"]", unit, chan_num, data);
                     }
 
-                    my_joystick.button_L = gpio_get_level(GPIO_NUM_23);
-                    my_joystick.button_R = gpio_get_level(GPIO_NUM_22);
+                    my_joystick.button_L = gpio_get_level(GPIO_NUM_22);
+                    my_joystick.button_R = gpio_get_level(GPIO_NUM_23);
                     
                     // ESP_LOGI(TAG, "Unit: %s, Channel: Left, Value: %"PRIx32, unit, my_joystick.button_L);
                     // ESP_LOGI(TAG, "Unit: %s, Channel: Right, Value: %"PRIx32, unit, my_joystick.button_R);
