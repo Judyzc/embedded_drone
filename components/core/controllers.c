@@ -22,7 +22,7 @@ static pid_ctrl_block_handle_t pitch_pid_handle, pitch_rate_pid_handle, roll_pid
                                altitude_pid_handle, altitude_rate_pid_handle, vel_x_pid_handle, vel_y_pid_handle,
                                yaw_rate_pid_handle;
 static QueueHandle_t xQueue_state_data; 
-static bool EMERG_STOP = false; 
+static bool EMERG_STOP = true; 
 static int fault_count = 0; 
 static int reset_count = 0; 
 
@@ -46,7 +46,8 @@ static controller_input_t user_sp = {
 
 /* ------------------------------------------- Private Function Definitions ------------------------------------------- */
 void controllers_set_joystick(const joystick_t* js) {
-    user_sp.height   = (js->joystick_thrust)/100.0 * MAX_CONTROLLER_HEIGHT; 
+    user_sp.height   += (js->joystick_thrust)/(100.0*50.0); 
+    user_sp.height = user_sp.height>MAX_CONTROLLER_HEIGHT ? MAX_CONTROLLER_HEIGHT : user_sp.height; 
     user_sp.yaw_rate_sp = (js->joystick_yaw)/100.0 * MAX_CONTROLLER_YAWRATE;
     user_sp.vel_y    = (js->joystick_pitch)/100.0 * MAX_CONTROLLER_VEL_X;
     user_sp.vel_x     = (js->joystick_roll)/100.0 * MAX_CONTROLLER_VEL_Y;

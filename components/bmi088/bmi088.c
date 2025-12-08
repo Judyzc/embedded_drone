@@ -62,7 +62,7 @@ esp_err_t IMU_gyro_init(i2c_master_bus_handle_t *bus_handle)
     // Set data rate and filter to 1000 Hz and 116 Hz
     // ESP_ERROR_CHECK(register_write_byte(gyro_handle, GYRO_BANDWIDTH, 0x02)); 
     // Set data rate and filter to 2000 Hz and 230 Hz
-    ESP_ERROR_CHECK(register_write_byte(gyro_handle, GYRO_BANDWIDTH, 0x01)); 
+    ESP_ERROR_CHECK(register_write_byte(gyro_handle, GYRO_BANDWIDTH, 0x00)); 
     // Set range to 1000 deg/s
     ESP_ERROR_CHECK(register_write_byte(gyro_handle, GYRO_RANGE, 0x01)); 
 

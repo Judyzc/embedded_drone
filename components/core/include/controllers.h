@@ -51,8 +51,8 @@
 
 #define MAX_CONTROLLER_HEIGHT   2.0
 #define MAX_CONTROLLER_YAWRATE  (M_PI/2)
-#define MAX_CONTROLLER_VEL_X    2
-#define MAX_CONTROLLER_VEL_Y    2
+#define MAX_CONTROLLER_VEL_X    1.0
+#define MAX_CONTROLLER_VEL_Y    1.0
 
 
 /* ------------------------------------------- Public Function Definitions ------------------------------------------- */
