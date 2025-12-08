@@ -49,10 +49,10 @@
 #define ALTITUDE_RATE_KD        0.0 // 20.0        
 #define ALTITUDE_RATE_LIMIT     100.0
 
-#define MAX_CONTROLLER_HEIGHT   2.0
+#define MAX_CONTROLLER_HEIGHT   3.0
 #define MAX_CONTROLLER_YAWRATE  (M_PI/2)
-#define MAX_CONTROLLER_VEL_X    1.0
-#define MAX_CONTROLLER_VEL_Y    1.0
+#define MAX_CONTROLLER_VEL_X    (10.0*M_PI/180.0)
+#define MAX_CONTROLLER_VEL_Y    (10.0*M_PI/180.0)
 
 
 /* ------------------------------------------- Public Function Definitions ------------------------------------------- */

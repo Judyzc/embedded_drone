@@ -46,7 +46,7 @@ static controller_input_t user_sp = {
 
 /* ------------------------------------------- Private Function Definitions ------------------------------------------- */
 void controllers_set_joystick(const joystick_t* js) {
-    user_sp.height   += (js->joystick_thrust)/(100.0*50.0); 
+    user_sp.height   += (js->joystick_thrust*.5)/(100.0*50.0); 
     user_sp.height = user_sp.height>MAX_CONTROLLER_HEIGHT ? MAX_CONTROLLER_HEIGHT : user_sp.height; 
     user_sp.yaw_rate_sp = (js->joystick_yaw)/100.0 * MAX_CONTROLLER_YAWRATE;
     user_sp.vel_y    = (js->joystick_pitch)/100.0 * MAX_CONTROLLER_VEL_X;
@@ -114,11 +114,15 @@ void vUpdatePIDTask(void *pvParameters) {
         
         xQueueReceive(xQueue_state_data, (void *) &state_data, portMAX_DELAY); 
 
-        float vel_y_error_m_s = user_sp.vel_y - state_data.vel_y_m_s; 
+        float vel_y_error_m_s = 0.0 - state_data.vel_y_m_s; 
         float desired_pitch_rad; 
         pid_compute(vel_y_pid_handle, vel_y_error_m_s, &desired_pitch_rad);
         desired_pitch_rad *= -1.0; 
         // desired_pitch_rad = 0;                  // For tuning the second PID
+
+        if (user_sp.vel_y != 0.0) {
+            desired_pitch_rad = -1.0*user_sp.vel_y;
+        }
 
         float pitch_error_rad = desired_pitch_rad - state_data.pitch_rad; 
         float desired_pitch_rate_rad_s; 
@@ -131,10 +135,14 @@ void vUpdatePIDTask(void *pvParameters) {
         // pitch_cmd = 0;                          // For tuning other PIDs
         
         /* ----------------------------- Roll cascaded PIDs ----------------------------- */
-        float vel_x_error_m_s = user_sp.vel_x - state_data.vel_x_m_s; 
+        float vel_x_error_m_s = 0.0 - state_data.vel_x_m_s; 
         float desired_roll_rad; 
         pid_compute(vel_x_pid_handle, vel_x_error_m_s, &desired_roll_rad);
         // desired_roll_rad = 0;               // For tuning the second PID
+
+        if (user_sp.vel_x != 0.0) {
+            desired_roll_rad = user_sp.vel_x; 
+        }
 
         float roll_error_rad = desired_roll_rad - state_data.roll_rad; 
         float desired_roll_rate_rad_s; 
